@@ -9,7 +9,6 @@ main()
 	int i = 0;
 	scanf("%d", &number);
 	int *array = new int[number];
-	printf("number = ", number);
 
 	for (i = 0; i < number; i++)
 		scanf("%d", &array[i]);
