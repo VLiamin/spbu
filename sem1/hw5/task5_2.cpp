@@ -12,7 +12,7 @@ main()
 		array[i] = 0;
 	}
 	FILE *f  = fopen("text3.txt", "r");
-	if (f != NULL)
+	if (f != nullptr)
 	{
 		while (fgets(string, stringLength, f))
 		{
