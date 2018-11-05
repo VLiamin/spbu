@@ -10,6 +10,7 @@ int main()
     Stack *Next;
 	Stack *Head;                                   
 	};	
+
 	int size = 20;
 	printf("Length expression: ");
 	scanf("%d", &size);
@@ -19,6 +20,7 @@ int main()
 	int i = 0;
 	Stack *Element = new Stack;
 	Element->Head = nullptr;
+
 	while ((string[i] >= '0') && (string[i] <= '9'))
 	{
 		Stack *temp = new Stack;                              
