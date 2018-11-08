@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 	int i = 0;
 	for (i = 0; i < lengthArray; i++)
 	{
-		array[i] = 1000000;
+		array[i] = lengthArray * 10000;
 	}
 	int l = 0;
 	int j = 0;
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 	{
 		if ((a % l == 0) & (b % l == 0))
 		{
-		   iscommonFactor = true;	
+			iscommonFactor = true;	
 		}
 	}
 	return (iscommonFactor == false);
@@ -74,7 +74,7 @@ void printFraction(int *numerator, int length)
 	int i = 0;
 	
 	int denominator = 0;
- 	while (numerator[i] < 1000000)
+ 	while (numerator[i] < lengthArray * 10000)
 	{
 		int substitute = numerator[i];
 		int num = 0;
