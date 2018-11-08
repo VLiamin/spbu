@@ -1,14 +1,18 @@
 #include <stdio.h>
-const int numerator = 1000;
-bool gcb(int a, int b);
-main()
+const int lengthArray = 1000;
+
+bool gcd(int a, int b);
+
+void printFraction(int *numerator, int length);
+
+int main(int argc, char *argv[])
 {
 	int n = 0;
 	printf("number = ");
 	scanf("%d", &n);
-	int array[numerator];
+	int array[lengthArray];
 	int i = 0;
-	for (i = 0; i < numerator; i++)
+	for (i = 0; i < lengthArray; i++)
 	{
 		array[i] = 1000000;
 	}
@@ -17,27 +21,27 @@ main()
 	int number = 1;
 	for (l = 2; l <= n; l++)
 		number *= l;
-	int materic = 0;
+	int substitute = 0;
 	int num = -1;	
 	
 	for (int i = 2; i <= n; i++)
 	{
 		for (j = 1; j < i; j++)
 		{
-			materic = number;
-			if (gcb(i, j) == true)
+			substitute = number;
+			if (gcd(i, j))
 			{	
 				num++;
-				array[num] = int(materic / i) * j;	
+				array[num] = int(substitute / i) * j;	
 			}
 		}
 	}
-	
+
 	int t = 0;
 	
-	for (i = 0; i < numerator - 1; i++)
+	for (i = 0; i <= num - 1; i++)
 	{
-		for (j = i + 1; j < numerator; j++)
+		for (j = i + 1; j <= num; j++)
 		{
 			if (array[i] > array[j])
 			{
@@ -47,39 +51,57 @@ main()
 			}
 		}
 	}
+
+	printFraction(array, n);
 	
-	i = 0;
-	
-	int denominator = 0;
- 	while (array[i] < 1000000)
-	{
-		for (j = n; j > 1; j--)
-		{
-			if (array[i] % j == 0)
-			{
-				array[i] = int(array[i] / j);
-			}
-			else
-			{	
-				denominator = j;
-			}			
-		}
-		printf("%d", array[i]);
-		printf(" / ");
-		printf("%d\n", denominator);
-		i++;
-	}
 	return 0;
 }
- bool gcb(int a, int b)
+ bool gcd(int a, int b)
 {
-	int f = 1;
+	bool iscommonFactor = false;
 	for (int l = 2; l < a; l++)
 	{
 		if ((a % l == 0) & (b % l == 0))
 		{
-		   f = 0;	
+		   iscommonFactor = true;	
 		}
 	}
-	return (f == 1);
+	return (iscommonFactor == false);
+}
+
+void printFraction(int *numerator, int length)
+{
+	int i = 0;
+	
+	int denominator = 0;
+ 	while (numerator[i] < 1000000)
+	{
+		int substitute = numerator[i];
+		int num = 0;
+		for (int j = length; j > 1; j--)
+		{
+			if (numerator[i] % j == 0)
+				numerator[i] = int(numerator[i] / j);
+			else
+			{	
+				denominator = j;
+				num++;
+			}
+		}
+		if (num > 1)
+		{
+			numerator[i] = substitute;
+			for (int j = 2; j < length + 1; j++)
+			{
+				if (numerator[i] % j == 0)
+					numerator[i] = int(numerator[i] / j);
+				else	
+					denominator = j;	
+			}	
+		}
+		printf("%d", numerator[i]);
+		printf(" / ");
+		printf("%d\n", denominator);
+		i++;
+	}
 }
