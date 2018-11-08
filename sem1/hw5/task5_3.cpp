@@ -51,17 +51,17 @@ main()
 	char symbol= 'b';
 	i = 0;
 	parentheses = 0;
-    char stringResult[lengthString - 1];
+	char stringResult[lengthString - 1];
    
-    while (string[i] != '\0')
-    {
-    	if (string[i] == '(')
-    	{
-    		parentheses++;
-    		if (symbol != 'b')
-    		{
-    			AddPl(symbol, plus); 
-    			symbol = 'b';
+	while (string[i] != '\0')
+	{
+		if (string[i] == '(')
+		{
+			parentheses++;
+			if (symbol != 'b')
+			{
+				AddPl(symbol, plus); 
+				symbol = 'b';
 			}
 			i++;
 		}
@@ -70,23 +70,24 @@ main()
 		{
 			parentheses--;
 			if (symbol != 'b')
-    		{
-    			stringResult[number] = symbol;
-    			number++;
+			{
+				stringResult[number] = symbol;
+				number++;
 			}
 			symbol = PopPl(plus);
 			if (multiplication->headMu != nullptr)
 			{
 				stringResult[number] = PopMu(multiplication);
-    			number++;
+				number++;
 			}
 			i++;
 		}
-    	if ((int(string[i]) >= '0') && (int(string[i]) <= '9'))
-    	{
-    		stringResult[number] = string[i];
-    		i++;
-    		number++;
+		
+		if ((int(string[i]) >= '0') && (int(string[i]) <= '9'))
+		{
+			stringResult[number] = string[i];
+			i++;
+			number++;
 		}
 		if ((string[i] == '*') || (string[i] == '/'))
 		{
@@ -116,7 +117,7 @@ main()
 		}
 	}
 	if ((symbol == '-') || (symbol == '+'))
-    {
+	{
 		stringResult[number] = symbol;
 		symbol = 'b';
 		number++;
@@ -150,25 +151,25 @@ void AddMu(char x, StackMu *&multiplication)
 
 char PopPl(StackPl *plus)
 {
-    if (plus->headPl != nullptr)                        
-    {
-    	char value = plus->headPl->valuePl;
-        StackPl *temp = plus->headPl->nextPl;                    
-        delete plus->headPl;                                
-        plus->headPl = temp;  
+	if (plus->headPl != nullptr)                        
+	{
+		char value = plus->headPl->valuePl;
+		StackPl *temp = plus->headPl->nextPl;                    
+		delete plus->headPl;                                
+		plus->headPl = temp;  
 		return value;                              
-    }
-    return 'b';
+	}
+	return 'b';
 }
 
 char PopMu(StackMu *multiplication)
 {
-    if (multiplication->headMu != nullptr)                        
-    {
-    	char value = multiplication->headMu->valueMu;
-        StackMu *temp = multiplication->headMu->nextMu;                    
-        delete multiplication->headMu;                                
-        multiplication->headMu = temp;  
+	if (multiplication->headMu != nullptr)                        
+	{
+		char value = multiplication->headMu->valueMu;
+		StackMu *temp = multiplication->headMu->nextMu;                    
+		delete multiplication->headMu;                                
+		multiplication->headMu = temp;  
 		return value;                              
-    }
+	}
 }
