@@ -1,12 +1,16 @@
 #include <stdio.h>
 
-int countFractional(double numeric, int *string, int wholeLength);
+int countFractional(double digit, int *string, int wholeLength);
 
-int convertToBinary(int numeric, int *string);
+int convertToBinary(int digit, int *string);
 
 void convertToDecimal(int *number, int max);
 
-main()
+void printBinary(int length, int* string, int j);
+
+void printResult(int length1, int length2, int* addition, int maximum);
+
+main(int argc, char *argv[])
 {
 	double number1 = 0;
 	double number2 = 0;
@@ -29,31 +33,23 @@ main()
 	double fraction1 = number1 - wholePart1;
 	double fraction2 = number2 - wholePart2;
 	int i = 0;
-    int length1 = convertToBinary(wholePart1, string1); 
+	int length1 = convertToBinary(wholePart1, string1); 
 	int length2 = convertToBinary(wholePart2, string2); 
-	int lengthFr1 = countFractional(fraction1, string1, length1);
-	int lengthFr2 = countFractional(fraction2, string2, length2);
+	int lengthFractional1 = countFractional(fraction1, string1, length1);
+	int lengthFractional2 = countFractional(fraction2, string2, length2);
 	
 	printf("First number: ");
-    for (i = 0; i < length1 + lengthFr1; i++)
-    {
-    	if ((length1 == 0) && (i == 0))
-    		printf("0");
-    	if (i == length1)
-    		printf(",");
-    	printf("%d", string1[i]);
+	for (i = 0; i < length1 + lengthFractional1; i++)
+	{
+		printBinary(length1, string1, i);
 	}
 	
 	printf("\n");
 	
 	printf("Second number: ");
-	for (i = 0; i < length2 + lengthFr2; i++)
-    {
-    	if ((length2 == 0) && (i == 0))
-    		printf("0");
-    	if (i == length2)
-    		printf(",");
-    	printf("%d", string2[i]);
+	for (i = 0; i < length2 + lengthFractional2; i++)
+	{
+		printBinary(length2, string2, i);
 	}
 	printf("\n");
 	if (length1 > length2)
@@ -89,30 +85,14 @@ main()
 	addition[0] = 0;
 	for (i = max + 5; i > 0; i--)
 	{
-		if (addition[i] == 2)
+		if (addition[i] >= 2)
 		{
 			
-			addition[i] = 0;
+			addition[i] -= 2;
 			addition[i - 1]++;
 		}
 	}
-	for (i = 0; i < max + 6; i++)
-	{
-		if ((length2 == 0) && (i == 1) && (length1 == 0))
-    		printf("0,");
-		if ((addition[0] == 0) && (i != 0))
-		{
-			printf("%d", addition[i]);
-			if (i == max)
-				printf(",");
-		}
-		else if (addition[0] != 0)
-		{
-			printf("%d", addition[i]);
-			if (i == max)
-				printf(",");
-		}	
-	}
+	printResult(length1, length2, addition, max);
 	convertToDecimal(addition, max);
 	delete [] string1;
 	delete [] string2;
@@ -120,13 +100,13 @@ main()
 	return 0;
 }
 
-int convertToBinary(int numeric, int *string)
+int convertToBinary(int digit, int *string)
 {
 	int l = 0;
-	while (numeric != 0)
+	while (digit != 0)
 	{
-		string[l] = numeric % 2;
-		numeric = int(numeric / 2);
+		string[l] = digit % 2;
+		digit = int(digit / 2);
 		l++;
 	}
 	int wholeLength = l;
@@ -139,13 +119,13 @@ int convertToBinary(int numeric, int *string)
 	return wholeLength;
 }
 
-int countFractional(double numeric, int *string, int wholeLength)
+int countFractional(double digit, int *string, int wholeLength)
 {
 	int l = 0;
 	while  (l < 5)
 	{
-		string[l + wholeLength] = int(numeric * 2);
-		numeric = numeric * 2 - int(numeric * 2 / 1);
+		string[l + wholeLength] = int(digit * 2);
+		digit = digit * 2 - int(digit * 2 / 1);
 		l++;
 	}
 	return l;
@@ -178,4 +158,34 @@ void convertToDecimal(int *number, int max)
 	}
 	printf("\n");
 	printf("%lf", result);
+}
+
+void printBinary(int length, int* string, int j)
+{
+	if ((length == 0) && (j == 0))
+			printf("0");
+		if (j == length)
+			printf(",");
+		printf("%d", string[j]);
+}
+
+void printResult(int length1, int length2, int* addition, int maximum)
+{
+	for (int i = 0; i < maximum + 6; i++)
+	{
+		if ((length2 == 0) && (i == 1) && (length1 == 0))
+    		printf("0,");
+		if ((addition[0] == 0) && (i != 0))
+		{
+			printf("%d", addition[i]);
+			if (i == maximum)
+				printf(",");
+		}
+		else if (addition[0] != 0)
+		{
+			printf("%d", addition[i]);
+			if (i == maximum)
+				printf(",");
+		}	
+	}
 }
