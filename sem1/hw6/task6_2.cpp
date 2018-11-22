@@ -86,8 +86,7 @@ main(int argc, char *argv[])
 	for (i = max + 5; i > 0; i--)
 	{
 		if (addition[i] >= 2)
-		{
-			
+		{	
 			addition[i] -= 2;
 			addition[i - 1]++;
 		}
@@ -163,10 +162,10 @@ void convertToDecimal(int *number, int max)
 void printBinary(int length, int* string, int j)
 {
 	if ((length == 0) && (j == 0))
-			printf("0");
-		if (j == length)
-			printf(",");
-		printf("%d", string[j]);
+		printf("0");
+	if (j == length)
+		printf(",");
+	printf("%d", string[j]);
 }
 
 void printResult(int length1, int length2, int* addition, int maximum)
