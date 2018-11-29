@@ -14,6 +14,7 @@ int main()
 	char *string = new char[10];
 	scanf("%c", &x);
 	string[i] = x;
+	
 	while (string[i] != '\n')
 	{
 		i++;
@@ -23,10 +24,12 @@ int main()
 		{
 			allocateMemory(string, i + 1);
 		}
-	}	
+	}
+		
 	i = 0;
 	Stack *Element = new Stack;
 	Element->Head = nullptr;
+	
 	while (string[i] != '\n')
 	{
 		while ((string[i] >= '0') && (string[i] <= '9'))
@@ -51,7 +54,7 @@ int main()
 			else
 				meaning = int(b / a);
         	
-        	add(meaning + '0', Element);
+			add(meaning + '0', Element);
 
 			i++;
 		}
