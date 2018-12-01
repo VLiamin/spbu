@@ -1,37 +1,37 @@
 #include <stdio.h>
-int reverse(int res);
-int iterative(int rate);
+int countRecursively(int number);
+int countIteratively(int number);
 	
 main()
 {
 	int number = 0;
 	printf("number = ");
 	scanf("%d", &number);
-	int resultReverse = reverse(number);
-	int resultIterative = iterative(number);
-	printf("result reverse = %d\n", resultReverse);
+	int resultRecursion = countRecursively(number);
+	int resultIterative = countIteratively(number);
+	printf("result recursion = %d\n", resultRecursion);
 	printf("result iterative = %d", resultIterative);
 	return 0;
 }
  
-int reverse(int numeral)
+int countRecursively(int number)
 {
-	if (numeral > 2)
-		return reverse(numeral - 1) + reverse(numeral - 2);
+	if (number > 2)
+		return countRecursively(number - 1) + countRecursively(number - 2);
 	else return 1;
 }
  
-int iterative(int numeral)
+int countIteratively(int number)
 {
-	int *fib = new int[numeral];
 	int i = 0;
-	fib[0] = 1;
-	fib[1] = 1;
-	for (i = 2; i < numeral; i++)
+	int firstNumber = 1;
+	int secondNumber = 1;
+	int result = 0;
+	for (i = 2; i < number; i++)
 	{
-		fib[i] = fib[i - 1] + fib[i - 2];	
+		result = firstNumber + secondNumber;
+		secondNumber = firstNumber;
+		firstNumber = result;	
 	}
-	i = fib[i - 1];
-	delete [] fib;
-	return i;
+	return result;
 }
