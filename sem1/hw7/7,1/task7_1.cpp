@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include "head.h"
+
+using namespace std;
+
 main()
 {
-	node *tree = nullptr;
+	Tree *tree = createTree();
 	printf("0 - exit\n");
 	printf("1 - delete number\n");
 	printf("2 - insert\n");
@@ -26,12 +29,12 @@ main()
 			case 1:
 				printf("Your element: ");
 				scanf("%d", &number);
-				add(number, tree);
+				remove(number, tree);
 				break;
 			case 2:
 				printf("Your element: ");
 				scanf("%d", &number);
-				push(number, &tree);
+				push(number, tree);
 				break;
 			case 3:
 				printf("Your element: ");
@@ -43,11 +46,11 @@ main()
 					printf("NO\n");
 				break;
 			case 4:
-				printIn(tree);
+				printIncreasing(tree);
 				printf("\n");
 				break;
 			case 5:
-				printDe(tree);
+				printDecreasing(tree);
 				printf("\n");
 				break;
 			case 6:
