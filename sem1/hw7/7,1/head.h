@@ -1,17 +1,23 @@
-#ifndef head_H
-#define head_H
-struct node
+#pragma once
+
+struct Node
 {
-    int value;                          
-    node *left;
-	node *right;  
-	node *tree;                      
+	int value;                          
+	Node *left;
+	Node *right;  
+	Node *tree;                      
 };
 
-void push(int number, node **tree);   
-void printIn(node *tree);
-node* add(int number, node *tree);
-void printDe(node *tree);
-bool found(int number, node *tree);
-void printABC(node *tree);
-#endif
+struct Tree
+{
+	Node *root;
+};
+
+Tree *createTree();
+void push(int number, Tree *&tree);   
+void printIncreasing(Tree *tree);
+void remove(int number, Tree *tree);
+void printDecreasing(Tree *tree);
+bool found(int number, Tree *tree);
+void printABC(Tree *tree);
+
