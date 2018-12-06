@@ -1,14 +1,19 @@
 #ifndef head_H
 #define head_H
-struct List
+struct ListElement
 {
 	int number;
-	List *next;
+	ListElement *next;
+};
+
+struct List
+{
+	ListElement *head;
 };	
 
 List *createList();
-List *add(List *tmp, int number);
-List *kill(List *tmp, int i, int dead);
-void print(List *head);	
-
+void add(List *&list, int number);
+void pop(List *list, int dead);
+void print(List *list);	
+void turnIntoCyclical(List *list);
 #endif
