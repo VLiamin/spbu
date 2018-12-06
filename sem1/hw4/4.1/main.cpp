@@ -1,28 +1,31 @@
 #include <stdio.h>
 #include "head.h"
+
+using namespace std;
+
 main()
 {
+	int choice = 0;
 	int number = 0;
 	int dead = 0;
-	List *tmp = createList();
-	List *head = tmp;
+	List *list = createList();
 	printf("number soldiers: ");
 	scanf("%d", &number);
 	printf("who dead: ");
 	scanf("%d", &dead);
 	for (int i = 0; i < number; i++)
 	{
-		tmp = add(tmp, i);
-		if (i == 0)
-			head = tmp;	 	
+		add(list, i);	 	
 	}
-	tmp->next = head;
-	tmp = tmp->next;
-	for (int i = 0; i < number - 1; i++)
+	
+	turnIntoCyclical(list);
+	
+	for (int i = 1; i <= number - 1; i++)
 	{
-		//printf("%d", tmp->number);	
-		tmp = kill(tmp, i, dead);
+		pop(list, dead);
 	}
-	print(tmp);
+	
+	print(list);
+	pop(list, dead);
 	return 0;
 }
