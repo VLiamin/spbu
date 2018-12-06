@@ -1,25 +1,54 @@
 #include <stdio.h>
 #include "head.h"
 
+
 List *createList()
 {
-	List *tmp = new List;
-	return tmp;
+    return new List {nullptr};
 }
 	
-List *add(List *tmp, int number)
+void add(ListElement *&tmp, int number)
 {
-	tmp->next = new List;
-	tmp->next->next = nullptr;
-	tmp = tmp->next;
-	tmp->number = number + 1;
-	return tmp;	 
+	if (tmp == nullptr)
+	{
+		tmp = new ListElement;
+		tmp->next= nullptr;
+		tmp = tmp;
+		tmp->number = number + 1; 
+		return;		
+	}
+	else
+	{
+		add(tmp->next, number);	
+	}
+	return;	 
+}
+
+
+void add(List *&list, int number)
+{
+	add(list->head, number);
 }
 	
-List *kill(List *tmp, int i, int dead)
+void turnIntoCyclical(ListElement *&tmp)
 {
-	
-	List *p = tmp;
+	ListElement *p = tmp;
+	while (p->next)
+	{
+		p =p->next;
+	}
+	p->next = tmp;
+	return;
+}
+
+void turnIntoCyclical(List *list)
+{
+	turnIntoCyclical(list->head);
+}
+
+void pop(ListElement *&tmp, int dead)
+{
+	ListElement *p = tmp;
 	for (int j = 0; j < dead - 2; j++)
 	{
 		tmp = tmp->next;
@@ -28,19 +57,24 @@ List *kill(List *tmp, int i, int dead)
 	tmp->next = tmp->next->next;
 	tmp = tmp->next;
 	delete p;
-	return tmp;
-}
-void print(List *head)	
-{
-	List *p = head;
-	List *element = head;
-	printf("Who survived: ");
-	printf("%d", element->number);
-
-	element->next = nullptr;
-	p = element->next;
-	delete element;
-	element = p;
-	delete head;
 	return;
+}
+
+void pop(List *list, int dead)
+{
+	pop(list->head, dead);
+	if (list->head == nullptr)
+		delete list;
+}
+
+void print(ListElement *tmp)	
+{
+	printf("Who survived: ");
+	printf("%d", tmp->number);
+	return;
+}
+
+void print(List *list)
+{
+	print(list->head);
 }
