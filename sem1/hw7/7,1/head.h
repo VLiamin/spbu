@@ -20,4 +20,5 @@ void remove(int number, Tree *tree);
 void printDecreasing(Tree *tree);
 bool found(int number, Tree *tree);
 void printABC(Tree *tree);
+void deleteTree(Tree *list);
 
