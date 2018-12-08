@@ -59,6 +59,7 @@ main()
 				break;
 		}
 	}
+	deleteTree(tree);
 	return 0;
 }
 
