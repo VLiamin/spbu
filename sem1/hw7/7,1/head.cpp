@@ -157,3 +157,20 @@ void printABC(Tree *tree)
 {
 	printABC(tree->root);
 }
+
+void deleteTree(Node *node)
+{
+	if (node)
+	{
+		deleteTree(node->left);
+		deleteTree(node->right);
+		delete node;
+	}
+}
+
+void deleteTree(Tree *tree)
+{
+	deleteTree(tree->root);
+	delete tree;
+}
+
