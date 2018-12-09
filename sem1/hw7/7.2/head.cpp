@@ -9,13 +9,13 @@ Tree *createTree()
 void push(int number, Node *&tree) 
 {
 	if (!tree) 
-		{
-			tree = new Node;                
-        	tree->value = number;                 
-        	tree->left = nullptr;
-        	tree->right = nullptr;
-        	return;
-		}
+	{
+		tree = new Node;                
+		tree->value = number;                 
+		tree->left = nullptr;
+		tree->right = nullptr;
+		return;
+	}
 	if (number < tree->value )
 		push(number, tree->left);
 	else
@@ -30,14 +30,14 @@ void push(int number, Tree *&tree)
 
 void printDe(Node *tree)
 {
-    if (tree == nullptr) 
+	if (tree == nullptr) 
 		return;                  
-    else 
-    {
-    	printDe(tree->right);                  
-        printf(" %d", tree->value);            
-    }
-    printDe(tree->left);                       
+	else 
+	{
+		printDe(tree->right);                  
+		printf(" %d", tree->value);            
+	}
+	printDe(tree->left);                       
 }
 
 void printDe(Tree *tree)
@@ -47,14 +47,14 @@ void printDe(Tree *tree)
 
 void printIn(Node *tree)
 {
-    if (tree == nullptr) 
+	if (tree == nullptr) 
 		return;                  
-    else 
-    {
-        printIn(tree->left);                   
-        printf(" %d", tree->value);            
-    }
-    printIn(tree->right);                       
+	else 
+	{
+		printIn(tree->left);                   
+		printf(" %d", tree->value);            
+	}
+	printIn(tree->right);                       
 }
 
 void printIn(Tree *tree)
@@ -65,16 +65,16 @@ void printIn(Tree *tree)
 bool found(int number, Node *tree)
 {   
 	Node *tmp = tree;         
-    while (tree != nullptr)
-    {
-    	if (number > tree->value)
-    		tree = tree->right;
-    	else if (number < tree->value)
-    		tree = tree->left;
-    	else
-    	{
-    		tree = tmp;
-    		return true;
+	while (tree != nullptr)
+	{
+		if (number > tree->value)
+			tree = tree->right;
+		else if (number < tree->value)
+			tree = tree->left;
+		else
+		{
+			tree = tmp;
+			return true;
 		}
 	}
 	tree = tmp;
