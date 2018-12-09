@@ -44,37 +44,14 @@ int main(int argc, char *argv[])
 				push(list, phone);
 				break;
 			case 2:
-				printf("Name ");
+				printf("Name: ");
 				scanf("%s", forename);
-				while (fgets(ptr, length, f)) 
-				{
-					if (compare(ptr, forename)) 
-					{
-						fgets(ptr, length, f);
-						printf("%s", ptr);
-						break;
-					}
-				}
-				fseek(f, 0L, SEEK_SET);
-
+				printf("Phone: %s", search(list, forename, 1));
 				break;
 			case 3:
 				printf("Telephone number: ");
 				scanf("%s", phone);
-				while (fgets(ptr, length, f)) 
-				{
-					if (compare(ptr, phone)) 
-					{
-						printf("%s", last);
-						break;
-					}
-					for (int j = 0; j < length - 1; j++) 
-					{
-						last[j] = ptr[j];
-					}
-				}
-				fseek(f, 0L, SEEK_SET);
-
+				printf("Name: %s", search(list, phone, 0));
 				break;
 			case 4:
 				int i = 0;
@@ -98,6 +75,7 @@ int main(int argc, char *argv[])
 		}
 	}
 	fclose(f);
+	deleteList(list);
 	return 0;
 }
 
