@@ -1,40 +1,130 @@
-#include "head.h"
 #include <stdio.h>
 #include <string.h>
+#include "head.h"
 
-struct List *push(List *tail, char *forename, char *phone) 
+List *createList()
 {
-    List *newElement = new List;
-    newElement->next = nullptr;
-    strcpy(newElement->name, forename);
-    strcpy(newElement->number, phone);
-    tail->next = newElement;
-    return newElement;
+    return new List {nullptr};
 }
 
-bool copy(List *&head, List *&element) 
+void push(ListElement *&tmp, char information[length]) 
 {
-    element = head;
-    if (element == nullptr)
-        return false;
-    head = (head)->next;
-    return true;
-}
-
-struct List *create(List *head, char *forename, char *phone) 
-{
-    head = new List;
-    head->next = nullptr;
-    strcpy(head->name, forename);
-    strcpy(head->number, phone);
-    return head;
-}
-
-void print(List *head) 
-{
-    if (head != nullptr) 
+	if (tmp == nullptr)
 	{
-        print(head->next);
-    }
+		tmp = new ListElement;
+		tmp->next = nullptr;
+		int i = 0;
+		while (information[i] != '\0')
+		{
+			tmp->information[i] = information[i];
+			i++;
+		} 
+		if (tmp->information[i - 1] != '\n')
+			tmp->information[i] = '\n';
+		return;
+	}
+    else
+    {
+    	push(tmp->next, information);
+    	return;
+	}
+}
 
+void push(List *&list, char information[length])
+{
+	return push(list->first, information);
+}
+
+void save(ListElement *tmp, char *phone, FILE *f)
+{
+	bool areEqual = false;
+	
+	while ((!areEqual) && (tmp))
+	{
+		int i = 0;
+		areEqual = true;
+		tmp = tmp->next;
+		while (tmp->information[i] != '\n')
+		{
+			if (tmp->information[i] != phone[i])
+				areEqual = false;
+			i++;
+		}	
+	}
+
+	tmp = tmp->next;
+	while (tmp)
+	{
+		fprintf(f, "%s", tmp->information);
+		tmp = tmp->next;
+	}
+	return;
+}
+
+void save(List *list, char *phone, FILE *f)
+{
+	save(list->first, phone, f);
+}
+
+char *search(ListElement *tmp, char *facts, int number)
+{
+	bool areEqual = false;
+	if (number == 1)
+	{
+		while ((!areEqual) && (tmp))
+		{
+			int i = 0;
+			areEqual = true;
+			while (facts[i] != '\0')
+			{
+				if (tmp->information[i] != facts[i])
+					areEqual = false;
+				i++;
+			}
+			tmp = tmp->next;
+		}
+		return tmp->information;
+	}
+	else 
+	{
+		ListElement *p = tmp;
+		while ((!areEqual) && (tmp))
+		{
+			p = tmp;
+			tmp = tmp->next;
+			int i = 0;
+			areEqual = true;
+			while (facts[i] != '\0')
+			{
+				if (tmp->information[i] != facts[i])
+					areEqual = false;
+				i++;
+			}
+			
+		}
+		return p->information;
+	}
+}
+
+char *search(List *list, char *facts, int number)
+{
+	return search(list->first, facts, number);
+}
+
+void deleteList(ListElement *tmp)
+{
+	ListElement *p = tmp;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		delete p;
+		p = tmp;
+	}
+	return;
+}
+
+void deleteList(List *list)
+{
+	deleteList(list->first);
+	delete list;
 }
