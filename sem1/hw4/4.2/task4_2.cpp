@@ -1,18 +1,25 @@
 #include <stdio.h>
 #include "head.h"
 
+using namespace std;
+
 bool compare(char strText[length], char strYour[length]);
 
 int main(int argc, char *argv[])
 {
 	FILE *f = fopen("text2.txt", "a+");
+	List *list = createList();
 	int i = 0;
 	char forename[length];
 	char phone[length];
 	char last[length];
+	char facts[length];
 	char ptr[length];
-	List *head = nullptr;
-	List *tail = head;
+	while (fgets(ptr, length, f))
+	{
+		push(list, ptr);
+	} 
+	fseek(f, 0L, SEEK_SET);
 	printf("0 - exit\n");
 	printf("1 - Add a note\n");
 	printf("2 - find a phone by name\n");
@@ -33,20 +40,10 @@ int main(int argc, char *argv[])
 				scanf("%s", forename);
 				printf("Telephone number: ");
 				scanf("%s", phone);
-				if (head == nullptr) 
-				{
-					head = create(head, forename, phone);
-					tail = head;
-				} 
-				else 
-				{
-					tail = push(tail, forename, phone);
- 
-				}
-				print(head);
-
+				push(list, forename);
+				push(list, phone);
 				break;
-				case 2:
+			case 2:
 				printf("Name ");
 				scanf("%s", forename);
 				while (fgets(ptr, length, f)) 
@@ -61,7 +58,7 @@ int main(int argc, char *argv[])
 				fseek(f, 0L, SEEK_SET);
 
 				break;
-				case 3:
+			case 3:
 				printf("Telephone number: ");
 				scanf("%s", phone);
 				while (fgets(ptr, length, f)) 
@@ -80,15 +77,22 @@ int main(int argc, char *argv[])
 
 				break;
 			case 4:
+				int i = 0;
 				while (fgets(ptr, length, f)) 
 				{
+					i = 0;
+					while (ptr[i] != '\0')
+					{
+						phone[i] = ptr[i];
+						i++;
+					}
+					while (i < 15)
+					{
+						phone[i] = '\0';
+						i++;
+					}
 				}
-				while (copy(head, tail)) 
-				{
-					fprintf(f, "%s\n", tail->name);
-					fprintf(f, "%s\n", tail->number);
-					delete tail;
-				}
+				save(list, phone, f);
 				fseek(f, 0L, SEEK_SET);
 				break;
 		}
