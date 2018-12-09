@@ -1,17 +1,20 @@
-#ifndef head_H
-#define head_H
+#pragma once
+
 const int length = 15;
+
+struct ListElement
+{
+    char information[length];
+    ListElement *next;
+};
 
 struct List
 {
-    char name[length];
-    char number[length];
-    List *next;
+	ListElement *first;
 };
 
-struct List *push(List *tail, char *forename, char *phone);
-bool copy(List *&head, List *&element);
-struct List *create(List *head, char *forename, char *phone);
-void print(List *head);
-
-#endif
+List *createList();
+void push(List *&list, char information[length]);
+void save(List *list, char *phone, FILE *f);
+char *search(List *list, char *facts, int number);
+void deleteList(List *list);
