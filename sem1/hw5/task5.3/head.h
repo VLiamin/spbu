@@ -1,25 +1,20 @@
 #ifndef head_H
 #define head_H
-struct StackPlus
+
+struct StackElement
 {
-	char valuePlus;
-	StackPlus *nextPlus;
-	StackPlus *headPlus;
+	char value;
+	StackElement *next;
 };
 
-struct StackMultiplication
+struct Stack
 {
-	char valueMultiplication;
-	StackMultiplication *nextMultiplication;
-	StackMultiplication *headMultiplication;
+	StackElement *head;
 };
 
-void AddPlus(char x, StackPlus *&plus);
-
-void AddMultiplication(char x, StackMultiplication *&multiplication);
-
-char PopPlus(StackPlus *plus);
-
-char PopMultiplication(StackMultiplication *multiplication);
+Stack *createStack();
+void add(char number, Stack *&stack);
+char pop(Stack *stack);
+void deleteStack(Stack *stack);
 
 #endif
