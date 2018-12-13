@@ -3,12 +3,12 @@ void printPower(int power, int* expression);
 
 void printX(int j, int power);
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	int power = 0; 
 	printf("Power: ");
 	scanf("%d", &power);
-	int *expression = new int[power];
+	int *expression = new int[power + 1];
 	printf("Your expression: ");
 	int i = 0;
 	for (i = 0; i <= power; i++)
@@ -19,6 +19,7 @@ main(int argc, char *argv[])
 	printPower(power, expression);
 	
 	printf("\n");
+	
 	for (i = 0; i <= power; i++)
 	{
 		if (expression[i] != 0)
@@ -42,10 +43,10 @@ main(int argc, char *argv[])
 				
 				printX(i, power);
 				
-			}
-			
+			}	
 		}
 	}
+	
 	delete [] expression;
 	return 0;
 }
