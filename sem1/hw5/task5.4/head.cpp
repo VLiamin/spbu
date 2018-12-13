@@ -3,7 +3,7 @@
 
 Stack *createStack()
 {
-    return new Stack {nullptr};
+	return new Stack {nullptr};
 }
 
 void add(char number, StackElement *&element)
@@ -21,8 +21,8 @@ void add(char number, Stack *&stack)
 
 char pop(StackElement *&element)
 {
-	char number = element->value;
-	StackElement *temp = element->next;               
+	StackElement *temp = element->next;
+	char number = element->value;               
 	delete element;                                
 	element = temp;
 	return number;
