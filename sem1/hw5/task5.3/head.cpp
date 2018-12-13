@@ -1,43 +1,70 @@
 #include <stdio.h>
 #include "head.h"
 
-void AddPlus(char x, StackPlus *&plus)                          
+Stack *createStack()
 {
-    StackPlus *temp = new StackPlus;                             
-    temp->valuePlus = x;                                        
-    temp->nextPlus = plus->headPlus;                          
-    plus->headPlus = temp;                                
+	return new Stack {nullptr};
 }
 
-void AddMultiplication(char x, StackMultiplication *&multiplication)                          
+void add(char x, StackElement *&element)                          
 {
-    StackMultiplication *temp = new StackMultiplication;                             
-    temp->valueMultiplication = x;                                        
-    temp->nextMultiplication = multiplication->headMultiplication;                          
-    multiplication->headMultiplication = temp;                                
+    StackElement *temp = new StackElement;                             
+    temp->value = x;                                        
+    temp->next = element;                          
+    element = temp; 
+	                               
 }
 
-char PopPlus(StackPlus *plus)
+void add(char x, Stack *&stack)
 {
-	if (plus->headPlus != nullptr)                        
+	add(x, stack->head);
+}
+
+char pop(StackElement *&element)
+{
+	if (element != nullptr)                        
 	{
-		char value = plus->headPlus->valuePlus;
-		StackPlus *temp = plus->headPlus->nextPlus;                    
-		delete plus->headPlus;                                
-		plus->headPlus = temp;  
+		char value = element->value;
+		StackElement *temp = element->next;                    
+		delete element;                                
+		element = temp;  
 		return value;                              
 	}
 	return 'b';
 }
 
-char PopMultiplication(StackMultiplication *multiplication)
+char pop(Stack *element)
 {
-	if (multiplication->headMultiplication != nullptr)                        
+	return pop(element->head);
+}
+
+bool check(StackElement *element)
+{
+	if (element != nullptr)
 	{
-		char value = multiplication->headMultiplication->valueMultiplication;
-		StackMultiplication *temp = multiplication->headMultiplication->nextMultiplication;                    
-		delete multiplication->headMultiplication;                                
-		multiplication->headMultiplication = temp;  
-		return value;                              
+		return true;
 	}
+	return false;
+}
+
+bool check(Stack *stack)
+{
+	return check(stack->head);
+}
+
+bool plus(StackElement *element)
+{
+	if ((element->value == '-') || (element->value == '+'))
+		return true;
+	return false;
+}
+
+bool plus(Stack *stack)
+{
+	return plus(stack->head);
+}
+
+void deleteStack(Stack *stack)
+{
+	delete stack;
 }
