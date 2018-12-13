@@ -1,15 +1,20 @@
 #ifndef head_H
 #define head_H
 
-struct Stack
+struct StackElement
 {
-	char value;                                              
-	Stack *Next;
-	Stack *Head;                                   
+	char value;
+	StackElement *next;
 };
 
-Stack* add(char number, Stack *Element);
+struct Stack
+{
+	StackElement *head;
+};
 
-char pop(Stack* Element);
+Stack *createStack();
+void add(char number, Stack *&stack);
+char pop(Stack *stack);
+void deleteStack(Stack *stack);
 
 #endif
