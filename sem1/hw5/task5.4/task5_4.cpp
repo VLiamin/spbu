@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "head.h"
 
+using namespace std;
+
 char* allocateMemory(char* string, int i);
 
 int main()
@@ -27,21 +29,20 @@ int main()
 	}
 		
 	i = 0;
-	Stack *Element = new Stack;
-	Element->Head = nullptr;
+	Stack *stack = createStack();
 	
 	while (string[i] != '\n')
 	{
 		while ((string[i] >= '0') && (string[i] <= '9'))
 		{
-			add(string[i], Element);
+			add(string[i], stack);
 			i++;
 		}
 
 		while ((string[i] != '\n') && ((string[i] < '0') || (string[i] > '9')))
 		{
-			a =  pop(Element); 
-			b =  pop(Element);
+			a =  pop(stack); 
+			b =  pop(stack);
 			a = a - '0';
 			b = b - '0';
         
@@ -54,15 +55,15 @@ int main()
 			else
 				meaning = int(b / a);
         	
-			add(meaning + '0', Element);
+			add(meaning + '0', stack);
 
 			i++;
 		}
 	}
 	
+	deleteStack(stack);
 	printf("Result: %d", meaning);
 	delete [] string;
-	delete Element;
 	return 0;
 }
 
