@@ -3,6 +3,8 @@
 
 char* allocateMemory(char* string, int i);
 
+using namespace std;
+
 main(int argc, char *argv[])
 {
 	int length = 0;
@@ -10,31 +12,28 @@ main(int argc, char *argv[])
 	int number = 0;
 	char x = 'b';
 	int i = 0;
-	char *string = new char[10];
+	char *expression = new char[10];
 	scanf("%c", &x);
-	string[i] = x;
-	while (string[i] != '\n')
+	expression[i] = x;
+	
+	while (expression[i] != '\n')
 	{
 		i++;
 		scanf("%c", &x);
-		string[i] = x;
+		expression[i] = x;
 		if (i % 10 == 9)
 		{
-			allocateMemory(string, i + 1);
+			allocateMemory(expression, i + 1);
 		}
 	}
 	int parentheses = 0;
 	
-	StackPlus *plus = new StackPlus;
-	plus->headPlus = nullptr;
-	
-	StackMultiplication *multiplication = new StackMultiplication;
-	multiplication->headMultiplication = nullptr;
+	Stack *stack = createStack();
 	i = 0;
 	number = 0;
-	while (string[i] != '\n')
+	while (expression[i] != '\n')
 	{
-		if (string[i] == '(')
+		if (expression[i] == '(')
 		{
 			parentheses++;
 		}
@@ -44,84 +43,87 @@ main(int argc, char *argv[])
 	char symbol= 'b';
 	i = 0;
 	parentheses = 0;
-	char stringResult[lengthString - 1];
+	char *expressionResult = new char[lengthString - 1];
    
-	while (string[i] != '\n')
+	while (expression[i] != '\n')
 	{
-		if (string[i] == '(')
+		if (expression[i] == '(')
 		{
 			parentheses++;
 			if (symbol != 'b')
 			{
-				AddPlus(symbol, plus); 
+				add(symbol, stack); 
 				symbol = 'b';
 			}
 			i++;
 		}
-		if (string[i] == ')')
+		if (expression[i] == ')')
 		{
 			parentheses--;
 			if (symbol != 'b')
 			{
-				stringResult[number] = symbol;
+				expressionResult[number] = symbol;
 				number++;
 			}
-			symbol = PopPlus(plus);
-			if (multiplication->headMultiplication != nullptr)
+			if (plus(stack))
+				symbol = pop(stack);
+			if (check(stack))
 			{
-				stringResult[number] = PopMultiplication(multiplication);
+				
+				expressionResult[number] = pop(stack);
 				number++;
 			}
 			i++;
 		}
 		
-		if ((int(string[i]) >= '0') && (int(string[i]) <= '9'))
+		if ((int(expression[i]) >= '0') && (int(expression[i]) <= '9'))
 		{
-			stringResult[number] = string[i];
+			expressionResult[number] = expression[i];
 			i++;
 			number++;
 		}
-		if ((string[i] == '*') || (string[i] == '/'))
+		
+		if ((expression[i] == '*') || (expression[i] == '/'))
 		{
-			if (string[i + 1] != '(')
+			if (expression[i + 1] != '(')
 			{
 			
-				stringResult[number] = string[i + 1];
-				stringResult[number + 1] = string[i];
+				expressionResult[number] = expression[i + 1];
+				expressionResult[number + 1] = expression[i];
 				number += 2;
 				i += 2;
 			}
 			else
 			{
-				AddMultiplication(string[i], multiplication); 
+				add(expression[i], stack); 
 				i++;
 			}
 		}
-		if ((string[i] == '-') || (string[i] == '+'))
+		if ((expression[i] == '-') || (expression[i] == '+'))
 		{
 			if (symbol != 'b')
 			{
-				stringResult[number] = symbol;
+				expressionResult[number] = symbol;
 				number++;
 			}
-			symbol = string[i];	
+			symbol = expression[i];	
 			i++;
 		}
 	}
+	
 	if ((symbol == '-') || (symbol == '+'))
 	{
-		stringResult[number] = symbol;
+		expressionResult[number] = symbol;
 		symbol = 'b';
 		number++;
 	}
 	printf("stringResult: ");
 	for (i = 0; i < lengthString; i++)
-		printf("%c", stringResult[i]);
-	delete [] string;
-	delete plus->headPlus;
-	delete plus;
-	delete multiplication->headMultiplication;
-	delete multiplication;
+		printf("%c", expressionResult[i]);
+	
+	delete [] expressionResult;
+	delete [] expression;
+	deleteStack(stack);
 	return 0;
 }
 
