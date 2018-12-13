@@ -1,19 +1,39 @@
 #include <stdio.h>
 #include "head.h"
 
-Stack* add(char number, Stack *Element)
+Stack *createStack()
 {
-	Stack *temp = new Stack;                              
-	temp->value = number;                                      
-	temp->Next = Element->Head;                          
-	Element->Head = temp; 
+    return new Stack {nullptr};
 }
 
-char pop(Stack* Element)
+void add(char number, StackElement *&element)
 {
-	char number =  Element->Head->value;
-	Stack *temp = Element->Head->Next;               
-	delete Element->Head;                                
-	Element->Head = temp; 
+	StackElement *temp = new StackElement;                              
+	temp->value = number;                                      
+	temp->next = element;                          
+	element = temp; 
+}
+
+void add(char number, Stack *&stack)
+{
+	add(number, stack->head);
+}
+
+char pop(StackElement *&element)
+{
+	char number = element->value;
+	StackElement *temp = element->next;               
+	delete element;                                
+	element = temp;
 	return number;
+}
+
+char pop(Stack *stack)
+{
+	return pop(stack->head);
+}
+
+void deleteStack(Stack *stack)
+{
+	delete stack;
 }
