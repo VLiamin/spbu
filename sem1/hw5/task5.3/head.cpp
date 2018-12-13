@@ -8,10 +8,10 @@ Stack *createStack()
 
 void add(char x, StackElement *&element)                          
 {
-    StackElement *temp = new StackElement;                             
-    temp->value = x;                                        
-    temp->next = element;                          
-    element = temp; 
+	StackElement *temp = new StackElement;                             
+	temp->value = x;                                        
+	temp->next = element;                          
+	element = temp; 
 	                               
 }
 
