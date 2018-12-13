@@ -1,7 +1,10 @@
 #include <stdio.h>
 const int stringLength = 100;
 const int lengthArray = 27;
-main()
+
+void pullOut(int &j, int *number, char *symbol, char letter);
+
+main(int argc, char *argv[])
 {
 	char string[stringLength];
 	int number = 0;
@@ -12,50 +15,51 @@ main()
 		array[i] = 0;
 	}
 	FILE *f  = fopen("text3.txt", "r");
-	if (f != nullptr)
+	if (f == nullptr)
+		return 0;
+		
+	while (fgets(string, stringLength, f))
 	{
-		while (fgets(string, stringLength, f))
+		i = 0;
+		for (int j = 0; j < lengthArray; j++)
 		{
-			i = 0;
-			for (int j = 0; j < lengthArray; j++)
-			{
-				array[j] = 0;
-			}
-			while (string[i] != '\0')
-			{
-				if (((int(string[i]) <= 'z') && (int(string[i]) >= 'a')) || ((int(string[i]) <= 'Z') && (int(string[i]) >= 'A')))
-				{
-					if (int(string[i]) < 'a')
-					{
-						array[int(string[i]) - 'A']++;
-						i++;
-						if (array[int(string[i - 1]) - 'A'] <= 1)
-							{
-								printf("%c", string[i - 1]);
-							}
-					}
-					else 
-					{
-						array[int(string[i]) - 'a']++;
-						i++;
-						if (array[int(string[i - 1]) - 'a'] <= 1)
-							{
-								printf("%c", string[i - 1]);
-							}
-					}
-				}
-				else
-				{
-					i++;
-					for (int j = 0; j < lengthArray; j++)
-					{
-						array[j] = 0;
-					}
-					printf(" ");
-				}
-			}
-			printf("\n");
+			array[j] = 0;
 		}
+		while (string[i] != '\0')
+		{
+			if (((int(string[i]) <= 'z') && (int(string[i]) >= 'a')) || ((int(string[i]) <= 'Z') && (int(string[i]) >= 'A')))
+			{
+				if (int(string[i]) < 'a')
+				{
+					pullOut(i, array, string, 'A');
+				}
+				else 
+				{
+					pullOut(i, array, string, 'a');
+				}
+			}
+			else
+			{
+				i++;
+				for (int j = 0; j < lengthArray; j++)
+				{
+					array[j] = 0;
+				}
+				printf(" ");
+			}
+		}
+		printf("\n");
 	}
+	
 	return 0;
 }
+
+ void pullOut(int &j, int *number, char *symbol, char letter)
+ {
+	number[symbol[j] - letter]++;
+	j++;
+	if (number[symbol[j - 1] - letter] <= 1)
+	{
+		printf("%c", symbol[j - 1]);
+	}
+ }
