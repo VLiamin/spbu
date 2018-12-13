@@ -10,7 +10,13 @@ void printBinary(int length, int* string, int j);
 
 void printResult(int length1, int length2, int* addition, int maximum);
 
-main(int argc, char *argv[])
+void printSign(char sign);
+
+void printEqualSignNumbers(int max, int length1, int length2, int *addition, int *string1, int *string2, char sign);
+
+void printNotEqualSignNumbers(int max, int length1, int length2, int *addition, int *string1, int *string2, char sign, int biggest);
+
+int main(int argc, char *argv[])
 {
 	double number1 = 0;
 	double number2 = 0;
@@ -18,15 +24,55 @@ main(int argc, char *argv[])
 	scanf("%lf", &number1);
 	printf("Second number: ");
 	scanf("%lf", &number2);
+	
+	bool areEqualSign = true;
+	if (((number1 > 0) && (number2 > 0)) || ((number1 > 0) && (number2 > 0)))
+		areEqualSign = true;
+	else
+		areEqualSign = false;
+	char sign1 = '+';
+	char sign2 = '-';
+	
+	if (number1 > 0)
+		sign1 = '+';
+	else
+	{
+		sign1 = '-';
+		number1 = number1 * (-1);
+	}
+		
+	if (number2 > 0)
+		sign2 = '+';
+	else
+	{
+		sign2 = '-';
+		number2 = number2 * (-1);
+	}
+			
+		
 	int max = 0;
 	int wholePart1 = int(number1 / 1);
 	int wholePart2 = int(number2 / 1);
 	
 	if (wholePart1 > wholePart2)
+	{
 		max = wholePart1;
+	}
 	else
+	{
 		max = wholePart2;
+	}
 		
+	int biggest = 0;
+	if (number1 > number2)
+	{
+		biggest = 1;
+	}
+	else
+	{
+		biggest = 2;
+	}	
+	
 	int *string1 = new int[wholePart1 * 4 + 5];
 	int *string2 = new int[wholePart2 * 4 + 5];
 	int *addition = new int[max * 4 + 5];
@@ -39,6 +85,7 @@ main(int argc, char *argv[])
 	int lengthFractional2 = countFractional(fraction2, string2, length2);
 	
 	printf("First number: ");
+	printSign(sign1);
 	for (i = 0; i < length1 + lengthFractional1; i++)
 	{
 		printBinary(length1, string1, i);
@@ -47,55 +94,25 @@ main(int argc, char *argv[])
 	printf("\n");
 	
 	printf("Second number: ");
+	printSign(sign2);
 	for (i = 0; i < length2 + lengthFractional2; i++)
 	{
 		printBinary(length2, string2, i);
 	}
 	printf("\n");
+	
 	if (length1 > length2)
 		max = length1;
 	else
 		max = length2;
+	if (areEqualSign)
+		printEqualSignNumbers(max, length1, length2, addition, string1, string2, sign1);
+	else
+		printNotEqualSignNumbers(max, length1, length2, addition, string1, string2, sign1, biggest);
 	
-	int sum1 = 0;
-	int sum2 = 0;
-	for (i = 0; i < max; i++)
-	{
-		if (length1 - i > length2)
-		{
-			addition[i + 1] = string1[i];
-			sum2++;
-		}
-		else if (length2 - i > length1)
-		{
-			addition[i + 1] = string2[i];
-			sum1++;
-		}
-		else
-		{
-			addition[i + 1] = string1[i - sum1] + string2[i - sum2];
-		}
-			
-	}
-	for (i = 0; i < 5; i++)
-	{
-		addition[i + max + 1] = string1[i + length1] + string2[i + length2];
-	}
-	
-	addition[0] = 0;
-	for (i = max + 5; i > 0; i--)
-	{
-		if (addition[i] >= 2)
-		{	
-			addition[i] -= 2;
-			addition[i - 1]++;
-		}
-	}
-	printResult(length1, length2, addition, max);
-	convertToDecimal(addition, max);
 	delete [] string1;
 	delete [] string2;
-	delete [] addition;
+
 	return 0;
 }
 
@@ -155,7 +172,6 @@ void convertToDecimal(int *number, int max)
 			result = result + real;
 		}
 	}
-	printf("\n");
 	printf("%lf", result);
 }
 
@@ -187,4 +203,103 @@ void printResult(int length1, int length2, int* addition, int maximum)
 				printf(",");
 		}	
 	}
+	printf("\n");
+}
+
+void printSign(char sign)
+{
+	if (sign == '-')
+		printf("-");
+}
+
+void printEqualSignNumbers(int max, int length1, int length2, int *addition, int *string1, int *string2, char sign)
+{
+	int sum1 = 0;
+	int sum2 = 0;
+	for (int i = 0; i < max; i++)
+	{
+		if (length1 - i > length2)
+		{
+			addition[i + 1] = string1[i];
+			sum2++;
+		}
+		else if (length2 - i > length1)
+		{
+			addition[i + 1] = string2[i];
+			sum1++;
+		}
+		else
+		{
+			addition[i + 1] = string1[i - sum1] + string2[i - sum2];
+		}
+			
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		addition[i + max + 1] = string1[i + length1] + string2[i + length2];
+	}
+	
+	addition[0] = 0;
+	for (int i = max + 5; i > 0; i--)
+	{
+		if (addition[i] >= 2)
+		{	
+			addition[i] -= 2;
+			addition[i - 1]++;
+		}
+	}
+	printResult(length1, length2, addition, max);
+	convertToDecimal(addition, max);
+	delete [] addition;
+}
+	
+void printNotEqualSignNumbers(int max, int length1, int length2, int *addition, int *string1, int *string2, char sign, int biggest)
+{
+	int sum1 = 0;
+	int sum2 = 0;
+	for (int i = 0; i < max; i++)
+	{
+		if (length1 - i > length2)
+		{
+			addition[i + 1] = string1[i];
+			sum2++;
+		}
+		else if (length2 - i > length1)
+		{
+			addition[i + 1] = string2[i];
+			sum1++;
+		}
+		else
+		{
+			if (biggest == 2)
+				addition[i + 1] = - string1[i - sum1] + string2[i - sum2];
+			else
+				addition[i + 1] = string1[i - sum1] - string2[i - sum2];
+		}
+			
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		if (biggest == 2)
+			addition[i + max + 1] = -string1[i + length1] + string2[i + length2];
+		else
+			addition[i + max + 1] = string1[i + length1] - string2[i + length2];
+	}
+	
+	addition[0] = 0;
+	for (int i = max + 5; i > 0; i--)
+	{
+		if (addition[i] < 0)
+		{	
+			addition[i] += 2;
+			addition[i - 1]--;
+		}
+	}
+	if (((biggest == 1) && (sign == '-')) || ((biggest == 2) && (sign == '+')))
+		printf("-");
+	printResult(length1, length2, addition, max);
+	if (((biggest == 1) && (sign == '-')) || ((biggest == 2) && (sign == '+')))
+		printf("-");
+	convertToDecimal(addition, max);
+	delete [] addition;
 }
