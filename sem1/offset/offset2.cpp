@@ -13,9 +13,12 @@ int main(int argc, char *argv[])
 	int **array = new int* [string];
 	int *min = new int[string];
 	for (int count = 0; count < string; count++)
-        array[count] = new int [column];
+	{
+		array[count] = new int [column];
+	}
         
-    printf("numbers:\n");
+        
+	printf("numbers:\n");
 	for (i = 0; i < string; i++)
 	{
 		for (j = 0; j < column; j++)
@@ -57,6 +60,6 @@ int main(int argc, char *argv[])
 	}
 	delete [] min;
 	for (int count = 0; count < string; count++)
-        delete [] array[count]; 
+		delete [] array[count]; 
 	return 0;
 }
