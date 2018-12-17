@@ -2,9 +2,9 @@
 
 struct ListElement
 {
-    char symbol;
-    int number;
-    ListElement *next;
+	char symbol;
+	int number;
+	ListElement *next;
 };
 
 struct List
