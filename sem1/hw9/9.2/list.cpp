@@ -3,7 +3,7 @@
 
 List *createList()
 {
-    return new List {nullptr};
+	return new List {nullptr};
 }
 
 void push(ListElement *&tmp, char element, long number) 
@@ -21,10 +21,10 @@ void push(ListElement *&tmp, char element, long number)
 		tmp->number++;
 		return;
 	}
-    else
-    {
-    	push(tmp->next, element, number);
-    	return;
+	else
+	{
+		push(tmp->next, element, number);
+		return;
 	}
 }
 
