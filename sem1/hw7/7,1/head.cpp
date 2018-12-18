@@ -10,6 +10,8 @@ Tree *createTree()
 
 void push(int number, Node *&node)
 {
+	if ((node != nullptr) && (number == node->value))
+		return;
 	if (node == nullptr)                   
 	{
 		node = new Node;      
