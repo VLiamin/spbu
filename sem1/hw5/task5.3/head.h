@@ -13,8 +13,12 @@ struct Stack
 };
 
 Stack *createStack();
-void add(char number, Stack *&stack);
+void add(char x, Stack *&element);
 char pop(Stack *stack);
+bool check(Stack *stack);
+bool plus(Stack *stack);
 void deleteStack(Stack *stack);
+int countParentheses(char *expression);
+void tinkeringFromInfixToPostfix(Stack *stack, char *expression, char *expressionResult);
 
 #endif
