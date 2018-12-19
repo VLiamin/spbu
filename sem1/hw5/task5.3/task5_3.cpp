@@ -26,97 +26,19 @@ main(int argc, char *argv[])
 			allocateMemory(expression, i + 1);
 		}
 	}
-	int parentheses = 0;
+	
 	
 	Stack *stack = createStack();
 	i = 0;
 	number = 0;
-	while (expression[i] != '\n')
-	{
-		if (expression[i] == '(')
-		{
-			parentheses++;
-		}
-		i++;
-	}
-	int lengthString = i - parentheses * 2;
-	char symbol= 'b';
-	i = 0;
-	parentheses = 0;
-	char *expressionResult = new char[lengthString - 1];
-   
-	while (expression[i] != '\n')
-	{
-		if (expression[i] == '(')
-		{
-			parentheses++;
-			if (symbol != 'b')
-			{
-				add(symbol, stack); 
-				symbol = 'b';
-			}
-			i++;
-		}
-		if (expression[i] == ')')
-		{
-			parentheses--;
-			if (symbol != 'b')
-			{
-				expressionResult[number] = symbol;
-				number++;
-			}
-			if (plus(stack))
-				symbol = pop(stack);
-			if (check(stack))
-			{
-				
-				expressionResult[number] = pop(stack);
-				number++;
-			}
-			i++;
-		}
-		
-		if ((int(expression[i]) >= '0') && (int(expression[i]) <= '9'))
-		{
-			expressionResult[number] = expression[i];
-			i++;
-			number++;
-		}
-		
-		if ((expression[i] == '*') || (expression[i] == '/'))
-		{
-			if (expression[i + 1] != '(')
-			{
-			
-				expressionResult[number] = expression[i + 1];
-				expressionResult[number + 1] = expression[i];
-				number += 2;
-				i += 2;
-			}
-			else
-			{
-				add(expression[i], stack); 
-				i++;
-			}
-		}
-		if ((expression[i] == '-') || (expression[i] == '+'))
-		{
-			if (symbol != 'b')
-			{
-				expressionResult[number] = symbol;
-				number++;
-			}
-			symbol = expression[i];	
-			i++;
-		}
-	}
 	
-	if ((symbol == '-') || (symbol == '+'))
-	{
-		expressionResult[number] = symbol;
-		symbol = 'b';
-		number++;
-	}
+	int lengthString = countParentheses(expression);
+	
+	char *expressionResult = new char[lengthString - 1];
+	
+	tinkeringFromInfixToPostfix(stack, expression, expressionResult);
+	
+	
 	printf("stringResult: ");
 	for (i = 0; i < lengthString; i++)
 		printf("%c", expressionResult[i]);
