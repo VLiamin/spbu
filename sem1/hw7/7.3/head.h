@@ -1,10 +1,11 @@
 #pragma once
-
+const int length = 6;
 struct Node
 {
-    char value;
-    Node *left;
-    Node *right;
+	int numeral;
+	char value;
+	Node *left;
+	Node *right;
 };
 
 struct Tree
