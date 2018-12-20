@@ -18,5 +18,8 @@ char pop(Stack *stack);
 bool check(Stack *stack);
 bool plus(Stack *stack);
 void deleteStack(Stack *stack);
+int countParentheses(char *expression);
+void tinkeringFromInfixToPostfix(Stack *stack, char *expression, char *expressionResult);
+void count(Stack *stack, char *string, int &meaning, int lengthString);
 
 #endif
