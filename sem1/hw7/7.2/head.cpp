@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "head.h"
 
+Node* balance(Node* p);
+
 Tree *createTree()
 {
 	return new Tree {nullptr};
@@ -15,6 +17,11 @@ void push(int number, Node *&tree)
 		tree->left = nullptr;
 		tree->right = nullptr;
 		return;
+	}
+	else
+	{
+		if (tree->value == number)
+			return;
 	}
 	if (number < tree->value )
 		push(number, tree->left);
@@ -107,112 +114,100 @@ void printABC(Tree *tree)
 
 unsigned char height(Node* p)
 {
-	return p?p->height:0;
+	return p ? p->height : 0;
 }
 
-int bfactor(Node* p)
+int balanceFactor(Node* p)
 {
 	return height(p->right) - height(p->left);
 }
 
-void fixheight(Node* p)
+void fixHeight(Node* p)
 {
 	unsigned char hl = height(p->left);
 	unsigned char hr = height(p->right);
-	p->height = (hl>hr?hl:hr)+1;
+	p->height = (hl > hr ? hl : hr) + 1;
 }
 
-Node* rotateright(Node* p) 
+Node* rotateRight(Node* p) 
 {
 	Node* q = p->left;
 	p->left = q->right;
 	q->right = p;
-	fixheight(p);
-	fixheight(q);
+	fixHeight(p);
+	fixHeight(q);
 	return q;
 }
 
-Node* rotateleft(Node* q) 
+Node* rotateLeft(Node* q) 
 {
 	Node* p = q->right;
 	q->right = p->left;
 	p->left = q;
-	fixheight(q);
-	fixheight(p);
+	fixHeight(q);
+	fixHeight(p);
 	return p;
 }
 
 Node* balance(Node* p)
 {
-	fixheight(p);
-	if (bfactor(p) >= 1)
+	fixHeight(p);
+	if (balanceFactor(p) >= 1)
 	{
-		if (bfactor(p->right) < 0)
-			p->right = rotateright(p->right);
-		return rotateleft(p);
+		if (balanceFactor(p->right) < 0)
+			p->right = rotateRight(p->right);
+		return rotateLeft(p);
 	}
-	if (bfactor(p) == -1)
+	if (balanceFactor(p) == -1)
 	{
-		if (bfactor(p->left) > 0)
-			p->left = rotateleft(p->left);
-		return rotateright(p);
+		if (balanceFactor(p->left) > 0)
+			p->left = rotateLeft(p->left);
+		return rotateRight(p);
 	}
 	return p; 
 }
 
-Node* findmin(Node* p) 
+Node* findMinimum(Node* p) 
 {
-	return p->left?findmin(p->left):p;
+	return p->left ? findMinimum(p->left) : p;
 }
 
-Node* removemin(Node* p) 
+Node* removeMinimum(Node* p) 
 {
 	if( p->left==0 )
 		return p->right;
-	p->left = removemin(p->left);
+	p->left = removeMinimum(p->left);
 	return balance(p);
 }
 
 void remove(Node *&node, int number) 
 {
+	
 	if (!node) 
 		return;
-	if ( number < node->value )
+	if (number < node->value)
 		remove(node->left, number);
 	else if (number > node->value)
-		remove(node->right, number);
-	else  
-	{
-	Node* tmp = nullptr;
-		if (node->right == nullptr)
-			tmp = node->left;
-		else 
-		{
-			Node* ptr = node->right;
-			if (ptr->left == nullptr)
-			{
-				ptr->left = node->left;
-				tmp = ptr;
-			} 
-			else 
-			{
-				Node* pmin = ptr->left;
-				while (pmin->left != nullptr)
-				{
-					ptr  = pmin;
-					pmin = ptr->left;
-				}
- 				ptr->left = pmin->right;
-				pmin->left = node->left;
-				pmin->right = node->right;
-				tmp = pmin;
-			}
-		}
+		remove(node->right, number);	
+		
+	if (number == node->value)
+	{	
+		
+		Node* q = node->left;
+		Node* r = node->right;
 		delete node;
-		node = tmp;
+		if (!r)
+		{
+			node = q;
+			return;
+		}
+		Node* min = findMinimum(r);
+		min->right = removeMinimum(r);
+		min->left = q;
+		node = balance(min);
 		return;
 	}
-	balance(node);
+	node = balance(node);
 	return;
 }
 
