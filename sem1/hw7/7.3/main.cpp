@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "head.h"
+#include "head1.h"
 
 using namespace std;
 
@@ -9,6 +9,7 @@ int searchTokenEnd(char *string, int i);
 
 int main(int argc, char *argv[])
 {
+	
 	Tree *tree = createTree();
 	FILE *f = fopen("text7_3.txt", "r");
 	char string[lengthArray];
@@ -37,10 +38,18 @@ int searchTokenEnd(char *string, int i)
 				sum--;
 			i++;
 		}
+		while (string[i] == ' ')
+		{
+			i++;
+		}
 	} 
 	else 
 	{
 		i++;
+		while (string[i] == ' ')
+		{
+			i++;
+		}
 	}
 
 	return i;
