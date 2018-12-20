@@ -32,7 +32,8 @@ int main(int argc, char *argv[])
 					printf("%d", expression[i]);	
 				if ((expression[i] == -1) && (i == 0))
 					printf("-");
-						
+				if ((expression[i] == 1) && (i == power))
+					printf("%d", expression[i]);		
 				printX(i, power);
 				
 			}
