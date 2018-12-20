@@ -6,26 +6,44 @@ Tree *createTree()
 	return new Tree {nullptr};
 }
 
-void push(Node *&tree, char *string, int i) 
+void push(Node *&node, char *string, int i) 
 {
 	if (string[i] == '(') 
 	{
-		tree = new Node;
-		tree->value = string[i + 1];
-		tree->right = nullptr;
-		tree->left = nullptr;
-		int firstTokenStart = i + 2;
+		node = new Node;
+		i++;
+		while (string[i] == ' ')
+		{
+			i++;
+		}
+		node->value = string[i];
+		node->numeral = -1;
+		node->right = nullptr;
+		node->left = nullptr;
+		i++;
+		while (string[i] == ' ')
+		{
+			i++;
+		}
+		int firstTokenStart = i;
 		int secondTokenStart = searchTokenEnd(string, firstTokenStart);
-		push(tree->left, string, firstTokenStart);
-		push(tree->right, string, secondTokenStart);
+		push(node->left, string, firstTokenStart);
+		push(node->right, string, secondTokenStart);
 		return;
 	} 
 	else 
 	{
-		tree = new Node;
-		tree->value = string[i];
-		tree->left = nullptr;
-		tree->right = nullptr;
+		
+		node = new Node;
+		node->numeral= 0;
+		node->value = 'b';
+		while ((string[i] >= '0') && (string[i] <= '9'))
+		{
+			node->numeral = node->numeral * 10 + string[i] - '0';
+			i++;
+		}
+		node->left = nullptr;
+		node->right = nullptr;
 		return;
 	}
 }
@@ -42,10 +60,16 @@ void print(Node *tree)
 	if (tree->left != nullptr)
 		printf("(");
 	print(tree->left);
-	printf("%c", tree->value);
+	if (tree->value != 'b')
+		printf(" %c ", tree->value);
+	else 
+		printf("%d", tree->numeral);
 	print(tree->right);
 	if (tree->left != nullptr)
+	{
 		printf(")");
+	}
+		
 }
 
 void print(Tree *tree) 
@@ -57,7 +81,7 @@ int count(Node *tree)
 {
 	if (tree->left == nullptr) 
 	{
-		return tree->value - '0';
+		return tree->numeral;
 	} 
 		
 	switch (tree->value) 
