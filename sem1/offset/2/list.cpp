@@ -28,10 +28,17 @@ void enqueue(ListElement *&list, int value, int priority)
 	}
 	
 	ListElement *newElement = new ListElement;
-	newElement->next = tmp;
 	newElement->priority = priority;
 	newElement->value = value;
-	if (tmp->priority == priority)
+	if ((!tmp->next) && (tmp->priority >= priority))
+	{
+		tmp->next = newElement;
+		newElement->next = nullptr;
+		return;
+	}
+	newElement->next = tmp;
+	
+	if ((tmp->priority == priority) && (tmp == list))
 	{
 		list = newElement;
 		return;
