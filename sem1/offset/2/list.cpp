@@ -3,7 +3,7 @@
 
 List *createList()
 {
-    return new List {nullptr};
+	return new List {nullptr};
 }
 
 void enqueue(ListElement *&list, int value, int priority)
