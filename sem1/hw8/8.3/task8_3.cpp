@@ -29,5 +29,6 @@ int main()
 	countEachWord(table);
 	printf("Max chain length elements: %d", returnMaxChainLength(table));
 	deleteHashTable(table);
+	fclose(f);
 	return 0;
 }
