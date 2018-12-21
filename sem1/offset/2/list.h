@@ -2,9 +2,9 @@
 
 struct ListElement
 {
-    int value;
-    int priority;
-    ListElement *next;
+	int value;
+	int priority;
+	ListElement *next;
 };
 
 struct List
