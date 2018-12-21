@@ -40,8 +40,7 @@ void push(HashTable *table, char *word)
 	int i = 1;
 	int number = 1;
 	while (!add(table->elements[hash + i * 2], word, table->currentSize, number))
-	{
-		
+	{	
 		i = i * 2;
 	}
 }
@@ -78,14 +77,14 @@ void countEachWord(HashTable *table)
 {
 	
 	for (int i = 0; i < table->size; i++)
-    {
-    	if (table->elements[i]->first)
-    	{
-    		print(table->elements[i]->first->word);
-    		printf(" - %d", table->elements[i]->first->number);
-    		printf("\n");
+	{
+		if (table->elements[i]->first)
+		{
+			print(table->elements[i]->first->word);
+			printf(" - %d", table->elements[i]->first->number);
+			printf("\n");
 		}
-    }
+	}
 }
 
 void printChain(HashTable *table, int number)
@@ -100,17 +99,17 @@ int returnMaxChainLength(HashTable *table)
 	int result = 0;
 	int number = 0;
 	for (int i = 0; i < table->size; i++)
-	{
-        if (table->elements[i]->first)
-        {
-        	if (table->elements[i]->first->number > result)
-        	{
-        		result = table->elements[i]->size;
-            	number = i;
+	{	
+		if (table->elements[i]->first)
+		{
+			if (table->elements[i]->first->number > result)
+			{
+				result = table->elements[i]->size;
+				number = i;
 			}
-        }
-    }
-    printChain(table, number);
+		}
+	}
+	printChain(table, number);
 	return result;
 }
 
