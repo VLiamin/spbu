@@ -38,5 +38,7 @@ int main()
 		}
 	} 
 	deleteList(list);
+	deleteTree(tree);
+	fclose(f);
 	return 0;
 }
