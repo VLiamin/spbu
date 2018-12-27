@@ -18,3 +18,4 @@ Tree *createTree();
 void build(List *list, Tree *&tree);
 void printABC(Tree *tree);
 void coding(Tree *tree, List *list, long number);
+void deleteTree(Tree *tree);
