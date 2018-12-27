@@ -46,5 +46,6 @@ int main(int argc, char *argv[])
 	delete [] metropolis;
 	deleteGraph(graph);
 	deleteCapital(capital);
+	fclose(f);
 	return 0;
 }
