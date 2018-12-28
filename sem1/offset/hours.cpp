@@ -39,5 +39,6 @@ int main()
 			printf("maxHour: %d\n", i);
 		}
 	}
+	fclose(f);
 	return 0;
 }
