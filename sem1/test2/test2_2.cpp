@@ -18,7 +18,7 @@ int main()
 		i++;
 		scanf("%c", &x);
 		expression[i] = x;
-		if (i % 10 == 9)
+		if (i % 10 == 8)
 		{
 			allocateMemory(expression, i + 1);
 		}
@@ -52,6 +52,7 @@ char* allocateMemory(char* string, int i)
 	{
 		string2[j] = string[j];
 	}
+	delete [] string;
 	return string2;
 }
 
@@ -59,7 +60,7 @@ void merge(char *expression, int left, int right, int middle)
 {
 	int i = left;
 	int j = middle + 1;
-	char *stringMerge = new char [right - left + 1];
+	char *stringMerge = new char [right - left + 4];
 	for (int k = left; k <= right; k++) 
 	{
 		if (i > middle)
