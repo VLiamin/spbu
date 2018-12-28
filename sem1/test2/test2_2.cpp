@@ -62,34 +62,34 @@ void merge(char *expression, int left, int right, int middle)
 	char *stringMerge = new char [right - left + 1];
 	for (int k = left; k <= right; k++) 
 	{
-        if (i > middle)
+		if (i > middle)
 		{
-            stringMerge[k - left] = expression[j];
-            j++;
-        } 
+			stringMerge[k - left] = expression[j];
+			j++;
+		} 
 		else if (j > right) 
 		{
-            stringMerge[k - left] = expression[i];
-            i++;
-        } 
+			stringMerge[k - left] = expression[i];
+			i++;
+		} 
 		else if (expression[j] < expression[i]) 
 		{
-            stringMerge[k - left] = expression[j];
-            j++;
-        } 
+			stringMerge[k - left] = expression[j];
+			j++;
+		} 
 		else 
 		{
-            stringMerge[k - left] = expression[i];
-            i++;
-        }
-    }    
-    i = 0;
+			stringMerge[k - left] = expression[i];
+			i++;
+		}
+	}    
+	i = 0;
 
-    while (i <= right - left)
-    {
-    	expression[left + i] = stringMerge[i];
-    	i++;
+	while (i <= right - left)
+	{
+		expression[left + i] = stringMerge[i];
+		i++;
 	}
 	delete [] stringMerge;
-    return;
+	return;
 }
