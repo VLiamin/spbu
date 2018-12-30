@@ -5,7 +5,7 @@ char* allocateMemory(char* string, int i);
 
 using namespace std;
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	int length = 0;
 	printf("Your expression: ");
