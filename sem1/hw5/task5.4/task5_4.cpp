@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "head.h"
+#include "calculate.h"
 
 using namespace std;
 
@@ -7,7 +7,6 @@ char* allocateMemory(char* string, int i);
 
 int main()
 {
-	int meaning = 0;
 	char x = 'b';
 	int i = 0;
 	printf("Your expression: ");
@@ -25,12 +24,9 @@ int main()
 			allocateMemory(string, i + 1);
 		}
 	}
-		
-	Stack *stack = createStack();
 	
-	count(stack, string, meaning);
+	int meaning = countExpression(string);	
 	
-	deleteStack(stack);
 	printf("Result: %d", meaning);
 	delete [] string;
 	return 0;
@@ -45,3 +41,4 @@ char* allocateMemory(char* string, int i)
 	}
 	return string2;
 }
+
