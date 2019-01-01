@@ -1,25 +1,24 @@
-#ifndef head_H
-#define head_H
+#pragma once
 
-struct StackElement
-{
-	char value;
-	StackElement *next;
+struct StackElement {
+    char value;
+    StackElement *next;
 };
 
-struct Stack
-{
-	StackElement *head;
+struct Stack {
+    StackElement *head;
 };
 
 Stack *createStack();
-void add(char x, Stack *&element);
-char pop(Stack *stack);
-bool check(Stack *stack);
-bool plus(Stack *stack);
-void deleteStack(Stack *stack);
-int countParentheses(char *expression);
-void tinkeringFromInfixToPostfix(Stack *stack, char *expression, char *expressionResult);
-void count(Stack *stack, char *string, int &meaning, int lengthString);
 
-#endif
+void add(char x, Stack *&element);
+
+char pop(Stack *stack);
+
+bool isNotEmpty(Stack *stack);
+
+bool isPlusOrMinus(Stack *stack);
+
+void deleteStack(Stack *stack);
+
+
