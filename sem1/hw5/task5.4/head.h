@@ -1,5 +1,4 @@
-#ifndef head_H
-#define head_H
+#pragma once
 
 struct StackElement
 {
@@ -16,6 +15,4 @@ Stack *createStack();
 void add(char number, Stack *&stack);
 char pop(Stack *stack);
 void deleteStack(Stack *stack);
-void count(Stack *stack, char *string, int &meaning);
 
-#endif
