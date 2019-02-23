@@ -1,8 +1,8 @@
 package ru.liamin.vladimir;
 
-/*  Implementation of a unique list
+/**
+ * Implementation of a unique list
  */
-
 public class List {
     private int size;
     private ListElement top;
@@ -17,11 +17,19 @@ public class List {
         }
     }
 
+    /**
+     * Constructor of class
+      */
     public List() {
         size = 0;
         top = null;
     }
 
+    /**
+     * Writing to the list
+     * @param value record value
+     * @param index index of an element
+     */
     public void push(int value, int index) {
         if (index > size || index < 0)
             return;
@@ -41,6 +49,11 @@ public class List {
         return;
     }
 
+    /**
+     * Returns the value and deletes the element
+     * @param index index of an element
+     * @return return value
+     */
     public int pop(int index) {
         if (index > size || index < 0)
         {
@@ -68,14 +81,25 @@ public class List {
 
     }
 
+    /**
+     * Check for emptiness
+     * @return return true if list is empty
+     */
     public boolean isEmpty() {
         return (top == null);
     }
 
+    /**
+     * Count of elements in list
+     * @return number of elements in list
+     */
     public int count() {
         return size;
     }
 
+    /**
+     * Print list elements
+     */
     public void printList() {
         System.out.println("Elements of list: ");
         ListElement current = top;
@@ -85,12 +109,19 @@ public class List {
         }
     }
 
+    /**
+     * Clear list
+     */
     public void clear() {
         size = 0;
         top = null;
 
     }
 
+    /**
+     * Demonstrates ru.liamin.vladimir.List methods
+     * @param args array of arguments
+     */
     public static void main(String[] args) {
         List list = new List();
         list.push(10, 0);
