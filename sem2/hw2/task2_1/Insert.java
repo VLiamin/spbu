@@ -15,17 +15,18 @@ public class Insert implements SortArray {
      */
     public int[] run(int[] arrayOfNumbers) {
         System.out.println("\nInsert sorting");
-        for (i = 1; i < arrayOfNumbers.length; i++){
+        int[] copyOfArray = arrayOfNumbers.clone();
+        for (i = 1; i < copyOfArray.length; i++){
             j = i - 1;
-            temp = arrayOfNumbers[i];
-            while (j > 0 && arrayOfNumbers[j] > temp){
-                arrayOfNumbers[j + 1] = arrayOfNumbers[j];
+            temp = copyOfArray[i];
+            while (j > 0 && copyOfArray[j] > temp){
+                copyOfArray[j + 1] = copyOfArray[j];
                 j--;
             }
         }
-        arrayOfNumbers[j] = temp;
+        copyOfArray[j] = temp;
         System.out.println();
-        return arrayOfNumbers;
+        return copyOfArray;
     }
 
     /**
