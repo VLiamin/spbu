@@ -15,18 +15,19 @@ public class Bubble implements SortArray {
      */
     public int[] run(int[] arrayOfNumbers) {
         System.out.print("\nBubble sort");
-        for (i = 0; i < arrayOfNumbers.length; i++) {
-            for (j = 0; j < arrayOfNumbers.length; j++) {
-                if (arrayOfNumbers[i] > arrayOfNumbers[j]) {
-                    temp = arrayOfNumbers[i];
-                    arrayOfNumbers[i] = arrayOfNumbers[j];
-                    arrayOfNumbers[j] = temp;
+        int[] copyOfArray = arrayOfNumbers.clone();
+        for (i = 0; i < copyOfArray.length; i++) {
+            for (j = 0; j < copyOfArray.length; j++) {
+                if (copyOfArray[i] > copyOfArray[j]) {
+                    temp = copyOfArray[i];
+                    copyOfArray[i] = copyOfArray[j];
+                    copyOfArray[j] = temp;
                 }
             }
         }
 
         System.out.println();
-        return arrayOfNumbers;
+        return copyOfArray;
     }
 
     /**
