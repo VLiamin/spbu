@@ -1,27 +1,18 @@
 package ru.liamin.vladimir;
-/**
- *  Implementation of a stack on a single-linked list
- */
+
+/** Implementation of a stack on a single-linked list */
 public class Stack {
     private int size;
     private StackElement top;
 
     private class StackElement {
-        protected int number;
-        protected StackElement next;
+        private int number;
+        private StackElement next;
 
-        public StackElement(int value, StackElement top) {
+        private StackElement(int value, StackElement top) {
             number = value;
             next = top;
         }
-    }
-
-    /**
-     * Constructor of Stack
-     */
-    public Stack() {
-        top = null;
-        size = 0;
     }
 
     /**
@@ -43,10 +34,9 @@ public class Stack {
             int value = top.number;
             top = top.next;
             return value;
-        } else {
-            System.out.println("Not found");
-            return 0;
         }
+        System.out.println("Not found");
+        return 0;
     }
 
     /**
@@ -65,9 +55,7 @@ public class Stack {
         return size;
     }
 
-    /**
-     * Print stack elements
-     */
+    /** Print stack elements */
     public void printStack() {
         System.out.println("Elements of stack: ");
         StackElement current = top;
@@ -77,9 +65,7 @@ public class Stack {
         }
     }
 
-    /**
-     * Clear stack
-     */
+    /** Clear stack */
     public void clear() {
         top = null;
         size = 0;
