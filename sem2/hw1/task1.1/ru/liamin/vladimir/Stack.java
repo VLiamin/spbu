@@ -3,17 +3,7 @@ package ru.liamin.vladimir;
 /** Implementation of a stack on a single-linked list */
 public class Stack {
     private int size;
-    private StackElement top;
-
-    private class StackElement {
-        private int number;
-        private StackElement next;
-
-        private StackElement(int value, StackElement top) {
-            number = value;
-            next = top;
-        }
-    }
+    private StackElement head;
 
     /**
      * Add element to Stack
@@ -21,7 +11,7 @@ public class Stack {
      */
     public void push(int value) {
         size++;
-        top = new StackElement(value, top);
+        head = new StackElement(value, head);
     }
 
     /**
@@ -30,9 +20,9 @@ public class Stack {
      */
     public int pop() {
         size--;
-        if (top != null) {
-            int value = top.number;
-            top = top.next;
+        if (head != null) {
+            int value = head.number;
+            head = head.next;
             return value;
         }
         System.out.println("Not found");
@@ -44,7 +34,7 @@ public class Stack {
      * @return return true if stack is empty
      */
     public boolean isEmpty() {
-        return (top == null);
+        return head == null;
     }
 
     /**
@@ -58,7 +48,7 @@ public class Stack {
     /** Print stack elements */
     public void printStack() {
         System.out.println("Elements of stack: ");
-        StackElement current = top;
+        StackElement current = head;
         while (current != null) {
             System.out.println(current.number);
             current = current.next;
@@ -67,8 +57,18 @@ public class Stack {
 
     /** Clear stack */
     public void clear() {
-        top = null;
+        head = null;
         size = 0;
+    }
+
+    private class StackElement {
+        private int number;
+        private StackElement next;
+
+        private StackElement(int value, StackElement head) {
+            number = value;
+            next = head;
+        }
     }
 
     /**
