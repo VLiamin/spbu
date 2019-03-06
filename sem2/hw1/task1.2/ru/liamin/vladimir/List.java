@@ -3,21 +3,10 @@ package ru.liamin.vladimir;
 /** Implementation of a unique list */
 public class List {
     private int size;
-    private ListElement top;
-
-    private class ListElement {
-        private int value;
-        private ListElement next;
-
-        public ListElement(int number, ListElement next) {
-            value = number;
-            this.next = next;
-        }
-    }
+    private ListElement head;
 
     /**
      * Writing to the list
-     *
      * @param value record value
      * @param index index of an element
      */
@@ -26,11 +15,11 @@ public class List {
             return;
         size++;
         if (index == 0) {
-            top = new ListElement(value, top);
+            head = new ListElement(value, head);
             return;
         }
 
-        ListElement temp = top;
+        ListElement temp = head;
 
         for (int i = 0; i < index - 1; i++) {
             temp = temp.next;
@@ -42,7 +31,6 @@ public class List {
 
     /**
      * Returns the value and deletes the element
-     *
      * @param index index of an element
      * @return return value
      */
@@ -53,11 +41,11 @@ public class List {
         }
 
         if (index == 0) {
-            int number = top.value;
-            top = top.next;
+            int number = head.value;
+            head = head.next;
             return number;
         }
-        ListElement temp = top;
+        ListElement temp = head;
 
         for (int i = 0; i < index - 1; i++) {
             temp = temp.next;
@@ -71,16 +59,14 @@ public class List {
 
     /**
      * Check for emptiness
-     *
      * @return return true if list is empty
      */
     public boolean isEmpty() {
-        return (top == null);
+        return head == null;
     }
 
     /**
      * Count of elements in list
-     *
      * @return number of elements in list
      */
     public int count() {
@@ -90,7 +76,7 @@ public class List {
     /** Print list element */
     public void printList() {
         System.out.println("Elements of list: ");
-        ListElement current = top;
+        ListElement current = head;
         while (current != null) {
             System.out.println(current.value);
             current = current.next;
@@ -100,13 +86,22 @@ public class List {
     /** Clear list */
     public void clear() {
         size = 0;
-        top = null;
+        head = null;
 
+    }
+
+    private class ListElement {
+        private int value;
+        private ListElement next;
+
+        public ListElement(int number, ListElement next) {
+            value = number;
+            this.next = next;
+        }
     }
 
     /**
      * Demonstrates ru.liamin.vladimir.List methods
-     *
      * @param args array of arguments
      */
     public static void main(String[] args) {
