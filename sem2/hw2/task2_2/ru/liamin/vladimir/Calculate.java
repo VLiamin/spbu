@@ -19,16 +19,16 @@ public class Calculate {
 
     private void seeParentheses(char[] expression, char[] expressionResult) {
         if (expression[i] == '(') {
-            parentheses++;
             if (symbol != 'b') {
                 stack.push(symbol);
                 symbol = 'b';
             }
+            if ((i != 0) && (expression[i - 1] == '('))
+                stack.push('b');
             i++;
 
         }
         if (expression[i] == ')') {
-            parentheses--;
             if (symbol != 'b') {
                 expressionResult[number] = symbol;
                 number++;
@@ -42,8 +42,12 @@ public class Calculate {
             }
 
             if (!stack.isEmpty()) {
-                expressionResult[number] = stack.pop();
-                number++;
+                char temp = stack.pop();
+                if (temp != 'b')
+                {
+                    expressionResult[number] = temp;
+                    number++;
+                }
             }
             i++;
         }
