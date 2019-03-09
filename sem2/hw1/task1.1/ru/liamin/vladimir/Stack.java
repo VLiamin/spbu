@@ -19,7 +19,8 @@ public class Stack {
      * @return value of element
      */
     public int pop() {
-        size--;
+        if (size > 0)
+            size--;
         if (head != null) {
             int value = head.number;
             head = head.next;
@@ -65,9 +66,9 @@ public class Stack {
         private int number;
         private StackElement next;
 
-        private StackElement(int value, StackElement head) {
+        private StackElement(int value, StackElement element) {
             number = value;
-            next = head;
+            next = element;
         }
     }
 
