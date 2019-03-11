@@ -11,6 +11,7 @@ class BubbleTest {
         Bubble bubble = new Bubble();
         int[] arrayOfNumbers = {2, 4, 1, 3, 7};
         int[] sortedArrayOfNumbers = {7, 4, 3, 2, 1};
-        assertArrayEquals(sortedArrayOfNumbers,bubble.run(arrayOfNumbers));
+        bubble.run(arrayOfNumbers);
+        assertArrayEquals(sortedArrayOfNumbers,arrayOfNumbers);
     }
 }
