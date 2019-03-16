@@ -1,8 +1,6 @@
 package ru.liamin.vladimir;
 
-/**
- * Implementation hash table
- */
+/** Implementation hash table */
 public class HashTable {
     private Hash hash;
     private int size;
@@ -114,9 +112,7 @@ public class HashTable {
         return hashTable;
     }
 
-    /**
-     * Print statistics of the table
-     */
+    /** Print statistics of the table */
     public void printStatistics() {
         numberOfConflicts = 0;
         maxLength = 0;
