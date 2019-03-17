@@ -35,11 +35,6 @@ public class UniqueList<T> {
         return ++currentSize;
     }
 
-
-
-
-
-
     /**
      * Delete an element in list
      * @param number value of an element
