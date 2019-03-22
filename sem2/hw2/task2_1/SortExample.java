@@ -1,8 +1,6 @@
 package ru.liamin.vladimir;
 
-/**
- * Sorting implementation example
- */
+/** Sorting implementation example */
 public class SortExample {
 
     /**
