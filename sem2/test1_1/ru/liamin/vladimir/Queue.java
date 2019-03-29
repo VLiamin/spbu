@@ -43,9 +43,9 @@ public class Queue<T> {
     public T dequeue() throws NullPointerException {
         if (head == null)
             throw new NullPointerException("The queue is empty");
-        T number = head.value;
+        T value = head.value;
         head = head.next;
-        return number;
+        return value;
     }
 
     /**
