@@ -59,7 +59,7 @@ public class StackPointer implements Stack {
      * Shows the sign of the operation in the first place of the stack
      * @return return true if the addition or subtraction sign is in the first place of the stack
      */
-    public boolean isPlusOrMinus(){
+    public boolean isPlusOrMinus() {
         if (top == null) return false;
         if ((top.symbol == '+') || (top.symbol == '-'))
             return true;
