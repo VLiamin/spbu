@@ -12,7 +12,7 @@ public class ArrayTraversal {
      * @param matrix source matrix of elements
      * @return array in which matrix elements are stored
      */
-    public int[] ArrayTraversal(int[][] matrix){
+    public int[] ArrayTraversal(int[][] matrix) {
         int[] elements = new int[matrix.length * matrix.length];
         column = Math.round(matrix.length / 2);
         lines = column;
