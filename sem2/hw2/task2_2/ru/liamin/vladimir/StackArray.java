@@ -6,7 +6,7 @@ public class StackArray implements Stack {
     private char stackArray[];
     private int top;
 
-    public StackArray(int length){
+    public StackArray(int length) {
         stackArray = new char[length];
         top = -1;
     }
@@ -15,7 +15,7 @@ public class StackArray implements Stack {
      * Add element to Stack
      * @param value value of new element
      */
-    public void push(char value){
+    public void push(char value) {
         stackArray[++top] = value;
         size++;
     }
@@ -24,7 +24,7 @@ public class StackArray implements Stack {
      * Fetching element from stack
      * @return value of element
      */
-    public char pop(){
+    public char pop() {
         size--;
         return stackArray[top--];
     }
@@ -33,7 +33,7 @@ public class StackArray implements Stack {
      * Check for emptiness
      * @return return true if stack is empty
      */
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         if (top == -1)
             return true;
         return false;
@@ -43,14 +43,14 @@ public class StackArray implements Stack {
      * Count of elements in stack
      * @return number of elements in stack
      */
-    public int count(){
+    public int count() {
         return size;
     }
 
     /** Print stack elements */
-    public void printStack(){
+    public void printStack() {
         int current = top;
-        while (current != -1){
+        while (current != -1) {
             System.out.print(" " + stackArray[current]);
             current--;
         }
@@ -67,7 +67,7 @@ public class StackArray implements Stack {
     }
 
     /** Clear stack */
-    public void clear(){
+    public void clear() {
         top = -1;
     }
 }
