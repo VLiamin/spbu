@@ -14,9 +14,8 @@ public class PrintToFile implements Array {
      */
     public void print(int[] elements) throws IOException {
         FileWriter file = new FileWriter("text.txt");
-        for (i = 0; i < elements.length; i++){
+        for (i = 0; i < elements.length; i++) {
             file.write(elements[i] + " ");
-
         }
         file.close();
     }
