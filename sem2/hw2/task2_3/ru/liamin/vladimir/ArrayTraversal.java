@@ -17,11 +17,11 @@ public class ArrayTraversal {
         column = Math.round(matrix.length / 2);
         lines = column;
         j = 0;
+        elements[j] = matrix[lines][column];
+        j++;
         while ((column != 0) && (lines != 0))
         {
-            elements[j] = matrix[lines][column];
 
-            j++;
             column--;
             elements[j] = matrix[lines][column];
             j++;
