@@ -13,7 +13,8 @@ public class Calculate {
     private char symbol = 'b';
     private int parentheses = 0;
 
-    public Calculate(Stack stack){
+    public Calculate(Stack stack) {
+
         this.stack = stack;
     }
 
@@ -43,8 +44,7 @@ public class Calculate {
 
             if (!stack.isEmpty()) {
                 char temp = stack.pop();
-                if (temp != 'b')
-                {
+                if (temp != 'b') {
                     expressionResult[number] = temp;
                     number++;
                 }
@@ -123,9 +123,9 @@ public class Calculate {
      * @param expression infix expression
      * @return expression value
      */
-    public int countExpression(char[] expression){
+    public int countExpression(char[] expression) {
 
-        expression =  tinkeringFromInfixToPostfix(expression);
+        expression = tinkeringFromInfixToPostfix(expression);
         i = 0;
         while (i < expression.length) {
             while ((expression[i] >= '0') && (expression[i] <= '9')) {
@@ -138,7 +138,7 @@ public class Calculate {
                 variable1 = a - '0';
                 variable2 = b - '0';
                 if (expression[i] == '-')
-                    meaning = variable2 -  variable1;
+                    meaning = variable2 - variable1;
                 else if (expression[i] == '+')
                     meaning = variable2 + variable1;
                 else if (expression[i] == '*')
@@ -146,7 +146,7 @@ public class Calculate {
                 else
                     meaning = variable2 / variable1;
 
-                a = (char)(meaning + '0');
+                a = (char) (meaning + '0');
                 stack.push(a);
 
                 i++;
