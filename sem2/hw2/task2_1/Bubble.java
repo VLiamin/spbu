@@ -22,6 +22,5 @@ public class Bubble implements SortArray {
                 }
             }
         }
-        System.out.println();
     }
 }
