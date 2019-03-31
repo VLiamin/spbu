@@ -13,10 +13,10 @@ public class Insert implements SortArray {
      */
     public void run(int[] arrayOfNumbers) {
 
-        for (i = 1; i < arrayOfNumbers.length; i++){
+        for (i = 1; i < arrayOfNumbers.length; i++) {
             j = i;
             temp = arrayOfNumbers[i];
-            while (j > 0 && arrayOfNumbers[j - 1] > temp){
+            while (j > 0 && arrayOfNumbers[j - 1] > temp) {
                 arrayOfNumbers[j] = arrayOfNumbers[j - 1];
                 j--;
             }
