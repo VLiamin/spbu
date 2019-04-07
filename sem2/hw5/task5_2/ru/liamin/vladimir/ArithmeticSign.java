@@ -1,5 +1,6 @@
 package ru.liamin.vladimir;
 
+/** Arithmetic options class */
 public class ArithmeticSign {
 
     private char code;
@@ -11,6 +12,10 @@ public class ArithmeticSign {
         this.name = name;
     }
 
+    /**
+     * Method returns arithmetic operation
+     * @return arithmetic operation
+     */
     @Override
     public String toString() {
         return this.name;
