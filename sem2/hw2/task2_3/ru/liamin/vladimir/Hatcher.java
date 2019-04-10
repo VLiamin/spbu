@@ -27,17 +27,18 @@ public class Hatcher {
             System.out.println();
         }
         ArrayTraversal arrayTraversal = new ArrayTraversal();
-        int[] elements = arrayTraversal.ArrayTraversal(matrix);
+        int[] elements = new int[matrix.length * matrix.length];
+        arrayTraversal.arrayTraversal(matrix, elements);
         System.out.println("Print on concol - 1 \nPrint to file - 2");
         int number = in.nextInt();
-        Array array;
+        ArrayPrinting arrayPrinting;
         if (number == 1) {
-            array = new PrintOnConsole();
-            array.print(elements);
+            arrayPrinting = new PrintOnConsole();
+            arrayPrinting.print(elements);
         }
         else {
-            array = new PrintToFile();
-            array.print(elements);
+            arrayPrinting = new PrintToFile();
+            arrayPrinting.print(elements);
         }
 
     }
