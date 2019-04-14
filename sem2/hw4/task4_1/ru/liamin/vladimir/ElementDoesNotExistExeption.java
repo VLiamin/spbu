@@ -6,7 +6,7 @@ public class ElementDoesNotExistExeption extends Exception {
      * Method checking if an item is in the list
      * @param message error message
      */
-    public ElementDoesNotExistExeption(String message){
+    public ElementDoesNotExistExeption(String message) {
         super(message);
     }
 }
