@@ -6,7 +6,7 @@ public class AVLTreeExample {
      * Method showing the implementation of the collection
      * @param args array of arguments
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         AVLTree<Integer> avlTree = new AVLTree<>();
         System.out.println(avlTree.isEmpty());
         System.out.println(avlTree.add(10));
