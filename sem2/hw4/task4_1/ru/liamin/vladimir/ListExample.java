@@ -12,25 +12,25 @@ public class ListExample {
         try {
             curentSize = uniqueList.push(10, curentSize);
             curentSize = uniqueList.push(10, curentSize);
-        } catch (ElementAlreadyExistsExeption e){
+        } catch (ElementAlreadyExistsExeption e) {
             System.out.println("This item is already there.");
         }
         try {
             curentSize = uniqueList.push(11, curentSize);
-        } catch (ElementAlreadyExistsExeption e){
+        } catch (ElementAlreadyExistsExeption e) {
             System.out.println("This item is already there.");
         }
 
         uniqueList.printList();
         try {
             curentSize = uniqueList.delete(11, curentSize);
-        } catch (ElementDoesNotExistExeption e){
+        } catch (ElementDoesNotExistExeption e) {
             System.out.println("This item is not there.");
         }
 
         try {
             curentSize = uniqueList.delete(11, curentSize);
-        } catch (ElementDoesNotExistExeption e){
+        } catch (ElementDoesNotExistExeption e) {
             System.out.println("This item is not there.");
         }
         System.out.println("Size of list: " + uniqueList.count());
