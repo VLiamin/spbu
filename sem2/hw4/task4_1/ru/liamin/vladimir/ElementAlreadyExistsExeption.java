@@ -6,7 +6,7 @@ public class ElementAlreadyExistsExeption extends Exception {
      * Duplicate checking method
      * @param message error message
      */
-    public ElementAlreadyExistsExeption(String message){
+    public ElementAlreadyExistsExeption(String message) {
         super(message);
     }
 }
