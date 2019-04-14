@@ -44,11 +44,11 @@ public class UniqueList<T> {
      */
     public int delete(T number, int currentsize) throws ElementDoesNotExistExeption {
         ListElement temp = head;
-        if (size == 0){
+        if (size == 0) {
             throw new ElementDoesNotExistExeption("This item is not there");
         }
 
-        if (head.value == number){
+        if (head.value == number) {
             head = head.next;
             size--;
             return currentsize - 1;
@@ -96,8 +96,8 @@ public class UniqueList<T> {
      * @param number value of an element
      * @return true if an element in list
      */
-    public boolean find(T number){
-        for (int i = 0; i < size; i++){
+    public boolean find(T number) {
+        for (int i = 0; i < size; i++) {
             if (head.value == number)
                 return true;
         }
