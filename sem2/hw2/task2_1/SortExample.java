@@ -15,17 +15,17 @@ public class SortExample {
             System.out.print(arrayOfNumbers[i] + " ");
         }
         System.out.println();
-        System.out.print("\nBubble sort");
-        Bubble bubble = new Bubble();
-        bubble.run(arrayOfNumbers);
+        System.out.println("\nBubble sort");
+        BubbleSort bubbleSort = new BubbleSort();
+        bubbleSort.sort(arrayOfNumbers);
         for (int i = 0; i < arrayOfNumbers.length; i++) {
             System.out.print(arrayOfNumbers[i] + " ");
         }
 
         System.out.println();
         System.out.println("\nInsert sorting");
-        Insert insert = new Insert();
-        insert.run(arrayOfNumbers);
+        InsertSort insert = new InsertSort();
+        insert.sort(arrayOfNumbers);
         for (int i = 0; i < arrayOfNumbers.length; i++) {
             System.out.print(arrayOfNumbers[i] + " ");
         }
