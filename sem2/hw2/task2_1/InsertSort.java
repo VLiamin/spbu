@@ -2,8 +2,7 @@ package ru.liamin.vladimir;
 
 /** Made in the form of sorting inserts */
 public class InsertSort implements SortArray {
-    private int i = 0;
-    private int j = 0;
+
     private static int temp = 0;
 
     /**
@@ -13,6 +12,8 @@ public class InsertSort implements SortArray {
      */
     public void sort(int[] arrayOfNumbers) {
 
+        int i = 0;
+        int j = 0;
         for (i = 1; i < arrayOfNumbers.length; i++) {
             j = i;
             temp = arrayOfNumbers[i];
