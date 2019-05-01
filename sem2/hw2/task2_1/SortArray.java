@@ -7,5 +7,5 @@ public interface SortArray {
      * @param arrayOfNumbers Array of elements
      * @return Returns a sorted array
      */
-    void run(int[] arrayOfNumbers);
+    void sort(int[] arrayOfNumbers);
 }
