@@ -35,9 +35,7 @@ public interface Stack {
      */
     boolean isPlusOrMinus();
 
-    /**
-     * Method which clear stack
-     */
+    /** Method which clear stack */
     void clear();
 
 }
