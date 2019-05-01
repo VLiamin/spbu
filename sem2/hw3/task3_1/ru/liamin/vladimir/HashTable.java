@@ -2,15 +2,17 @@ package ru.liamin.vladimir;
 
 /** Implementation hash table */
 public class HashTable {
-    private Hash hash;
-    private int size;
+    private HashFunction hash;
+    private int size = 100;
     private int currentSize;
     private int numberOfConflicts;
     private int maxLength;
     private List[] list;
+    private int numberOfHash = 1;
 
     public HashTable() {
-        size = 100;
+
+        hash = new HashQuickly();
         list = new List[size];
         for (int i = 0; i < size; i++)
             list[i] = new List();
@@ -19,64 +21,31 @@ public class HashTable {
     /**
      * Writing elements to the table
      * @param number value of an element
-     * @param numberOfHash hash number used
      */
-    public void push(int number, int numberOfHash) {
+    public void add(int number) {
 
-        int index = 0;
-        switch (numberOfHash) {
-            case 1:
-                hash = new HashQuickly();
-                index = hash.countHash(number);
-                break;
-            case 2:
-                hash = new HashLong();
-                index = hash.countHash(number);
-                break;
-        }
+        int index = hash.countHash(number);
         currentSize = list[index].push(number, currentSize);
     }
 
     /**
      * Delete number from the table
      * @param number value of an element
-     * @param numberOfHash hash number used
      */
-    public void pop(int number, int numberOfHash) {
+    public void remove(int number) {
 
-        int index = 0;
-        switch (numberOfHash) {
-            case 1:
-                hash = new HashQuickly();
-                index = hash.countHash(number);
-                break;
-            case 2:
-                hash = new HashLong();
-                index = hash.countHash(number);
-                break;
-        }
+        int index = hash.countHash(number);
         currentSize = list[index].delete(number, currentSize);
     }
 
     /**
      * Search an element in the table
      * @param number value of an element
-     * @param numberOfHash hash number used
      * @return return true if element in the table
      */
-    public boolean find(int number, int numberOfHash) {
+    public boolean find(int number) {
 
-        int index = 0;
-        switch (numberOfHash) {
-            case 1:
-                hash = new HashQuickly();
-                index = hash.countHash(number);
-                break;
-            case 2:
-                hash = new HashLong();
-                index = hash.countHash(number);
-                break;
-        }
+        int index = hash.countHash(number);
         return list[index].find(number);
     }
 
@@ -85,25 +54,26 @@ public class HashTable {
      * @param numberOfHash number of the new hash
      * @return new hash
      */
-    public HashTable chooseHash(int numberOfHash){
+    public HashTable chooseHash(int numberOfHash) {
 
-        int index = 0;
-        int number = 0;
+        if (numberOfHash == this.numberOfHash)
+            return this;
         HashTable hashTable = new HashTable();
-        for(int i = 0; i < size; i++){
-            while (!list[i].isEmpty()){
-                switch (numberOfHash) {
-                    case 1:
-                        hash = new HashQuickly();
-                        number = list[i].pop();
-                        index = hash.countHash(number);
-                        break;
-                    case 2:
-                        hash = new HashLong();
-                        number = list[i].pop();
-                        index = hash.countHash(number);
-                        break;
-                }
+        switch (numberOfHash) {
+            case 1:
+                hash = new HashQuickly();
+                this.numberOfHash = numberOfHash;
+                break;
+            case 2:
+                hash = new HashEffective();
+                this.numberOfHash = numberOfHash;
+                break;
+        }
+        for (int i = 0; i < size; i++) {
+            while (!list[i].isEmpty()) {
+
+                int number = list[i].pop();
+                int index = hash.countHash(number);
                 hashTable.list[index].push(number, currentSize);
             }
             list[i].clear();
@@ -118,11 +88,11 @@ public class HashTable {
         maxLength = 0;
         System.out.println(currentSize);
         System.out.println("Size: " + size + "\nLoad factor: " + (float) currentSize / size);
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             int number = list[i].count();
             if (number > maxLength)
                 maxLength = number;
-            if (number > 1){
+            if (number > 1) {
                 numberOfConflicts += number - 1;
             }
         }
