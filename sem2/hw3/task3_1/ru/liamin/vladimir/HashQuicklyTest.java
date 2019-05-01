@@ -8,7 +8,7 @@ class HashQuicklyTest {
 
     @Test
     void countHash() {
-        Hash hach = new HashQuickly();
+        HashFunction hach = new HashQuickly();
         int number = 20;
         assertEquals(20, hach.countHash(number));
     }
