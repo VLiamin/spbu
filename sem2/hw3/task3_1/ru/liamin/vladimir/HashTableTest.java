@@ -10,14 +10,14 @@ class HashTableTest {
     @Test
     void find() {
         HashTable hashTable = new HashTable();
-        hashTable.push(10, 1);
-        assertEquals(true,  hashTable.find(10, 1));
+        hashTable.add(10);
+        assertEquals(true,  hashTable.find(10));
     }
     @Test
-    void pop(){
+    void remove(){
         HashTable hashTable = new HashTable();
-        hashTable.push(10, 1);
-        hashTable.pop(10, 1);
-        assertEquals(false,  hashTable.find(10, 1));
+        hashTable.add(10);
+        hashTable.remove(10);
+        assertEquals(false,  hashTable.find(10));
     }
 }
