@@ -8,28 +8,28 @@ public class ListExample {
      */
     public static void main(String[] args) {
         UniqueList<Integer> uniqueList = new UniqueList<>();
-        int curentSize = 0;
         try {
-            curentSize = uniqueList.push(10, curentSize);
-            curentSize = uniqueList.push(10, curentSize);
+            uniqueList.add(10, 0);
+            uniqueList.add(10, 1);
         } catch (ElementAlreadyExistsExeption e) {
             System.out.println("This item is already there.");
         }
         try {
-            curentSize = uniqueList.push(11, curentSize);
+            uniqueList.add(11, 2);
         } catch (ElementAlreadyExistsExeption e) {
             System.out.println("This item is already there.");
         }
 
         uniqueList.printList();
+        System.out.println(uniqueList.find(11));
         try {
-            curentSize = uniqueList.delete(11, curentSize);
+            uniqueList.remove(11);
         } catch (ElementDoesNotExistExeption e) {
             System.out.println("This item is not there.");
         }
 
         try {
-            curentSize = uniqueList.delete(11, curentSize);
+            uniqueList.remove(11);
         } catch (ElementDoesNotExistExeption e) {
             System.out.println("This item is not there.");
         }
