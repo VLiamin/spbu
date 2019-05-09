@@ -1,0 +1,18 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+javafx {
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    version = '11.0.2'
+}
+
+mainClassName = 'ru.liamin.vladimir.MainApp'
