@@ -21,21 +21,20 @@ public class SortedSet implements ListsComparator {
         }
 
         int j = 0;
-        while ((j < size - 1) && (compare(head.next.value, linkedList) <= 0)) {
+        while ((j < size - 2) && (compare(head.next.value, linkedList) <= 0)) {
+
             head = head.next;
             j++;
         }
         head.next = new SortedSetElement(linkedList, head.next);
     }
 
-    /**
-     * Method which print linkedLists
-     */
+    /** Method which print linkedLists */
     public void print() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < head.value.size(); j++)
                 System.out.print(head.value.get(j)+ " ");
-            System.out.print(" ");
+            System.out.print("\n");
             head = head.next;
         }
     }
