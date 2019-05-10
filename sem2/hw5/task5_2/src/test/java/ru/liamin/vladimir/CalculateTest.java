@@ -10,10 +10,10 @@ class CalculateTest {
     void count() {
 
         Calculate calculate = new Calculate();
-        assertEquals("5.0", calculate.count(2, 3,"+"));
-        assertEquals("6.0", calculate.count(2, 3,"*"));
-        assertEquals("4.0", calculate.count(8, 2,"/"));
-        assertEquals("5.0", calculate.count(8, 3,"-"));
+        assertEquals("5.0", calculate.count(2, 3, "+"));
+        assertEquals("6.0", calculate.count(2, 3, "*"));
+        assertEquals("4.0", calculate.count(8, 2, "/"));
+        assertEquals("5.0", calculate.count(8, 3, "-"));
     }
 
     @Test
@@ -21,7 +21,7 @@ class CalculateTest {
 
         Calculate calculate = new Calculate();
         assertThrows(ArithmeticException.class,
-                ()->{
+                () -> {
                     calculate.count(5, 0, "/");
                 });
     }
