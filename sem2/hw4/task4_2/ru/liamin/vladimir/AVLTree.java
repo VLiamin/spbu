@@ -172,48 +172,33 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
         head = null;
     }
 
-    private class Node {
-        private NodeElement right;
-        private NodeElement left;
-        private T value;
-        private int height;
-
-        private Node(T value) {
-            right = new NodeElement();
-            left = new NodeElement();
-            this.value = value;
-            height = 1;
-        }
+    private class NodeElement {
+        private Node root;
 
         private int height() {
-            return height;
+            return root.height;
         }
 
         private int balanceFactor() {
-            if ((right.root == null) && (left.root == null))
+            if ((root.right.root == null) && (root.left.root == null))
                 return 0;
-            if (right.root == null)
-                return -left.root.height();
-            if (left.root == null)
-                return right.root.height();
-            return right.root.height() - left.root.height();
+            if (root.right.root == null)
+                return -root.left.height();
+            if (root.left.root == null)
+                return root.right.height();
+            return root.right.height() - root.left.height();
         }
 
         private void fixHeight() {
             int hl = 0;
-            if (left.root != null)
+            if (root.left.root != null)
                 hl = height();
             int hr = 0;
-            if (right.root != null) {
-                hr = right.root.height();
+            if (root.right.root != null) {
+                hr = root.right.height();
             }
-            height = (hl > hr ? hl : hr) + 1;
+            root.height = (hl > hr ? hl : hr) + 1;
         }
-    }
-
-    private class NodeElement {
-        private Node root;
-
         private boolean add(T value) {
             if (root == null) {
                 root = new Node(value);
@@ -238,15 +223,15 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
 
 
         private void balance() {
-            root.fixHeight();
-            if (root.balanceFactor() >= 1) {
-                if (root.right.root.balanceFactor() < 0)
+            fixHeight();
+            if (balanceFactor() > 1) {
+                if (root.right.balanceFactor() < 0)
                     root.right.rotateRight();
                 rotateLeft();
                 return;
             }
-            if (root.balanceFactor() <= -1) {
-                if (root.left.root.balanceFactor() > 0)
+            if (balanceFactor() < -1) {
+                if (root.left.balanceFactor() > 0)
                     root.left.rotateLeft();
                 rotateRight();
                 return;
@@ -263,8 +248,8 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
             newNode.root.right = temp.root.left;
             temp.root.left = newNode;
 
-            temp.root.fixHeight();
-            newNode.root.fixHeight();
+            temp.fixHeight();
+            newNode.fixHeight();
 
             root = temp.root;
         }
@@ -277,8 +262,8 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
             newNode.root.left = temp.root.right;
             temp.root.right = newNode;
 
-            temp.root.fixHeight();
-            newNode.root.fixHeight();
+            temp.fixHeight();
+            newNode.fixHeight();
 
             root = temp.root;
         }
@@ -376,6 +361,21 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
                 root.left.printToArray(elements);
             if (root.right != null)
                 root.right.printToArray(elements);
+        }
+    }
+
+
+    private class Node {
+        private NodeElement right;
+        private NodeElement left;
+        private T value;
+        private int height;
+
+        private Node(T value) {
+            right = new NodeElement();
+            left = new NodeElement();
+            this.value = value;
+            height = 1;
         }
     }
 
