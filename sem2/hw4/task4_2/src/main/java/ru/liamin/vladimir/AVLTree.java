@@ -9,12 +9,8 @@ import java.util.Iterator;
  * @param <T> generic type
  */
 public class AVLTree<T extends Comparable<T>> implements Collection<T> {
-    private NodeElement head;
+    private NodeElement head = new NodeElement();
     private int size;
-
-    public AVLTree() {
-        head = new NodeElement();
-    }
 
     /**
      * Method showing the size of the collection and showing the structure
@@ -33,7 +29,7 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
      */
     @Override
     public boolean isEmpty() {
-        if (head.root == null)
+        if (head == null)
             return true;
         return false;
     }
@@ -351,7 +347,7 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
             System.out.print(")");
         }
 
-        private void printToArray(ArrayList elements) {
+        private void printToArray(ArrayList<T> elements) {
 
             if (root == null) {
                 return;
