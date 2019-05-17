@@ -17,8 +17,9 @@ public class BubbleSort<T> {
      */
     public void sortArray(List<T> list, Comparator<T> comparator) {
 
-        if (list == null)
+        if ((list == null) || (comparator == null))
             return;
+
         int size = list.size();
         ListIterator<T> listIterator1 =  list.listIterator();
         for (int i = 0; i < size - 1; i++) {
