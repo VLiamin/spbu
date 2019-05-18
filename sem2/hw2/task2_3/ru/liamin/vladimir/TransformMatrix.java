@@ -3,10 +3,10 @@ package ru.liamin.vladimir;
 import java.io.IOException;
 import java.util.Scanner;
 
-/** Class that outputs elements from the matrix to the array */
-public class Hatcher {
+/** Class that outputs elements from the matrix */
+public class TransformMatrix {
     /**
-     * Method of deriving matrix elements by loop
+     * Application demonstrates the method
      * @param args args array of arguments
      * @throws IOException exception required to check file for openness
      */
@@ -14,6 +14,8 @@ public class Hatcher {
         System.out.println("Length of matrix: ");
         Scanner in = new Scanner(System.in);
         int length = in.nextInt();
+        if ((length % 2 == 0) && (length > 0))
+            throw new IllegalArgumentException("Matrix order must be an odd and positive number");
         int[][] matrix = new int[length][length];
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
@@ -26,20 +28,16 @@ public class Hatcher {
             }
             System.out.println();
         }
-        ArrayTraversal arrayTraversal = new ArrayTraversal();
-        int[] elements = new int[matrix.length * matrix.length];
-        arrayTraversal.arrayTraversal(matrix, elements);
+
         System.out.println("Print on concol - 1 \nPrint to file - 2");
         int number = in.nextInt();
-        ArrayPrinting arrayPrinting;
+        PrintMatrix printMatrix;
         if (number == 1) {
-            arrayPrinting = new PrintOnConsole();
-            arrayPrinting.print(elements);
-        }
-        else {
-            arrayPrinting = new PrintToFile();
-            arrayPrinting.print(elements);
+            printMatrix = new PrintToConsole();
+        } else {
+            printMatrix = new PrintToFile();
         }
 
+        printMatrix.print(matrix);
     }
 }
