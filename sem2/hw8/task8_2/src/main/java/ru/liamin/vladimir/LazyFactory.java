@@ -12,25 +12,9 @@ public class LazyFactory {
      * @return value of the element
      */
     public static <T> Lazy<T> createSimpleLazy(Supplier<T> supplier) {
-        return new Lazy<T>() {
-
-            private boolean isCalculate = false;
-            private T value;
-
-            @Override
-            public T get() {
-                if (isCalculate == true)
-                    return value;
-
-                if (supplier != null)
-                    value = supplier.get();
-                else
-                    value = null;
-                isCalculate = true;
-                return value;
-            }
-        };
+        return new SimpleLazy<T>(supplier);
     }
+
 
     /**
      * Method with guaranteed correct operation in multithreaded mode
@@ -39,22 +23,8 @@ public class LazyFactory {
      * @return value of the element
      */
     public static <T> Lazy<T> createMultithreadedLazy(Supplier<T> supplier) {
-        return new Lazy<T>() {
-            private volatile boolean isCalculate = false;
-            private volatile T value;
-
-            @Override
-            public T get() {
-                synchronized (this) {
-                    if (supplier != null)
-                        value = supplier.get();
-                    else
-                        value = null;
-                    isCalculate = true;
-                }
-
-                return value;
-            }
-        };
+        return new MultithreadedLazy<T>(supplier);
     }
 }
+
+
