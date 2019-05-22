@@ -2,6 +2,11 @@ package ru.liamin.vladimir;
 
 public class Victory {
 
+    /**
+     * Method who checks the game for a winner
+     * @param valueFromButtons game cells (marked and empty)
+     * @return Is there a winner and who?
+     */
     public static String win(String[][] valueFromButtons) {
 
         if (checkX(valueFromButtons))
