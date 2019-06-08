@@ -16,6 +16,7 @@ public class StackArray implements Stack {
      * @param value value of new element
      */
     public void push(char value) {
+
         stackArray[++top] = value;
         size++;
     }
@@ -25,8 +26,13 @@ public class StackArray implements Stack {
      * @return value of element
      */
     public char pop() {
-        size--;
-        return stackArray[top--];
+        if (!isEmpty())
+        {
+            size--;
+            return stackArray[top--];
+        }
+        System.out.println("Not found");
+        return '\b';
     }
 
     /**
@@ -61,8 +67,10 @@ public class StackArray implements Stack {
      * @return return true if the addition or subtraction sign is in the first place of the stack
      */
     public boolean isPlusOrMinus() {
-        if (top == -1) return false;
-        if ((stackArray[top] == '-') || (stackArray[top] == '+')) return true;
+        if (top == -1)
+            return false;
+        if ((stackArray[top] == '-') || (stackArray[top] == '+'))
+            return true;
         return false;
     }
 
