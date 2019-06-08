@@ -11,6 +11,6 @@ class CalculateTest {
         stack = new StackPointer();
         Calculate calculate = new Calculate(stack);
         char[] expression = {'5', '+', '1', '*', '7'};
-        assertEquals(12, calculate.countExpression(expression));
+        assertEquals(12, calculate.calculate(expression));
     }
 }
