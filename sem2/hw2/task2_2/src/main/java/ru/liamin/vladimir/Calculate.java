@@ -2,16 +2,10 @@ package ru.liamin.vladimir;
 
 /** Considers expression */
 public class Calculate {
-    private int meaning;
     private int i;
-    private char a;
-    private char b;
-    private int variable1;
-    private int variable2;
     private Stack stack;
     private int number;
     private char symbol = 'b';
-    private int parentheses = 0;
 
     public Calculate(Stack stack) {
 
@@ -53,14 +47,16 @@ public class Calculate {
         }
     }
 
-    private void swapSymbols(char[] expression, char[] expressionResult) {
+    private void changeNumbersWithArithmeticSigns(char[] expression, char[] expressionResult) {
 
-        if (i == expression.length) return;
+        if (i == expression.length)
+            return;
         if ((expression[i] >= '0') && (expression[i]) <= '9') {
             expressionResult[number] = expression[i];
             i++;
             number++;
-            if (i == expression.length) return;
+            if (i == expression.length)
+                return;
         }
         if ((expression[i] == '*') || (expression[i] == '/')) {
             if (expression[i + 1] != '(') {
@@ -69,7 +65,8 @@ public class Calculate {
                 expressionResult[number + 1] = expression[i];
                 number += 2;
                 i += 2;
-                if (i == expression.length) return;
+                if (i == expression.length)
+                    return;
             } else {
                 stack.push(expression[i]);
                 i++;
@@ -86,14 +83,14 @@ public class Calculate {
     }
 
     private char[] tinkeringFromInfixToPostfix(char[] expression) {
+
         i = 0;
-        parentheses = 0;
         int length = countPostfixLength(expression);
         char[] expressionResult = new char[length];
 
         while (i < expression.length) {
             seeParentheses(expression, expressionResult);
-            swapSymbols(expression, expressionResult);
+            changeNumbersWithArithmeticSigns(expression, expressionResult);
         }
 
         if ((symbol == '-') || (symbol == '+')) {
@@ -106,7 +103,7 @@ public class Calculate {
     }
 
     private int countPostfixLength(char[] expression) {
-        parentheses = 0;
+        int parentheses = 0;
         int i = 0;
         while (i < expression.length) {
             if (expression[i] == '(') {
@@ -123,31 +120,32 @@ public class Calculate {
      * @param expression infix expression
      * @return expression value
      */
-    public int countExpression(char[] expression) {
+    public int calculate(char[] expression) {
 
+        int variable1 = 0;
+        int variable2 = 0;
+        int result = 0;
         expression = tinkeringFromInfixToPostfix(expression);
-        i = 0;
+        int i = 0;
         while (i < expression.length) {
             while ((expression[i] >= '0') && (expression[i] <= '9')) {
                 stack.push(expression[i]);
                 i++;
             }
             while ((i < expression.length) && ((expression[i] < '0') || (expression[i] > '9'))) {
-                a = stack.pop();
-                b = stack.pop();
-                variable1 = a - '0';
-                variable2 = b - '0';
-                if (expression[i] == '-')
-                    meaning = variable2 - variable1;
-                else if (expression[i] == '+')
-                    meaning = variable2 + variable1;
-                else if (expression[i] == '*')
-                    meaning = variable2 * variable1;
-                else
-                    meaning = variable2 / variable1;
 
-                a = (char) (meaning + '0');
-                stack.push(a);
+                variable1 = stack.pop() - '0';
+                variable2 = stack.pop() - '0';
+                if (expression[i] == '-')
+                    result = variable2 - variable1;
+                else if (expression[i] == '+')
+                    result = variable2 + variable1;
+                else if (expression[i] == '*')
+                    result = variable2 * variable1;
+                else
+                    result = variable2 / variable1;
+
+                stack.push((char) (result + '0'));
 
                 i++;
             }
@@ -155,6 +153,6 @@ public class Calculate {
 
         stack.clear();
 
-        return meaning;
+        return result;
     }
 }
