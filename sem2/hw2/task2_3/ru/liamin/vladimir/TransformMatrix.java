@@ -1,6 +1,7 @@
 package ru.liamin.vladimir;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 /** Class that outputs elements from the matrix */
@@ -38,6 +39,7 @@ public class TransformMatrix {
             printMatrix = new PrintToFile();
         }
 
-        printMatrix.print(matrix);
+        PrintStream printStream = null;
+        printMatrix.print(matrix, printStream);
     }
 }
