@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 /** Class designed to output elements to a file */
-public class PrintToFile implements PrintMatrix {
+public class PrintToFile extends BuildSpiral {
     private int i;
 
     /**
@@ -12,8 +12,8 @@ public class PrintToFile implements PrintMatrix {
      * @param matrix matrix of elements that need to be rewritten
      * @throws IOException exception required to check file for openness
      */
-    public void print(int[][] matrix) throws IOException {
-        PrintStream printStream = new PrintStream("text.txt");
-        BuildSpiral.walkAroundTheMatrix(matrix, printStream);
+    public void print(int[][] matrix, PrintStream printStream) throws IOException {
+        printStream = new PrintStream("text.txt");
+        super.print(matrix, printStream);
     }
 }
