@@ -29,9 +29,8 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
      */
     @Override
     public boolean isEmpty() {
-        if (head == null)
-            return true;
-        return false;
+
+        return head.root == null;
     }
 
     /**
