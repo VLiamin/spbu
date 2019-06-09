@@ -54,10 +54,15 @@ public class List {
      * @return value of the element
      */
     public double pop() {
-        double value = head.value;
-        size--;
-        head = head.next;
-        return value;
+        try {
+            double value = head.value;
+            size--;
+            head = head.next;
+            return value;
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
     }
 
     /**
