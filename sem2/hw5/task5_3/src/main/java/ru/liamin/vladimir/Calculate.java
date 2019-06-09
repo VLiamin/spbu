@@ -2,9 +2,6 @@ package ru.liamin.vladimir;
 
 /** Considers expression */
 public class Calculate {
-    private double meaning;
-    private double variable1;
-    private double variable2;
 
     /**
      * Considers the meaning of the expression
@@ -12,6 +9,10 @@ public class Calculate {
      * @return result of the calculation of expression
      */
     public double countExpression(List list) {
+
+        double meaning = 0;
+        double variable1 = 0;
+        double variable2 = 0;
         Stack stack = new Stack();
 
         while (list.count() > 0) {
