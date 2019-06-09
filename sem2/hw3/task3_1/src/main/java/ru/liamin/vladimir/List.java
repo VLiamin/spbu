@@ -23,7 +23,7 @@ public class List {
 
         ListElement temp = head;
 
-        for (int i = 0; i < size - 1; i++) {
+       for (int i = 0; i < size - 1; i++) {
             if (temp.value.equals(value)) {
                 try {
                     throw new DuplicateFormatFlagsException("Also");
@@ -124,13 +124,15 @@ public class List {
      * @return value of an element
      */
     public String pop() {
-        if (!isEmpty()) {
+        try {
             String value = head.value;
             head = head.next;
             size--;
             return value;
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            return "";
         }
-        return "";
     }
 
     /** Clear list */
