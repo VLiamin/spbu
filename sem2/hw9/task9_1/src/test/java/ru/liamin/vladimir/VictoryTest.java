@@ -12,15 +12,15 @@ class VictoryTest {
         String[][] elements = new String[3][3];
         for (int i = 0; i < 3; i++)
             elements[1][i] = "X";
-        assertEquals("X", Victory.win(elements));
+        assertEquals("X", Victory.win(elements, true));
         for (int i = 0; i < 3; i++) {
 
             elements[i][2] = "0";
             if (i != 2)
                 elements[1][i] = "";
         }
-        assertEquals("0", Victory.win(elements));
+        assertEquals("0", Victory.win(elements, false));
         elements[0][2] = "";
-        assertEquals("F", Victory.win(elements));
+        assertEquals("F", Victory.win(elements, true));
      }
 }
