@@ -1,119 +1,68 @@
 package ru.liamin.vladimir;
 
+import static java.lang.Math.abs;
+import static java.lang.StrictMath.sqrt;
+
+/** Class checking the game for the presence of the winner */
 public class Victory {
 
     /**
      * Method who checks the game for a winner
      * @param valueFromButtons game cells (marked and empty)
+     * @param isMyTurn whose turn
      * @return Is there a winner and who?
      */
-    public static String win(String[][] valueFromButtons) {
+    public static String win(String[][] valueFromButtons, Boolean isMyTurn) {
 
-        if (checkX(valueFromButtons))
-            return "X";
-        if (check0(valueFromButtons))
-            return "0";
-        if (checkD(valueFromButtons))
+        String[] newValueFromButtons = new String[valueFromButtons.length * valueFromButtons.length];
+        int number = 0;
+        for (int i = 0; i < valueFromButtons.length; i++)
+            for (int j = 0; j < valueFromButtons.length; j++) {
+                newValueFromButtons[number] = valueFromButtons[i][j];
+                number++;
+            }
+        int total = 0;
+
+        if ((checkForVictory(newValueFromButtons, 1, (int) sqrt(newValueFromButtons.length))) ||
+                (checkForVictory(newValueFromButtons, (int) sqrt(newValueFromButtons.length) - 1, 0)) ||
+                (checkForVictory(newValueFromButtons, (int) sqrt(newValueFromButtons.length) + 1, 0)) ||
+                (checkForVictory(newValueFromButtons, (int) sqrt(newValueFromButtons.length), 1))) {
+
+            if (isMyTurn)
+                return "X";
+            else
+                return "0";
+
+        }
+
+        for (int i = 0; i < newValueFromButtons.length; i++) {
+            if ((newValueFromButtons[i] == "0") || (newValueFromButtons[i] == "X"))
+                total++;
+        }
+        if (total == newValueFromButtons.length)
             return "D";
-
         return "F";
     }
 
-    private static boolean checkX(String[][] valueFromButton) {
-        boolean symbol = false;
-        for (int i = 0; i < valueFromButton.length; i++) {
-            for (int j = 0; j < valueFromButton.length; j++) {
-                if (valueFromButton[i][j] != "X")
-                    break;
-                if  (j == valueFromButton.length - 1)
-                    symbol = true;
+    private static boolean checkForVictory(String[] valueFromButtons, int numberOfCellsToSkip, int nextCell) {
+
+        int trickCycles = (int) sqrt(valueFromButtons.length);
+        if (nextCell == 0)
+            trickCycles = 1;
+        int start = 0;
+        if (numberOfCellsToSkip == (int) sqrt(valueFromButtons.length) - 1)
+            start = (int) sqrt(valueFromButtons.length) - 1;
+        for (int i = 0; i < trickCycles; i++) {
+            int count = 0;
+            for (int j = nextCell * i + start; j < nextCell * i + numberOfCellsToSkip * (int) sqrt(valueFromButtons.length) + start; j = j + numberOfCellsToSkip) {
+                if (valueFromButtons[j] == "X")
+                    count = count + 1;
+                else if (valueFromButtons[j] == "0")
+                    count = count - 1;
             }
+            if (abs(count) == sqrt(valueFromButtons.length))
+                return true;
         }
-            if (symbol)
-                return symbol;
-        for (int j = 0; j < valueFromButton.length; j++) {
-            for (int i = 0; i < valueFromButton.length; i++) {
-                if (valueFromButton[i][j] != "X")
-                    break;
-                if  (i == valueFromButton.length - 1)
-                    symbol = true;
-            }
-        }
-        if (symbol)
-            return symbol;
-
-        for (int i = 0; i < valueFromButton.length; i++) {
-
-            if (valueFromButton[i][i] != "X")
-                break;
-            if  (i == valueFromButton.length - 1)
-                symbol = true;
-        }
-        for (int i = valueFromButton.length - 1; i >= 0; i--) {
-
-            if (valueFromButton[i][i] != "X")
-                break;
-            if (i == 0)
-                symbol = true;
-        }
-
-        return symbol;
-    }
-
-    private static boolean check0(String[][] valueFromButton) {
-        boolean symbol = false;
-        for (int i = 0; i < valueFromButton.length; i++) {
-            for (int j = 0; j < valueFromButton.length; j++) {
-
-                if (valueFromButton[i][j] != "0")
-                    break;
-                if (j == valueFromButton.length - 1)
-                    symbol = true;
-            }
-        }
-
-        if (symbol)
-            return symbol;
-
-        for (int i = 0; i < valueFromButton.length; i++) {
-            for (int j = 0; j < valueFromButton.length; j++) {
-
-                if (valueFromButton[j][i] != "0")
-                    break;
-                if (j == valueFromButton.length - 1)
-                    symbol = true;
-            }
-        }
-        if (symbol)
-            return symbol;
-
-        for (int i = 0; i < valueFromButton.length; i++) {
-
-            if (valueFromButton[i][i] != "0")
-                break;
-            if  (i == valueFromButton.length - 1)
-                symbol = true;
-        }
-        for (int i = valueFromButton.length - 1; i >= 0; i--) {
-
-            if (valueFromButton[i][i] != "0")
-                break;
-            if (i == 0)
-                symbol = true;
-        }
-
-        return symbol;
-    }
-
-    private static boolean checkD(String[][] valueFromButton) {
-        boolean symbol = true;
-        for (int i = 0; i < valueFromButton.length; i++) {
-            for (int j = 0; j < valueFromButton.length; j++) {
-
-                if ((valueFromButton[i][j] != "X") && (valueFromButton[i][j] != "0"))
-                    symbol = false;
-            }
-        }
-        return symbol;
+        return false;
     }
 }
