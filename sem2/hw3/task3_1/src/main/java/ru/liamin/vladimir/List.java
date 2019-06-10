@@ -25,25 +25,18 @@ public class List {
 
        for (int i = 0; i < size - 1; i++) {
             if (temp.value.equals(value)) {
-                try {
-                    throw new DuplicateFormatFlagsException("Also");
-                } finally {
+
                     System.out.println("Has also");
                     return currentSize;
-                }
             }
             temp = temp.next;
         }
 
-        if (temp.value.equals(value)) {
-            try {
-                throw new DuplicateFormatFlagsException("Also");
-            } finally {
+            if (temp.value.equals(value)) {
                 System.out.println("Has also");
                 return currentSize;
             }
 
-        }
         size++;
         temp.next = new ListElement(value, temp.next);
         return ++currentSize;
