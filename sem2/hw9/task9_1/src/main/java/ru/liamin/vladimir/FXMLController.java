@@ -209,7 +209,7 @@ public class FXMLController extends Application {
                         buttons[finalI][finalJ].setText(symbol);
                         processCommand(finalI + " " + finalJ);
                         isMyTurn = !isMyTurn;
-                        String whoWin = Victory.win(getValueFromButtons());
+                        String whoWin = Victory.win(getValueFromButtons(), isMyTurn);
                         if ((whoWin == "X") || (whoWin == "0")) {
                             exitWindow(symbol, "Win!");
                         }
@@ -263,9 +263,9 @@ public class FXMLController extends Application {
                                 .mapToInt(Integer::parseInt)
                                 .toArray();
                         buttons[coordinates[0]][coordinates[1]].setText(symbol);
-                        String whoWin = Victory.win(getValueFromButtons());
+                        String whoWin = Victory.win(getValueFromButtons(), isMyTurn);
                         if ((whoWin == "X") || (whoWin == "0")) {
-                            exitWindow(whoWin.equals("X") ? "0" : "X", "Lose");
+                            exitWindow(whoWin, "Lose");
                         }
 
                         if (whoWin == "D") {
