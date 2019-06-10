@@ -55,16 +55,17 @@ public class HashTable {
     public void chooseHash(HashFunction hash) {
 
         this.hash = hash;
+        List[] newArray = new List[size];
+        for (int i = 0; i < size; i++)
+            newArray[i] = new List();
         for (int i = 0; i < size; i++) {
-            int elementsSize = elements[i].count();
-            int j = 0;
-            while (j < elementsSize) {
-                j++;
+            while (!elements[i].isEmpty()) {
                 String word = elements[i].pop();
                 int index = hash.countHash(word, size);
-                elements[index].push(word, currentSize);
+                newArray[index].push(word, currentSize);
             }
         }
+        elements = newArray;
         return;
     }
 
