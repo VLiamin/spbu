@@ -56,13 +56,20 @@ public class HashTable {
 
         this.hash = hash;
         List[] newArray = new List[size];
-        for (int i = 0; i < size; i++)
-            newArray[i] = new List();
+        List[] temp = new List[size];
         for (int i = 0; i < size; i++) {
-            while (!elements[i].isEmpty()) {
-                String word = elements[i].pop();
-                int index = hash.countHash(word, size);
-                newArray[index].push(word, currentSize);
+
+            newArray[i] = new List();
+            temp[i] = new List();
+        }
+
+        temp = elements;
+        elements = newArray;
+        currentSize = 0;
+
+        for (int i = 0; i < size; i++) {
+            while (!temp[i].isEmpty()) {
+                add(temp[i].pop());
             }
         }
         elements = newArray;
