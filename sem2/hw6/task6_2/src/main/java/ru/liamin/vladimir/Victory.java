@@ -40,7 +40,7 @@ public class Victory {
             total = total + abs(numbers[i]);
         }
 
-        if (total == 9) {
+        if (total == numbers.length) {
             textArea.setText("Draw!");
             clearField(numbers, buttons);
             return true;
@@ -82,7 +82,7 @@ public class Victory {
                 count = count + numbers[j];
             }
 
-            if (abs(count) == 3)
+            if (abs(count) == (int) sqrt(numbers.length))
                 return true;
         }
         return false;
