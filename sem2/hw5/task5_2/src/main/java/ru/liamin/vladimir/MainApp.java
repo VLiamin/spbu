@@ -24,7 +24,7 @@ public class MainApp extends Application {
         stage.setTitle("JavaFX Slider (ru.liamin.vladimir)");
         Scene scene = new Scene(root, 550, 200);
 
-        stage.setMinWidth(100);
+        stage.setMinWidth(450);
         stage.setMinHeight(100);
         stage.setScene(scene);
         stage.show();
