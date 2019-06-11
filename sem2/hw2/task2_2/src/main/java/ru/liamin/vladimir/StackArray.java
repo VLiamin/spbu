@@ -17,6 +17,13 @@ public class StackArray implements Stack {
      */
     public void push(char value) {
 
+        if (top++ > stackArray.length) {
+            char[] newStackArray = new char[stackArray.length * 2];
+            for (int i = 0; i < top++; i++) {
+                newStackArray[i] = stackArray[i];
+            }
+            stackArray = newStackArray;
+        }
         stackArray[++top] = value;
         size++;
     }
