@@ -176,7 +176,7 @@ public class FXMLController implements Initializable {
                 count = 0;
                 list.clear();
             }
-        } else if ((lastOperation != '\b') && (lastValue != 0) && (count % 2 == 1) && (isEqual == true)) {
+        } else if ((lastOperation != '\b') && (lastValue != 0) && (count % 2 == 1) && (isEqual)) {
 
             count++;
             list.push(0, lastOperation, count);
