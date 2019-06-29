@@ -13,8 +13,7 @@ public class HashTable {
 
         hash = new HashQuickly();
         elements = new List[size];
-        for (int i = 0; i < size; i++)
-            elements[i] = new List();
+        newList(elements);
     }
 
     /**
@@ -55,24 +54,31 @@ public class HashTable {
     public void chooseHash(HashFunction hash) {
 
         this.hash = hash;
-        List[] newArray = new List[size];
-        List[] temp = new List[size];
-        for (int i = 0; i < size; i++) {
-
-            newArray[i] = new List();
-            temp[i] = new List();
-        }
-
-        temp = elements;
-        elements = newArray;
         currentSize = 0;
+
+        List[] newArray = new List[size];
+        List[] temp = elements;
+
+        newList(newArray);
+
+        elements = newArray;
 
         for (int i = 0; i < size; i++) {
             while (!temp[i].isEmpty()) {
                 add(temp[i].pop());
             }
         }
-        elements = newArray;
+
+        return;
+    }
+
+    private void newList(List[] lists) {
+
+        for (int i = 0; i < size; i++) {
+
+            lists[i] = new List();
+        }
+
         return;
     }
 
