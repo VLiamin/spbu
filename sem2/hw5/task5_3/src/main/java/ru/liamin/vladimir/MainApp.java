@@ -15,7 +15,7 @@ public class MainApp extends Application {
     /**
      * Graphical application method
      * @param stage variable for the GUI window
-     * @throws Exception input / output exception
+     * @throws IOException  if a FXML document loading exception occurred
      */
     @Override
     public void start(Stage stage) throws IOException {
