@@ -79,16 +79,15 @@ public class List {
      */
     public void printList(TextArea textArea) {
         ListElement current = head;
-        String str = new String();
+        textArea.setText("");
         while (current != null) {
 
             if (current.sign != 'b')
-                str = str + " " + current.sign;
+                textArea.appendText(current.sign + " ");
             else
-                str = str + " " + current.value;
+                textArea.appendText(current.value + " ");
             current = current.next;
         }
-        textArea.setText(str);
     }
 
     /** Sort numbers with operations */
