@@ -15,16 +15,16 @@ public class MainApp extends Application {
     /**
      * Graphical application method
      * @param stage variable for the GUI window
-     * @throws Exception input / output exception
+     * @throws IOException  if a FXML document loading exception occurred
      */
     @Override
     public void start(Stage stage) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("/ru.liamin.vladimir/scene.fxml"));
         stage.setTitle("JavaFX Slider (ru.liamin.vladimir)");
-        Scene scene = new Scene(root, 550, 200);
+        Scene scene = new Scene(root, 500, 50);
 
-        stage.setMinWidth(450);
+        stage.setMinWidth(400);
         stage.setMinHeight(100);
         stage.setScene(scene);
         stage.show();
