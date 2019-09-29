@@ -13,9 +13,9 @@ public class HashEffective implements HashFunction {
 
         char[] symbols = word.toCharArray();
         int value = 0;
-        for (int i = 0; i < symbols.length; i++) {
+        for (Character symbol : symbols) {
 
-            value = (value + symbols[i] + 111) % (size / 10);
+            value = (value + symbol + 111) % (size / 10);
         }
 
         return value;
