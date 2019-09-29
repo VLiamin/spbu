@@ -12,9 +12,9 @@ public class HashQuickly implements HashFunction {
     public int countHash(String word, int size) {
         char[] symbols = word.toCharArray();
         int value = 0;
-        for (int i = 0; i < symbols.length; i++) {
+        for (Character symbol : symbols) {
 
-            value = (value + symbols[i]) % (size / 10);
+            value = (value + symbol) % (size / 10);
         }
 
         return value;
