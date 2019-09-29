@@ -22,9 +22,9 @@ public class MainApp extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("/ru.liamin.vladimir/scene.fxml"));
         stage.setTitle("JavaFX Slider (ru.liamin.vladimir)");
-        Scene scene = new Scene(root, 500, 50);
+        Scene scene = new Scene(root, 550, 50);
 
-        stage.setMinWidth(400);
+        stage.setMinWidth(520);
         stage.setMinHeight(100);
         stage.setScene(scene);
         stage.show();
