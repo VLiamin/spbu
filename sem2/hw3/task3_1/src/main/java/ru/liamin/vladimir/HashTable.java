@@ -5,8 +5,6 @@ public class HashTable {
     private HashFunction hash;
     private int size = 1000;
     private int currentSize;
-    private int numberOfConflicts;
-    private int maxLength;
     private List[] elements;
 
     public HashTable() {
@@ -68,8 +66,6 @@ public class HashTable {
                 add(temp[i].pop());
             }
         }
-
-        return;
     }
 
     private void newList(List[] lists) {
@@ -78,14 +74,12 @@ public class HashTable {
 
             lists[i] = new List();
         }
-
-        return;
     }
 
     /** Print statistics of the table */
     public void printStatistics() {
-        numberOfConflicts = 0;
-        maxLength = 0;
+        int numberOfConflicts = 0;
+        int maxLength = 0;
         System.out.println(currentSize);
         System.out.println("Size: " + size + "\nLoad factor: " + (float) currentSize / size);
         for (int i = 0; i < size; i++) {
