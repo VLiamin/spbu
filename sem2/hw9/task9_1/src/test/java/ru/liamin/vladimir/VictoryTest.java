@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class VictoryTest {
 
     @Test
-    void win() {
+    void winFalse() {
 
         String[][] elements = new String[3][3];
         for (int i = 0; i < 3; i++)
@@ -23,4 +23,29 @@ class VictoryTest {
         elements[0][2] = "";
         assertEquals("F", Victory.win(elements, true));
      }
+
+    @Test
+    void winTrue() {
+
+        String[][] elements = new String[3][3];
+        for (int i = 0; i < 3; i++)
+            elements[2][i] = "X";
+        assertEquals("X", Victory.win(elements, true));
+    }
+
+    @Test
+    void checkForVictoryInTheBeginOfGame() {
+        String[][] elements = new String[3][3];
+        elements[0][0] = "X";
+        elements[0][2] = "X";
+        elements[1][1] = "X";
+        elements[2][1] = "X";
+        elements[0][1] = "0";
+        elements[1][0] = "0";
+        elements[1][2] = "0";
+        elements[2][0] = "0";
+        elements[2][2] = "0";
+        assertEquals("D", Victory.win(elements, true));
+
+    }
 }
