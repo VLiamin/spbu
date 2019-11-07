@@ -264,12 +264,16 @@ public class FXMLController extends Application {
                                 .toArray();
                         buttons[coordinates[0]][coordinates[1]].setText(symbol);
                         String whoWin = Victory.win(getValueFromButtons(), isMyTurn);
+                        System.out.println(symbol);
                         if ((whoWin == "X") || (whoWin == "0")) {
-                            exitWindow(whoWin, "Lose");
+                            if (symbol == "X")
+                                exitWindow("0", "Lose");
+                            else
+                                exitWindow("X", "Lose");
                         }
 
                         if (whoWin == "D") {
-                            exitWindow(symbol, "Draw");
+                            exitWindow(symbol, "Draw!");
                         }
                     }
                 });
