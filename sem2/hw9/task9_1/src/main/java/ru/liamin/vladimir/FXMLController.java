@@ -1,6 +1,7 @@
 package ru.liamin.vladimir;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
@@ -22,6 +23,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 
+import static java.lang.System.*;
+import static java.lang.Thread.sleep;
+
 public class FXMLController extends Application {
 
     private static Button serverField;
@@ -32,9 +36,8 @@ public class FXMLController extends Application {
     private Scene scene = new Scene(connectScreen, 500, 200);
 
     private boolean isMyTurn = false;
-
     private static Button[][] buttons = new Button[3][3];
-
+    private boolean isTheEnd = false;
     private volatile TicTacToe ticTacToe;
     private final ExecutorService executor;
 
@@ -42,7 +45,9 @@ public class FXMLController extends Application {
         executor = Executors.newFixedThreadPool(2);
     }
 
-    /** Starts TicTacToe */
+    /**
+     * Starts TicTacToe
+     */
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Connecting");
@@ -61,11 +66,17 @@ public class FXMLController extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-
         connectButtonAction();
     }
 
-    /** Creates a start window */
+    @Override
+    public void stop() {
+        System.exit(0);
+    }
+
+    /**
+     * Creates a start window
+     */
     private static void initialize() {
         connectScreen.setPadding(new Insets(25, 25, 25, 25));
         connectScreen.setHgap(25);
@@ -99,27 +110,39 @@ public class FXMLController extends Application {
         connectScreen.add(ipAddress, 0, 2);
     }
 
-    /** Generates TicTacToe field and its functionality for server */
+    /**
+     * Generates TicTacToe field and its functionality for server
+     */
     private void gameForServer() {
+        out.println("Server");
         ticTacToe = new ServerTicTacToe();
         GridPane serverField = new GridPane();
         StackPane serverStackPane = new StackPane();
         Stage serverWindow = new Stage();
+        serverWindow.setOnCloseRequest(e -> {
+            try {
+                stop();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
         serverWindow.setResizable(false);
 
         serverField = createField(serverField);
         serverStackPane.getChildren().add(serverField);
-        Scene serverScene = new Scene(serverStackPane,300,300);
+        Scene serverScene = new Scene(serverStackPane, 300, 300);
 
         serverWindow.setTitle("Server TicTacToe");
         serverWindow.setScene(serverScene);
         serverWindow.show();
-
         changeField("X");
         pressButtons("0");
+
     }
 
-    /** Actions when starting the "Server field" button */
+    /**
+     * Actions when starting the "Server field" button
+     */
     private void serverButtonAction() {
         serverField.setOnAction(event -> {
             clientField.setDisable(true);
@@ -132,17 +155,19 @@ public class FXMLController extends Application {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Can't get IP", ButtonType.CLOSE);
                 alert.setHeaderText(null);
                 alert.showAndWait();
-                System.exit(1);
+                exit(1);
             }
 
             TextField ip = new TextField("Your IP address: " + thisIp.getHostAddress());
-            connectScreen.add(ip,0,4);
+            connectScreen.add(ip, 0, 4);
             serverField.setDisable(true);
             gameForServer();
         });
     }
 
-    /** Actions when the "Connect" button was pressed */
+    /**
+     * Actions when the "Connect" button was pressed
+     */
     private void connectButtonAction() {
         connection.setOnAction(event -> {
             String ipAddressText = ipAddress.getText();
@@ -153,7 +178,7 @@ public class FXMLController extends Application {
                     alert.setHeaderText(null);
                     alert.setTitle("Error");
                     alert.showAndWait();
-                    System.exit(1);
+                    exit(1);
                 }
             } catch (IOException e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION,
@@ -161,7 +186,7 @@ public class FXMLController extends Application {
                 alert.setHeaderText(null);
                 alert.setTitle("Error");
                 alert.showAndWait();
-                System.exit(1);
+                exit(1);
             }
             connection.setDisable(true);
             ipAddress.setDisable(true);
@@ -170,16 +195,22 @@ public class FXMLController extends Application {
         });
     }
 
-    /** Generates tic-tac-toe field and its functionality for player */
+    /**
+     * Generates tic-tac-toe field and its functionality for player
+     */
     private void gameForClient() {
         Stage clientWindow = new Stage();
         clientWindow.setResizable(false);
-
         GridPane clientField = new GridPane();
-        clientField.setMinSize(300, 300);
         clientField = createField(clientField);
-
         StackPane clientStackPane = new StackPane();
+        clientWindow.setOnCloseRequest(e -> {
+            try {
+                stop();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
         clientStackPane.getChildren().add(clientField);
 
         Scene clientScene = new Scene(clientStackPane, 300, 300);
@@ -189,7 +220,6 @@ public class FXMLController extends Application {
         clientWindow.show();
 
         isMyTurn = true;
-
         changeField("0");
         pressButtons("X");
 
@@ -197,9 +227,11 @@ public class FXMLController extends Application {
 
     /**
      * The method that fills the buttons with player moves
+     *
      * @param symbol whose turn was now
      */
     private void pressButtons(String symbol) {
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 int finalI = i;
@@ -210,13 +242,10 @@ public class FXMLController extends Application {
                         processCommand(finalI + " " + finalJ);
                         isMyTurn = !isMyTurn;
                         String whoWin = Victory.win(getValueFromButtons(), isMyTurn);
-                        if ((whoWin == "X") || (whoWin == "0")) {
-                            exitWindow(symbol, "Win!");
-                        }
-
-                        if (whoWin == "D") {
-                            exitWindow(symbol, "Draw!");
-                        }
+                        if (symbol.equals("X"))
+                            check(whoWin, "0", "Win");
+                        else
+                            check(whoWin, "X", "Win!");
                     }
                 });
             }
@@ -229,10 +258,12 @@ public class FXMLController extends Application {
 
     /**
      * Shows a window about the end of the algorithm
+     *
      * @param symbol whose game result
-     * @param state game result
+     * @param state  game result
      */
     private void exitWindow(String symbol, String state) {
+        isTheEnd = true;
         Alert alert = new Alert(Alert.AlertType.INFORMATION, null, ButtonType.CLOSE);
         alert.setTitle("exit");
         alert.setHeaderText(null);
@@ -241,20 +272,43 @@ public class FXMLController extends Application {
         } else {
             alert.setContentText(symbol + state);
         }
-        alert.showAndWait().ifPresent(response -> System.exit(1));
+        alert.showAndWait().ifPresent(response -> exit(0));
     }
 
-    /** Fills the game cells with the results of opponent's moves */
+    private void exitMessage(String symbol) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("exit");
+        alert.setHeaderText(null);
+        alert.setContentText(symbol + " Exit");
+        alert.showAndWait();
+        exit(0);
+    }
+
+    /**
+     * Fills the game cells with the results of opponent's moves
+     */
     private void changeField(String symbol) {
+
         executor.execute(() -> {
-            ticTacToe.send("hello");
 
             String result = "";
             while (!result.equals("exit")) {
-                result = ticTacToe.receive();
-                if (result == null) {
+                try {
+                    result = ticTacToe.receive();
+                } catch (UncheckedIOException e) {
+                    if (!isTheEnd)
+                        Platform.runLater(() -> {
+                            if (symbol.equals("X"))
+                                exitMessage("Client");
+                            else
+                                exitMessage("Server");
+                        });
                     return;
                 }
+
+                if (result.equals(null))
+                    return;
+
                 String finalResult = result;
                 Platform.runLater(() -> {
                     if (finalResult.matches("\\d \\d")) {
@@ -264,17 +318,8 @@ public class FXMLController extends Application {
                                 .toArray();
                         buttons[coordinates[0]][coordinates[1]].setText(symbol);
                         String whoWin = Victory.win(getValueFromButtons(), isMyTurn);
-                        System.out.println(symbol);
-                        if ((whoWin == "X") || (whoWin == "0")) {
-                            if (symbol == "X")
-                                exitWindow("0", "Lose");
-                            else
-                                exitWindow("X", "Lose");
-                        }
 
-                        if (whoWin == "D") {
-                            exitWindow(symbol, "Draw!");
-                        }
+                        check(whoWin, symbol, "Lose");
                     }
                 });
             }
@@ -303,6 +348,19 @@ public class FXMLController extends Application {
             }
         }
         return valueFromButtons;
+    }
+
+    private void check(String whoWin, String symbol, String statement) {
+        if ((whoWin.equals("X")) || (whoWin.equals("0"))) {
+            if (symbol.equals("X"))
+                exitWindow("0", statement);
+            else
+                exitWindow("X", statement);
+        }
+
+        if (whoWin.equals("D")) {
+            exitWindow(symbol, "Draw!");
+        }
     }
 
     public static void main(String[] args) {

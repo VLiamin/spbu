@@ -32,8 +32,8 @@ public class ClientTicTacToe implements TicTacToe {
      */
     @Override
     public synchronized void send(String command) {
-        init();
 
+        init();
         output.println(command);
         output.flush();
     }

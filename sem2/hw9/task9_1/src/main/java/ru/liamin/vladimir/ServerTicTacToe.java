@@ -18,7 +18,6 @@ public class ServerTicTacToe implements TicTacToe {
     private PrintWriter output;
 
     public static void main(String[] args) {
-
         launch(args);
     }
 
@@ -27,7 +26,6 @@ public class ServerTicTacToe implements TicTacToe {
 
         try {
             server = new ServerSocket(PORT);
-            System.out.println("Address " + server.getInetAddress() + " Port " + server.getLocalPort());
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
