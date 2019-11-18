@@ -114,7 +114,7 @@ public class FXMLController extends Application {
      * Generates TicTacToe field and its functionality for server
      */
     private void gameForServer() {
-        out.println("Server");
+        System.out.println("Server");
         ticTacToe = new ServerTicTacToe();
         GridPane serverField = new GridPane();
         StackPane serverStackPane = new StackPane();

@@ -12,7 +12,7 @@ public class Victory {
      * @param isMyTurn whose turn
      * @return Is there a winner and who?
      */
-    public static String win(String[][] valueFromButtons, Boolean isMyTurn) {
+    public static String win(String[][] valueFromButtons, boolean isMyTurn) {
 
         String[] newValueFromButtons = new String[valueFromButtons.length * valueFromButtons.length];
         int number = 0;
