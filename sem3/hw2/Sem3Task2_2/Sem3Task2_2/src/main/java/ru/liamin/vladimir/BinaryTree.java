@@ -10,7 +10,7 @@ import java.util.Iterator;
 public class BinaryTree<T extends Comparable<T>> {
 
     private Node top;
-    private ArrayList<T> deletedElements = new ArrayList<>();
+    private ArrayList<TreeIterator> iterators = new ArrayList<>();
 
     /**
      * Method of adding an item to the tree
@@ -83,7 +83,12 @@ public class BinaryTree<T extends Comparable<T>> {
     public boolean remove(T value) {
         if (top == null)
             return false;
-        return top.remove(value, top, null);
+        if (top.remove(value, top, null)) {
+            for (TreeIterator treeIterator: iterators)
+            treeIterator.removeDeletedElements(value);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -112,6 +117,7 @@ public class BinaryTree<T extends Comparable<T>> {
      */
     public Iterator getIterator() {
         TreeIterator treeIterator = new TreeIterator();
+        iterators.add(treeIterator);
         return treeIterator;
     }
 
@@ -176,9 +182,8 @@ public class BinaryTree<T extends Comparable<T>> {
         }
     }
 
-    private class TreeIterator implements Iterator<T> {
+    private class TreeIterator implements Iterator<T>{
         private ArrayList<T> elements = new ArrayList<>();
-        private int numberOfElement = 0;
 
         private TreeIterator() {
             copyTree(elements, top);
@@ -190,7 +195,6 @@ public class BinaryTree<T extends Comparable<T>> {
          */
         @Override
         public boolean hasNext() {
-            checkDeletedItems();
             return !elements.isEmpty();
         }
 
@@ -200,7 +204,6 @@ public class BinaryTree<T extends Comparable<T>> {
          */
         @Override
         public T next() {
-            checkDeletedItems();
             if (elements.isEmpty())
                 try {
                     throw new Exception();
@@ -213,24 +216,21 @@ public class BinaryTree<T extends Comparable<T>> {
         /** Method which remove next element */
         @Override
         public void remove() {
-            checkDeletedItems();
             if (!elements.isEmpty()) {
                 if (BinaryTree.this.remove(elements.get(0))) {
-                    deletedElements.add(elements.get(0));
                     elements.remove(0);
                 }
             }
         }
 
-        private void checkDeletedItems() {
+        /**
+         * Method which fixes an iterator
+         * @param value element which was deleted from the tree
+         */
+        public void removeDeletedElements(T value) {
 
-            for (int i = numberOfElement; i < deletedElements.size(); i++) {
-                if (elements.contains(deletedElements.get(i)))
-                    elements.remove(i);
-            }
-            numberOfElement = deletedElements.size() - 1;
-            if (numberOfElement < 0)
-                numberOfElement = 0;
+            if (!elements.isEmpty())
+                elements.remove(value);
         }
     }
 }
