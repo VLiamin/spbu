@@ -23,15 +23,9 @@ public class ComputerNetwork {
                 for (int k = 0; k < matrix.length; k++) {
                     if (matrix[j][k] == 1) {
                         if ((computers.get(j).getIsInfected()) && (!computers.get(j).getIsInfectedOnThisStep()) && (!computers.get(k).getIsInfected())) {
-                            if (Math.random() <= computers.get(k).getProbability()) {
-                                computers.get(k).setIsInfected(true);
-                                computers.get(k).setIsInfectedOnThisStep(true);
-                            }
+                            computers.get(k).infect();
                         } else if ((!computers.get(j).getIsInfected()) && (!computers.get(k).getIsInfectedOnThisStep()) && (computers.get(k).getIsInfected())) {
-                            if (Math.random() <= computers.get(j).getProbability()) {
-                                computers.get(j).setIsInfected(true);
-                                computers.get(j).setIsInfectedOnThisStep(true);
-                            }
+                            computers.get(j).infect();
                         }
                     }
                 }

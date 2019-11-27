@@ -8,8 +8,10 @@ public class Computer {
     private double probability;
     private boolean isInfected;
     private boolean isInfectedOnThisStep = false;
-    public Computer(Software software, boolean isInfected, HashMap<Software, Double> softwareHashMap) {
+    private Random random;
 
+    public Computer(Software software, boolean isInfected, HashMap<Software, Double> softwareHashMap, Random random) {
+        this.random = random;
         this.probability = softwareHashMap.get(software);
         this.software = software;
         this.isInfected = isInfected;
@@ -61,5 +63,14 @@ public class Computer {
      */
     public Software getSoftware() {
         return software;
+    }
+
+    /** Method which checks if the computer is infected with a virus or not */
+    public void infect() {
+
+        if (random.getRandom() <= getProbability()) {
+            isInfected = true;
+            isInfectedOnThisStep = true;
+        }
     }
 }

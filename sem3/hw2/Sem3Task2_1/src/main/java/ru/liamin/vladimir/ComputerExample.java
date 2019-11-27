@@ -13,15 +13,15 @@ public class ComputerExample {
      */
     public static void main(String[] args) throws IOException {
         ComputerExample computerExample = new ComputerExample();
-        int[][] matrix = computerExample.initialiseMatrix("src\\matrix.txt");
+        int[][] matrix = computerExample.initialiseMatrix("src\\test\\java\\ru\\liamin\\vladimir\\matrix.txt");
         ArrayList<Computer> arrayList = new ArrayList<>();
         HashMap<Software, Double> hashMap = new HashMap<>();
         hashMap.put(Software.Windows, 0.3);
         hashMap.put(Software.Linux, 0.2);
-        arrayList.add(new Computer(Software.Windows, true, hashMap));
-        arrayList.add(new Computer(Software.Linux, false, hashMap));
-        arrayList.add(new Computer(Software.Windows, false, hashMap));
-        arrayList.add(new Computer(Software.Windows, false, hashMap));
+        arrayList.add(new Computer(Software.Windows, true, hashMap, new NetworkRandom()));
+        arrayList.add(new Computer(Software.Linux, false, hashMap, new NetworkRandom()));
+        arrayList.add(new Computer(Software.Windows, false, hashMap, new NetworkRandom()));
+        arrayList.add(new Computer(Software.Windows, false, hashMap, new NetworkRandom()));
         ComputerNetwork computerNetwork = new ComputerNetwork(matrix, arrayList);
         computerNetwork.infect();
         int i = 1;
