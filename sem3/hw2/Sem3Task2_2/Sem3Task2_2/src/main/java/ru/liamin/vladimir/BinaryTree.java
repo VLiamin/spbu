@@ -85,7 +85,7 @@ public class BinaryTree<T extends Comparable<T>> {
             return false;
         if (top.remove(value, top, null)) {
             for (TreeIterator treeIterator: iterators)
-            treeIterator.removeDeletedElements(value);
+                treeIterator.removeDeletedElements(value);
             return true;
         }
         return false;
@@ -182,7 +182,7 @@ public class BinaryTree<T extends Comparable<T>> {
         }
     }
 
-    private class TreeIterator implements Iterator<T>{
+    private class TreeIterator implements Iterator<T> {
         private ArrayList<T> elements = new ArrayList<>();
 
         private TreeIterator() {
