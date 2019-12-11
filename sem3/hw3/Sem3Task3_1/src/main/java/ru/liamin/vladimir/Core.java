@@ -14,29 +14,37 @@ public class Core {
     private double speedX = speed;
     private int x;
     private int y;
+    private boolean isNormalDirection;
 
     public Core() throws IOException {
     }
 
     /** Method which implements core movement */
     public void move() {
-        if (y < 120) {
+        int horizonDeletedCore = 120;
+        int firstBeginHillCoordinate = 130;
+        int firstTop = 245;
+        int firstEndHillCoordinate = 380;
+        if (y < horizonDeletedCore) {
             speedY -= 0.6;
             y -= speedY;
-            x -= speedX;
+            if (isNormalDirection)
+                x -= speedX;
+            else
+                x += speedX;
         } else {
             speedX = 0;
             speedY = 0;
             x = 0;
         }
 
-        if ((x < 245) && (x >= 130) && (y >= -x + 240)) {
+        if ((x < firstTop) && (x >= firstBeginHillCoordinate) && (y >= -x + firstTop)) {
             speedX = 0;
             speedY = 0;
             x = 0;
         }
 
-        if ((x >= 245) && (x < 380) && (y >= x - 245)) {
+        if ((x >= firstTop) && (x < firstEndHillCoordinate) && (y >= x - firstTop)) {
             speedX = 0;
             speedY = 0;
             x = 0;
@@ -49,10 +57,11 @@ public class Core {
      * @param x coordinate
      * @param y coordinate
      */
-    public void setValues(int angle, int x, int y) {
-        this.angle = angle + 30;
-        this.x = x - 52;
-        this.y = y - 120;
+    public void setValues(int angle, int x, int y, boolean isNormalDirection) {
+        this.angle = angle;
+        this.x = x;
+        this.y = y;
+        this.isNormalDirection = isNormalDirection;
         double radians = Math.toRadians(this.angle);
         double sin = Math.abs(Math.sin(radians));
         double cos = Math.abs(Math.cos(radians));
