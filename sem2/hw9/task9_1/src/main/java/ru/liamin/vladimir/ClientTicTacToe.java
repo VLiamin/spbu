@@ -7,10 +7,12 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static javafx.application.Application.launch;
 
-public class ClientTicTacToe implements TicTacToe {
+public class ClientTicTacToe extends TimerTask implements TicTacToe {
 
     private Socket client;
     private PrintWriter output;
@@ -50,9 +52,10 @@ public class ClientTicTacToe implements TicTacToe {
         if (client == null) {
             try {
                 client = new Socket(inetAddress = InetAddress.getByName(ipAddress), ServerTicTacToe.PORT);
-
                 output = new PrintWriter(client.getOutputStream());
                 input = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                Timer timer = new Timer(true);
+                timer.scheduleAtFixedRate(this, 0, 5 * 1000);
             } catch (UnknownHostException e) {
                 assert ipAddress != null;
                 System.err.println("Do not know about host: " + inetAddress.getHostAddress());
@@ -63,5 +66,10 @@ public class ClientTicTacToe implements TicTacToe {
                 System.exit(1);
             }
         }
+    }
+
+    @Override
+    public void run() {
+        this.send("");
     }
 }

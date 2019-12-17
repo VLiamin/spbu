@@ -5,11 +5,13 @@ import javafx.scene.control.Alert;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.TimerTask;
+import java.util.Timer;
 
 import static javafx.application.Application.launch;
 
 /** Class for implementation of game part for server player */
-public class ServerTicTacToe implements TicTacToe {
+public class ServerTicTacToe extends TimerTask implements TicTacToe {
 
     public static final int PORT = 2000;
     private ServerSocket server;
@@ -56,6 +58,10 @@ public class ServerTicTacToe implements TicTacToe {
         return input.lines().limit(1).findAny().orElse(null);
     }
 
+    public void run() {
+        this.send("");
+    }
+
     private void init() {
 
         if (client == null) {
@@ -63,6 +69,8 @@ public class ServerTicTacToe implements TicTacToe {
                 client = server.accept();
                 input = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 output = new PrintWriter(client.getOutputStream());
+                Timer timer = new Timer(true);
+                timer.scheduleAtFixedRate(this, 0, 5 * 1000);
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }

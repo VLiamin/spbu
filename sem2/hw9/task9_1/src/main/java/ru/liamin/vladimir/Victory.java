@@ -36,7 +36,7 @@ public class Victory {
         }
 
         for (int i = 0; i < newValueFromButtons.length; i++) {
-            if ((newValueFromButtons[i] == "0") || (newValueFromButtons[i] == "X"))
+            if (("0".equals(newValueFromButtons[i])) || ("X".equals(newValueFromButtons[i])))
                 total++;
         }
         if (total == newValueFromButtons.length)
@@ -55,9 +55,9 @@ public class Victory {
         for (int i = 0; i < trickCycles; i++) {
             int count = 0;
             for (int j = nextCell * i + start; j < nextCell * i + numberOfCellsToSkip * (int) sqrt(valueFromButtons.length) + start; j = j + numberOfCellsToSkip) {
-                if (valueFromButtons[j] == "X")
+                if ("X".equals(valueFromButtons[j]))
                     count = count + 1;
-                else if (valueFromButtons[j] == "0")
+                else if ("0".equals(valueFromButtons[j]))
                     count = count - 1;
             }
             if (abs(count) == sqrt(valueFromButtons.length))

@@ -258,7 +258,6 @@ public class FXMLController extends Application {
 
     /**
      * Shows a window about the end of the algorithm
-     *
      * @param symbol whose game result
      * @param state  game result
      */
