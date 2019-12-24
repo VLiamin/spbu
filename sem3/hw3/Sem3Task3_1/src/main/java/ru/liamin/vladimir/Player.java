@@ -10,10 +10,10 @@ import java.io.IOException;
 
 /** Class class that implements gun movement */
 public class Player {
-    private BufferedImage imgLeft = ImageIO.read(new File("src\\main\\resources\\GunRight.png"));
-    private BufferedImage imageLeft2 = ImageIO.read(new File("src\\main\\resources\\GunRight.png"));
-    private BufferedImage imgRight = ImageIO.read(new File("src\\main\\resources\\GunLeft.png"));
-    private BufferedImage imageRight2 = ImageIO.read(new File("src\\main\\resources\\GunLeft.png"));
+    private BufferedImage imgLeft = ImageIO.read(getClass().getResource("/GunRight.png"));
+    private BufferedImage imageLeft2 = ImageIO.read(getClass().getResource("/GunRight.png"));
+    private BufferedImage imgRight = ImageIO.read(getClass().getResource("/GunLeft.png"));
+    private BufferedImage imageRight2 = ImageIO.read(getClass().getResource("/GunLeft.png"));
     private BufferedImage img = imgLeft;
     private BufferedImage img2 = imageLeft2;
     private Core core;

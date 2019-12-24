@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /** Class which implements core movement */
 public class Core {
-    private BufferedImage img = ImageIO.read(new File("src\\main\\resources\\Core.png"));
+    private BufferedImage img = ImageIO.read(getClass().getResource("/Core.png"));
     private int speed = 20;
     private int angle;
     private double speedY = speed;
