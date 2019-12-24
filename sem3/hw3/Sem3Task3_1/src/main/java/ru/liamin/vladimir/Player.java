@@ -10,12 +10,8 @@ import java.io.IOException;
 
 /** Class class that implements gun movement */
 public class Player {
-    private BufferedImage imgLeft = ImageIO.read(getClass().getResource("/GunRight.png"));
-    private BufferedImage imageLeft2 = ImageIO.read(getClass().getResource("/GunRight.png"));
-    private BufferedImage imgRight = ImageIO.read(getClass().getResource("/GunLeft.png"));
-    private BufferedImage imageRight2 = ImageIO.read(getClass().getResource("/GunLeft.png"));
-    private BufferedImage img = imgLeft;
-    private BufferedImage img2 = imageLeft2;
+    private BufferedImage img = ImageIO.read(new File("src\\main\\resources\\gun.png"));
+    private BufferedImage image2 = ImageIO.read(new File("src\\main\\resources\\gun.png"));
     private Core core;
     private final int horizon = 175;
     private int angle = 0;
@@ -23,7 +19,6 @@ public class Player {
     private int x = 910;
     private int y = horizon;
     private int speed = 0;
-    private boolean isNormalDirection = true;
 
     public Player(Core core) throws IOException {
         this.core = core;
@@ -56,15 +51,18 @@ public class Player {
     /** Method which implements gun movement */
     public void move() {
 
-        int maxAngle = 10;
-        if ((angle <= maxAngle) && (angle >= 0) && (angularVelocity != 0)) {
-            img = img2;
+        if ((angle <= 10) && (angle >= 0) && (angularVelocity != 0)) {
+            img = image2;
             rotate();
         }
-        if (((speed > 0) && (x > 10)) || ((speed < 0) && (x < 990)))
+        if ((speed > 0) && (x > 10))
+            x -= speed;
+        if ((speed < 0) && (x < 990))
             x -= speed;
         correctY();
-        if (((angle <= 10) && (angularVelocity > 0)) || ((angle >= 0) && (angularVelocity < 0)))
+        if ((angle <= 10) && (angularVelocity > 0))
+            angle += angularVelocity;
+        if ((angle >= 0) && (angularVelocity < 0))
             angle += angularVelocity;
     }
 
@@ -77,20 +75,18 @@ public class Player {
         int secondTop = 710;
         int secondEndHillCoordinate = 890;
         double secondHillSlope = (double) 27 / 80;
-        int copyX = x;
-        if (!isNormalDirection)
-            copyX += 50;
-        if ((copyX < firstBeginHillCoordinate) || (copyX >= secondBeginHillCoordinate) ||
-                ((copyX >= firstEndHillCoordinate) && (copyX < secondBeginHillCoordinate)))
+
+        if ((x < firstBeginHillCoordinate) || (x >= secondBeginHillCoordinate) ||
+                ((x >= firstEndHillCoordinate) && (x < secondBeginHillCoordinate)))
             y = horizon;
-        if ((copyX < firstTop) && (copyX >= firstBeginHillCoordinate))
-            y = (-copyX + 290);
-        if ((copyX >= firstTop) && (copyX < firstEndHillCoordinate))
-            y = (copyX - 205);
-        if ((copyX >= secondBeginHillCoordinate) && (copyX < secondTop))
-            y = (int) (copyX * (-secondHillSlope) + 353);
-        if ((copyX >= secondTop) && (copyX < secondEndHillCoordinate))
-            y = (int) (copyX * (secondHillSlope) - 125);
+        if ((x < firstTop) && (x >= firstBeginHillCoordinate))
+            y = (-x + 290);
+        if ((x >= firstTop) && (x < firstEndHillCoordinate))
+            y = (x - 205);
+        if ((x >= secondBeginHillCoordinate) && (x < secondTop))
+            y = (int) (x * (-secondHillSlope) + 353);
+        if ((x >= secondTop) && (x < secondEndHillCoordinate))
+            y = (int) (x * (secondHillSlope) - 125);
     }
 
     /**
@@ -117,21 +113,10 @@ public class Player {
         int barrelLength = 52;
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_RIGHT) {
-            if (isNormalDirection) {
-                img = imgRight;
-                isNormalDirection = false;
-                img2 = imageRight2;
-            }
             speed = -maxSpeed;
         }
 
         if (key == KeyEvent.VK_LEFT) {
-            if (!isNormalDirection) {
-                img = imgLeft;
-                img2 = imageLeft2;
-                isNormalDirection = true;
-            }
-
             speed = maxSpeed;
         }
 
@@ -142,10 +127,7 @@ public class Player {
             angularVelocity = -maxAngularVelocity;
         }
         if (key == KeyEvent.VK_ENTER) {
-            if (isNormalDirection)
-                core.setValues(angle + angleOfBarrel, x - barrelLength, y - barrelHeight, isNormalDirection);
-            else
-                core.setValues(angle + angleOfBarrel, x + barrelLength * 2 + 20, y - barrelHeight, isNormalDirection);
+            core.setValues(angle + angleOfBarrel, x - barrelLength, y - barrelHeight);
         }
 
     }
@@ -154,13 +136,9 @@ public class Player {
     public void rotate() {
         // Calculate the new size of the image based on the angle of rotaion
         double radians = Math.toRadians(angle);
-        if (!isNormalDirection)
-            radians = -radians;
         double sin = Math.abs(Math.sin(radians));
         double cos = Math.abs(Math.cos(radians));
         int newWidth = (int) Math.round(img.getWidth() * cos + img.getHeight() * sin + 70 * sin);
-        if (!isNormalDirection)
-            newWidth +=20;
         int newHeight = (int) Math.round(img.getWidth() * sin + img.getHeight() * cos + 40 * sin);
 
         // Create a new image
@@ -171,10 +149,7 @@ public class Player {
         int y = (newHeight - img.getHeight()) / 2 - (int) (20 * sin);
         // Transform the origin point around the anchor point
         AffineTransform at = new AffineTransform();
-        if (isNormalDirection)
         at.setToRotation(radians, x + (img.getWidth() / 2), y + (img.getHeight() / 2) - 150);
-        else
-            at.setToRotation(radians, x + (img.getWidth() / 2), y + (img.getHeight() / 2));
         at.translate(x, y);
         g2d.setTransform(at);
         // Paint the originl image

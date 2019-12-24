@@ -7,14 +7,13 @@ import java.io.IOException;
 
 /** Class which implements core movement */
 public class Core {
-    private BufferedImage img = ImageIO.read(getClass().getResource("/Core.png"));
+    private BufferedImage img = ImageIO.read(new File("src\\main\\resources\\Core.png"));
     private int speed = 20;
     private int angle;
     private double speedY = speed;
     private double speedX = speed;
     private int x;
     private int y;
-    private boolean isNormalDirection;
 
     public Core() throws IOException {
     }
@@ -28,23 +27,20 @@ public class Core {
         if (y < horizonDeletedCore) {
             speedY -= 0.6;
             y -= speedY;
-            if (isNormalDirection)
-                x -= speedX;
-            else
-                x += speedX;
+            x -= speedX;
         } else {
             speedX = 0;
             speedY = 0;
             x = 0;
         }
 
-        if ((x < firstTop) && (x >= firstBeginHillCoordinate) && (y >= -x + firstTop)) {
+        if ((x < firstTop) && (x >= firstBeginHillCoordinate) && (y >= -x + 240)) {
             speedX = 0;
             speedY = 0;
             x = 0;
         }
 
-        if ((x >= firstTop) && (x < firstEndHillCoordinate) && (y >= x - firstTop)) {
+        if ((x >= firstTop) && (x < firstEndHillCoordinate) && (y >= x - 245)) {
             speedX = 0;
             speedY = 0;
             x = 0;
@@ -57,11 +53,10 @@ public class Core {
      * @param x coordinate
      * @param y coordinate
      */
-    public void setValues(int angle, int x, int y, boolean isNormalDirection) {
+    public void setValues(int angle, int x, int y) {
         this.angle = angle;
         this.x = x;
         this.y = y;
-        this.isNormalDirection = isNormalDirection;
         double radians = Math.toRadians(this.angle);
         double sin = Math.abs(Math.sin(radians));
         double cos = Math.abs(Math.cos(radians));

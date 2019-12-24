@@ -11,7 +11,7 @@ import java.io.IOException;
 /** Class implements image */
 public class Landscape extends JPanel implements ActionListener {
     private Timer mainTimer = new Timer(15, this);
-    private Image img = new ImageIcon(getClass().getResource("/Landscape.jpg")).getImage();
+    private Image img = new ImageIcon("E:\\java\\sem3\\hw3\\Sem3Task3_1\\src\\main\\resources\\Landscape.jpg").getImage();
     private Core core = new Core();
     private Player p = new Player(core);
 
