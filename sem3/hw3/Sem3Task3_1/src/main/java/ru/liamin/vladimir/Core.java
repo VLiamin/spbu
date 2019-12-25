@@ -49,6 +49,12 @@ public class Core {
             speedY = 0;
             x = -100;
         }
+
+        if ((x >= landscape.getSecondTop()) && (x < landscape.getSecondEndHillCoordinate()) && (y >= x * landscape.getSecondHillSlope() - 175)) {
+            speedX = 0;
+            speedY = 0;
+            x = -100;
+        }
     }
 
     /**

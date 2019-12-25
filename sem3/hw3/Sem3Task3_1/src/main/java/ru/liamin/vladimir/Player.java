@@ -76,7 +76,7 @@ public class Player {
     private void updateCurrentY() {
         int copyX = x;
         if (!isNormalDirection)
-            copyX += 50;
+            copyX += 60;
         if ((copyX < landscape.getFirstBeginHillCoordinate()) || (copyX >= landscape.getSecondEndHillCoordinate()) ||
                 ((copyX >= landscape.getFirstEndHillCoordinate()) && (copyX < landscape.getSecondBeginHillCoordinate()))) {
             y = horizonOrdinate;
@@ -125,6 +125,7 @@ public class Player {
                 renderedInitialCannonImage = renderedRightSideCannon;
                 isNormalDirection = false;
                 initialCannonImage = rightSideCannon;
+                rotate();
             }
             speed = -maxSpeed;
         }
@@ -134,6 +135,7 @@ public class Player {
                 renderedInitialCannonImage = renderedLeftSideCannon;
                 initialCannonImage = leftSideCannon;
                 isNormalDirection = true;
+                rotate();
             }
 
             speed = maxSpeed;
@@ -176,7 +178,7 @@ public class Player {
         Graphics2D g2d = rotate.createGraphics();
         // Calculate the "anchor" point around which the image will be rotated
         int x = (newWidth - renderedInitialCannonImage.getWidth()) / 2;
-        int y = (newHeight - renderedInitialCannonImage.getHeight()) / 2 - (int) (20 * sin);
+        int y = (newHeight - renderedInitialCannonImage.getHeight()) / 2 - 5 - (int) (20 * sin);
         // Transform the origin point around the anchor point
         AffineTransform at = new AffineTransform();
         if (isNormalDirection) {
