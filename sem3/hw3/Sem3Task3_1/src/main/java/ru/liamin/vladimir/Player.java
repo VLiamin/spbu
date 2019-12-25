@@ -57,7 +57,7 @@ public class Player {
     /** Method which implements gun movement */
     public void move() {
 
-        int maxAngle = 20;
+        int maxAngle = 10;
         if ((angle <= maxAngle) && (angle >= 0) && (angularVelocity != 0)) {
             renderedInitialCannonImage = initialCannonImage;
             rotate();
@@ -76,7 +76,7 @@ public class Player {
     private void updateCurrentY() {
         int copyX = x;
         if (!isNormalDirection)
-            copyX += 60;
+            copyX += 80;
         if ((copyX < landscape.getFirstBeginHillCoordinate()) || (copyX >= landscape.getSecondEndHillCoordinate()) ||
                 ((copyX >= landscape.getFirstEndHillCoordinate()) && (copyX < landscape.getSecondBeginHillCoordinate()))) {
             y = horizonOrdinate;
@@ -121,6 +121,7 @@ public class Player {
         int barrelLength = 52;
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_RIGHT) {
+            System.out.println(x + " " + y);
             if (isNormalDirection) {
                 renderedInitialCannonImage = renderedRightSideCannon;
                 isNormalDirection = false;
@@ -131,6 +132,7 @@ public class Player {
         }
 
         if (key == KeyEvent.VK_LEFT) {
+            System.out.println(x + " " + y);
             if (!isNormalDirection) {
                 renderedInitialCannonImage = renderedLeftSideCannon;
                 initialCannonImage = leftSideCannon;
@@ -149,10 +151,10 @@ public class Player {
         }
         if (key == KeyEvent.VK_ENTER) {
             if (isNormalDirection) {
-                core.setValues(angle + angleOfBarrel, x - barrelLength, y - barrelHeight, true);
+                core.setValues(angle + angleOfBarrel, x - barrelLength, (int) (y - barrelHeight + 10 * Math.sin(angle)), true);
             }
             else {
-                core.setValues(angle + angleOfBarrel, x + barrelLength * 2 + 20, y - barrelHeight , false);
+                core.setValues(angle + angleOfBarrel, x + barrelLength * 2 + 20 - (int) (15 * Math.sin(angle)), y - 125, false);
             }
         }
 
@@ -182,10 +184,10 @@ public class Player {
         // Transform the origin point around the anchor point
         AffineTransform at = new AffineTransform();
         if (isNormalDirection) {
-            at.setToRotation(radians, x + (renderedInitialCannonImage.getWidth() / 2), y + (renderedInitialCannonImage.getHeight() / 2) - 150);
+            at.setToRotation(radians,  x + (renderedInitialCannonImage.getWidth() / 2) + 75, y + (renderedInitialCannonImage.getHeight() / 2) - 110);
         }
         else {
-            at.setToRotation(radians, x + (renderedInitialCannonImage.getWidth() / 2), y + (renderedInitialCannonImage.getHeight() / 2));
+            at.setToRotation(radians, x + (renderedInitialCannonImage.getWidth() / 2) - 40, y + (renderedInitialCannonImage.getHeight() / 2) - 100);
         }
         at.translate(x, y);
         g2d.setTransform(at);
