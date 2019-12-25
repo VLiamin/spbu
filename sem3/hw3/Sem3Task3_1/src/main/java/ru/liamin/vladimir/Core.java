@@ -2,52 +2,52 @@ package ru.liamin.vladimir;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /** Class which implements core movement */
 public class Core {
     private BufferedImage img = ImageIO.read(getClass().getResource("/Core.png"));
     private int speed = 20;
-    private int angle;
+    private double angle;
     private double speedY = speed;
     private double speedX = speed;
-    private int x;
+    private int x = -100;
     private int y;
     private boolean isNormalDirection;
+    private Landscape landscape;
 
-    public Core() throws IOException {
+    public Core(Landscape landscape) throws IOException {
+        this.landscape = landscape;
     }
 
     /** Method which implements core movement */
     public void move() {
         int horizonDeletedCore = 120;
-        int firstBeginHillCoordinate = 130;
-        int firstTop = 245;
-        int firstEndHillCoordinate = 380;
         if (y < horizonDeletedCore) {
             speedY -= 0.6;
             y -= speedY;
-            if (isNormalDirection)
+            if (isNormalDirection) {
                 x -= speedX;
-            else
+            }
+            else {
                 x += speedX;
+            }
         } else {
             speedX = 0;
             speedY = 0;
-            x = 0;
+            x = -100;
         }
 
-        if ((x < firstTop) && (x >= firstBeginHillCoordinate) && (y >= -x + firstTop)) {
+        if ((x < landscape.getFirstTop()) && (x >= landscape.getFirstBeginHillCoordinate()) && (y >= -x + landscape.getFirstTop())) {
             speedX = 0;
             speedY = 0;
-            x = 0;
+            x = -100;
         }
 
-        if ((x >= firstTop) && (x < firstEndHillCoordinate) && (y >= x - firstTop)) {
+        if ((x >= landscape.getFirstTop()) && (x < landscape.getFirstEndHillCoordinate()) && (y >= x - landscape.getFirstTop())) {
             speedX = 0;
             speedY = 0;
-            x = 0;
+            x = -100;
         }
     }
 
@@ -57,7 +57,7 @@ public class Core {
      * @param x coordinate
      * @param y coordinate
      */
-    public void setValues(int angle, int x, int y, boolean isNormalDirection) {
+    public void setValues(double angle, int x, int y, boolean isNormalDirection) {
         this.angle = angle;
         this.x = x;
         this.y = y;
@@ -74,7 +74,7 @@ public class Core {
      * @return X coordinate
      */
     public int getX() {
-       return x;
+        return x;
     }
 
     /**
