@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.TextArea?>
+<GridPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.liamin.vladimir.FXMLController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints prefHeight="100.0" vgrow="SOMETIMES" />
+        <RowConstraints prefHeight="300.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <GridPane prefHeight="300.0" prefWidth="300.0" GridPane.rowIndex="1">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button fx:id="buttonOne" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0"
+                        maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: black;">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Button>
+                <Button fx:id="buttonTwo" mnemonicParsing="false"  prefHeight="100.0" prefWidth="100.0"
+                        maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: black;" GridPane.columnIndex="1">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Button>
+                <Button fx:id="buttonThree" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0"
+                        maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: black;" GridPane.columnIndex="2">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Button>
+                <Button fx:id="buttonFour" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0"
+                        maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: black;" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Button>
+                <Button fx:id="buttonFive" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0"
+                        maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Button>
+                <Button fx:id="buttonSix" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0"
+                        maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Button>
+                <Button fx:id="buttonSeven" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0"
+                        maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: black;" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Button>
+                <Button fx:id="buttonEight" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0"
+                        maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Button>
+                <Button fx:id="buttonNine" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0"
+                        maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Button>
+            </children>
+        </GridPane>
+        <TextArea fx:id="textArea" prefHeight="100.0" prefWidth="300.0" maxHeight="Infinity" maxWidth="Infinity" style="-fx-control-inner-background: grey">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </TextArea>
+    </children>
+</GridPane>
