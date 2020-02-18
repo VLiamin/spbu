@@ -1,14 +1,14 @@
-﻿let list = [1; 0]
-
-let rec countFibonacci list n i = 
- if (n = 1) || (n = 0) then
-  1
+﻿let countFibonacci number = 
+ if (number = 1) || (number = 0) then
+   number
  else
-  if n = i then
-   List.head list
-  else
-   countFibonacci
-    (List.head list + List.nth list 1 :: list) 
-    (n)
-    (i + 1)
-printfn "Value: %d" (countFibonacci list 5 1)
+  let rec doRecursion counter n1 n2 = 
+   if counter >= number then
+    n1
+   else
+    doRecursion
+     (counter + 1)
+     (n1 + n2) 
+     n1
+  doRecursion 2 1 1
+printfn "Value: %d" (countFibonacci 7)
