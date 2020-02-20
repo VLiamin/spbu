@@ -1,17 +1,19 @@
 ﻿let countFibonacci number = 
-    if number < 0 then
-        printfn "Incorrect data"
-        None
-    else
-        if (number = 1) || (number = 0) then
-            Some (number)
+
+    let rec findFibonacci counter n1 n2 = 
+        if counter >= number then
+            n1
         else
-            let rec doRecursion counter n1 n2 = 
-                if counter >= number then
-                    n1
-                else
-                    doRecursion (counter + 1) (n1 + n2) n1
+            findFibonacci (counter + 1) (n1 + n2) n1
 
-            Some (doRecursion 2 1 1)
+    match number with
+    |_ when number < 0 -> None
+    | 1 -> Some (1)
+    | 0 -> Some (0)
+    | _ -> Some (findFibonacci 2 1 1)
 
-printfn "Value : %A" (countFibonacci 5)
+    
+    
+
+
+printfn "Value : %A" (countFibonacci 3)
