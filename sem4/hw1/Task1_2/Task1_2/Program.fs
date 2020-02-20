@@ -12,8 +12,4 @@
     | 0 -> Some (0)
     | _ -> Some (findFibonacci 2 1 1)
 
-    
-    
-
-
-printfn "Value : %A" (countFibonacci 3)
+printfn "Value : %A" (countFibonacci 6)
