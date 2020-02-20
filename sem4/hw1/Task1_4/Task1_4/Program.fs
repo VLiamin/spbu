@@ -1,22 +1,25 @@
-﻿let rec countPowerOfTwo listOfPowers power = 
-    if power = 0 then 
-        listOfPowers
-    else 
-        countPowerOfTwo (List.head listOfPowers * 2 :: listOfPowers) (power - 1)
+﻿let countPowerOfTwo power numberOfFirstElement = 
+    let rec fillInTheList list power numberOfFirstElement counter = 
+        match counter with
+        | _ when counter > power -> list 
+        | _ when counter <= numberOfFirstElement -> fillInTheList (List.head list * 2 :: List.tail list) power numberOfFirstElement (counter + 1)
+        | _ when counter <= power -> fillInTheList (List.head list * 2 :: list) power numberOfFirstElement (counter + 1) 
 
-let makeList listOfOurElements n m = 
+    fillInTheList [1] power numberOfFirstElement 1
+
+let makeListOfPowersOfTwo n m = 
+    let makeList listOfOurElements n m = 
+        let rec makeReverse list acc = 
+            match list with
+            | [] -> acc
+            | h :: t -> makeReverse t (h :: acc)
+
+        let listOfPowersOfTwo = countPowerOfTwo (n + m) n
+        makeReverse listOfPowersOfTwo listOfOurElements
     if m <= -1 || n < 0 then
-        printfn "Incorrect data given"
-        listOfOurElements
+        []
     else
-        let rec doRecursion numberOfElemets list acc = 
-            if numberOfElemets <= 0 then
-                acc
-            else
-                doRecursion (numberOfElemets - 1) (List.tail list) (List.head list :: acc)
-
-        let listOfPowersOfTwo = countPowerOfTwo [1] (n + m)
-        doRecursion (m + 1) listOfPowersOfTwo listOfOurElements
+        makeList [] n m
  
-let list = makeList [] 1 8
+let list = makeListOfPowersOfTwo 1 5
 printfn "Our list is: %A" list
