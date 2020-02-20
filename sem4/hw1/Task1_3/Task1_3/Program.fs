@@ -2,12 +2,11 @@
     if List.length list = 0 then
         list
     else
-        let rec doRecursion list newList = 
-            if List.length list = 0 then
-                newList
-            else 
-                doRecursion (List.tail list) (List.head list :: newList)
+        let rec makeReverseTheList list newList = 
+            match list with
+            | [] -> newList
+            | h :: t -> makeReverseTheList t (h :: newList)
         
-        doRecursion list []
+        makeReverseTheList list []
         
-printfn "New list: %A" (makeReverse [1; 2; 3; 7]) 
+printfn "New list: %A" (makeReverse [1; 2; 8]) 
