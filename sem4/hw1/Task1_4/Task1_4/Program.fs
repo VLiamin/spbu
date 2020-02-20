@@ -1,9 +1,9 @@
 ﻿let countPowerOfTwo power numberOfFirstElement = 
     let rec fillInTheList list power numberOfFirstElement counter = 
         match counter with
-        | _ when counter > power -> list 
         | _ when counter <= numberOfFirstElement -> fillInTheList (List.head list * 2 :: List.tail list) power numberOfFirstElement (counter + 1)
         | _ when counter <= power -> fillInTheList (List.head list * 2 :: list) power numberOfFirstElement (counter + 1) 
+        | _ -> list
 
     fillInTheList [1] power numberOfFirstElement 1
 
@@ -21,5 +21,5 @@ let makeListOfPowersOfTwo n m =
     else
         makeList [] n m
  
-let list = makeListOfPowersOfTwo 1 5
+let list = makeListOfPowersOfTwo -1 5
 printfn "Our list is: %A" list
