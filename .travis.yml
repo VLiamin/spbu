@@ -1,0 +1,16 @@
+language: fsharp
+sudo: required
+dist: xenial
+dotnet: 3.0
+
+env:
+  - solution: Sem/Hw2/Task2_1/Task2_1.sln
+
+before_build:
+  - nuget restore $solution
+
+build:
+  - dotnet build $solution
+
+script:
+  - dotnet test $solution
