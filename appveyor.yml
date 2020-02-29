@@ -1,6 +1,16 @@
-image: Visual Studio 2017 
+image: Visual Studio 2019
 
-build_script: 
-    - For /R %%I in (*.sln) do dotnet test %%I
+init:
+  - git config --global core.autocrlf true
 
-test: off
+environment:
+  matrix:
+
+before_build:
+  - nuget restore %solution%
+
+build:
+  project: $(solution)
+
+test_script:
+  - dotnet test %solution%
