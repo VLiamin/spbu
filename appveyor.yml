@@ -5,7 +5,6 @@ init:
 
 environment:
   matrix:
-  - solution: sem4/Hw2/Task2_1/Task2_1.sln
   - solution: sem4/hw2/Task2_4/Task2_4.sln
 
 before_build:
