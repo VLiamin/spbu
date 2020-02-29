@@ -5,9 +5,12 @@ init:
 
 before_build:
   - nuget restore sem4/hw2/Task2_1/Task2_1.sln
+  - nuget restore sem4/hw2/Task2_4/Task2_4.sln
 
 build:
   project: sem4/hw2/Task2_1/Task2_1.sln
+  project: sem4/hw2/Task2_4/Task2_4.sln
 
 test_script:
   - dotnet test sem4/hw2/Task2_1/Task2_1.sln
+  - dotnet test sem4/hw2/Task2_4/Task2_4.sln
