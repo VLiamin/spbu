@@ -3,11 +3,15 @@ image: Visual Studio 2019
 init:
   - git config --global core.autocrlf true
 
+environment:
+  matrix:
+  - solution: Sem4/Hw2/Task2_1/Task2_1.sln
+
 before_build:
-  - nuget restore sem4/hw2/Task2_1/Task2_1.sln
+  - nuget restore %solution%
 
 build:
-  project: sem4/hw2/Task2_1/Task2_1.sln
+  project: $(solution)
 
 test_script:
-  - dotnet test sem4/hw2/Task2_1/Task2_1.sln
+  - dotnet test %solution%
