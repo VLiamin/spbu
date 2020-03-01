@@ -14,6 +14,7 @@ let testCases =
         [0], 1
         [1; 3; 4; 5; -6; 7; 8; 9], 3
         [1; 5; 7; 9; 11; 13; 11], 0
+        [2; 4; 6; 8], 4
     ] |> List.map (fun (list, value) -> TestCaseData(list, value))
 
 [<Test>]
