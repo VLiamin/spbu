@@ -1,4 +1,5 @@
 ﻿module CountEvenNumbersWithMap
+
 // Function that counts the number of even elements in a list using map
 let countEvenNumbersWithMap list =
     let newList = List.sort (List.map (fun x -> x % 2 * x) list)
