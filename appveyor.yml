@@ -5,8 +5,7 @@ init:
 
 environment:
   matrix:
-  - solution: Sem4/Hw2/Task2_3/Task2_3
-.sln
+  - solution: Sem4/Hw2/Task2_3/Task2_3.sln
 
 before_build:
   - nuget restore %solution%
