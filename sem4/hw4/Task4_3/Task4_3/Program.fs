@@ -6,7 +6,7 @@ open Preservation
 open Number
 open Name
 
-
+// Function which implements telephone directory functions
 let doTelephoneDirectory = 
     printfn "Exit: 1\nAdd record (name and phone): 2\n%s\n%s\n%s"
         "Find phone by name: 3\nFind name by phone: 4"

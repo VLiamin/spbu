@@ -1,5 +1,6 @@
 ﻿module Preservation
 open System.IO
+// Function which save data to a file
 let save list path = 
     let file = new StreamWriter(path, true)
     let lenght = List.length list

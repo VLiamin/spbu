@@ -1,6 +1,6 @@
 ﻿module Add
 open System
-
+// Function which added name and number to a list
 let add list = 
     let rec addRecord list = 
         printfn "Add : 1 \nExit: 0"

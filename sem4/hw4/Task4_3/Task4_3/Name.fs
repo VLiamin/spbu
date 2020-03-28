@@ -1,6 +1,7 @@
 ﻿module Name
 open System.IO
-open System
+
+// Function that searches for a name by number
 let findName path name = 
     let file = new StreamReader(new FileStream(path, FileMode.Open))
     let rec findNumberInString text count = 
