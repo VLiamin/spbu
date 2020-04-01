@@ -13,8 +13,8 @@ let testCases =
 [<Test>]
 [<TestCaseSource("testCases")>]
 let TestFindNumber name value =
-    findNumber "C:\\Users\\Lyami\\source\\repos\\Task4_3\\check.txt" name  |> should equal value
+    findNumber "check.txt" name  |> should equal value
 
 [<Test>]
 let TestFindNumber2 =
-    findNumber "C:\\Users\\Lyami\\source\\repos\\Task4_3\\check.txt" "Blabla"  |> should equal None
+    findNumber "check.txt" "Blabla"  |> should equal None
