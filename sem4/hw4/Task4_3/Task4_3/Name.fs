@@ -16,7 +16,7 @@ let findName path name =
             let string = file.ReadLine()
             if (string = name) then
                 printfn "Your name is: %s" text
-                findNumberInString string 1
+                findNumberInString text 1
             else
                 findNumberInString string count
     findNumberInString "" 0
