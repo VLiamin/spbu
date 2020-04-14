@@ -15,6 +15,7 @@ let testCases =
         [1; 3; 4; 5; -6; 7; 8; 9], 3
         [1; 5; 7; 9; 11; 13; 11], 0
         [2; 4; 6; 8], 4
+        [0; -3], 1
     ] |> List.map (fun (list, value) -> TestCaseData(list, value))
 
 [<Test>]
@@ -34,8 +35,8 @@ let CountEvenNumbersWithFilterTest list value =
 
 [<Test>]
 let CountEvenNumbersWithFilterAndFolderTest () = 
-    Check.Quick (fun (list: List<int>) -> (countEvenNumbersWithFilter list) = (countEvenNumbersWithFold list))
+    Check.QuickThrowOnFailure (fun (list: List<int>) -> (countEvenNumbersWithFilter list) = (countEvenNumbersWithFold list))
 
 [<Test>]
 let CountEvenNumbersWithFilterAndMapTest () = 
-    Check.Quick (fun (list: List<int>) -> (countEvenNumbersWithFilter list) = (countEvenNumbersWithMap list))
+    Check.QuickThrowOnFailure (fun (list: List<int>) -> (countEvenNumbersWithFilter list) = (countEvenNumbersWithMap list))
