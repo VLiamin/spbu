@@ -14,4 +14,4 @@ build:
   project: $(solution)
 
 test_script:
-  - dotnet test %solution%
+  - dotnet test %solution% 
