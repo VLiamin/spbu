@@ -9,8 +9,8 @@ type Tree =
 | Subtraction of Tree * Tree
 
 // Method which count the tree expression
-let rec countExpression Tree =
-    match Tree with
+let rec countExpression tree =
+    match tree with
     | Leaf (number) -> number
     | Multiplication (leftTree, rightTree) -> (countExpression leftTree) * (countExpression rightTree)
     | Division (leftTree, rightTree) -> (countExpression leftTree) / (countExpression rightTree)
