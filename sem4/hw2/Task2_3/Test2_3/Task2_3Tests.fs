@@ -6,10 +6,10 @@ open Task2_3
 
 let testCases = 
     [
-        Node ('*', Node ('+', Leaf 9, Leaf 10), Leaf 3), 57
-        Node ('+', Node ('/', Leaf 9, Leaf 3), Leaf 3), 6
-        Node ('-', Leaf 3, Leaf 3), 0
-        Node ('*', Node ('*', Leaf 9, Leaf 10), Leaf 3), 270
+        Subtraction (Leaf 2, Leaf 4), -2
+        Addition (Division (Leaf 9, Leaf 3), Leaf 3), 6
+        Subtraction (Leaf 3, Leaf 3), 0
+        Multiplication (Multiplication (Leaf 9, Leaf 10), Leaf 3), 270
     ] |> List.map (fun (tree, value) -> TestCaseData(tree, value))
 
 [<Test>]

@@ -1,17 +1,19 @@
 ﻿module Task2_3
 
 // Structure of the tree
-type tree =
+type Tree =
 | Leaf of int
-| Node of char * tree * tree
+| Multiplication of Tree * Tree
+| Division of Tree * Tree
+| Addition of Tree * Tree
+| Subtraction of Tree * Tree
 
 // Method which count the tree expression
-let rec countExpression tree =
-    match tree with
-    | Leaf(number) -> number
-    | Node(element, leftTree, rightTree) ->
-        match element with
-        | '+' -> (countExpression leftTree) + (countExpression rightTree)
-        | '-' -> (countExpression leftTree) - (countExpression rightTree)
-        | '*' -> (countExpression leftTree) * (countExpression rightTree)
-        | _ -> (countExpression leftTree) / (countExpression rightTree)
+let rec countExpression Tree =
+    match Tree with
+    | Leaf (number) -> number
+    | Multiplication (leftTree, rightTree) -> (countExpression leftTree) * (countExpression rightTree)
+    | Division (leftTree, rightTree) -> (countExpression leftTree) / (countExpression rightTree)
+    | Addition (leftTree, rightTree) ->  (countExpression leftTree) + (countExpression rightTree)
+    | Subtraction (leftTree, rightTree) -> (countExpression leftTree) - (countExpression rightTree)
+
