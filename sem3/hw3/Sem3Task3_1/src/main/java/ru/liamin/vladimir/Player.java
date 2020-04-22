@@ -4,25 +4,21 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /** Class class that implements gun movement */
 public class Player {
-    private BufferedImage renderedLeftSideCannon = ImageIO.read(getClass().getResource("/CannonRight.png"));
-    private BufferedImage leftSideCannon = ImageIO.read(getClass().getResource("/CannonRight.png"));
-    private BufferedImage renderedRightSideCannon = ImageIO.read(getClass().getResource("/CannonLeft.png"));
-    private BufferedImage rightSideCannon = ImageIO.read(getClass().getResource("/CannonLeft.png"));
-    private BufferedImage renderedInitialCannonImage = renderedLeftSideCannon;
-    private BufferedImage initialCannonImage = leftSideCannon;
+
+    private BufferedImage Cannon = ImageIO.read(getClass().getResource("/Cannon.png"));
+    private BufferedImage Wheel = ImageIO.read(getClass().getResource("/Wheel.png"));
     private Core core;
-    private final int horizonOrdinate = 175;
     private double angle = 0;
     private double angularVelocity = 0;
-    private int x = 890;
-    private int y = horizonOrdinate;
+    private int x = 600;
+    private int y = ConstantOfLandscape.HORIZON_ORDINARY;
     private int speed = 0;
-    private boolean isNormalDirection = true;
     private Landscape landscape;
 
     public Player(Core core, Landscape landscape) throws IOException {
@@ -34,8 +30,8 @@ public class Player {
      * Method which return gun image
      * @retur gun image
      */
-    public BufferedImage getRenderedInitialCannonImage() {
-        return renderedInitialCannonImage;
+    public BufferedImage getWheelImage() {
+        return Wheel;
     }
 
     /**
@@ -53,46 +49,45 @@ public class Player {
     public int getY() {
         return y;
     }
+    /**
+     * Method which return Y coordinate of Wheel
+     * @return Y coordinate of Wheel
+     */
+    public int getWheelY() {
+        return y + ConstantsOFCannon.CANNON_HEIGHT;
+    }
+
+    public int getWheelX() {
+        return x + ConstantsOFCannon.CANNON_LENGTH;
+    }
 
     /** Method which implements gun movement */
     public void move() {
-
-        int maxAngle = 10;
-        if ((angle <= maxAngle) && (angle >= 0) && (angularVelocity != 0)) {
-            renderedInitialCannonImage = initialCannonImage;
-            rotate();
-        }
-        if (((speed > 0) && (x > landscape.getMinPossibleX())) || ((speed < 0) && (x < landscape.getMaxPossibleX()))) {
+        if (((speed > 0) && (x > ConstantOfLandscape.MIN_POSSIBLE_X)) || ((speed < 0) && (x < ConstantOfLandscape.MAX_POSSIBLE_X))) {
             x -= speed;
         }
         updateCurrentY();
-        if (((angle <= maxAngle) && (angularVelocity > 0)) || ((angle >= 0) && (angularVelocity < 0))) {
+        if ((angle <= ConstantsOFCannon.MAX_ANGLE) && (angle >= ConstantsOFCannon.MIN_ANGLE))
             angle += angularVelocity;
-        }
+        if (angle > ConstantsOFCannon.MAX_ANGLE)
+            angle = ConstantsOFCannon.MAX_ANGLE;
+        if (angle < ConstantsOFCannon.MIN_ANGLE)
+            angle = ConstantsOFCannon.MIN_ANGLE;
     }
 
     /** By given x coordinate of cannon sets correct value to y */
-    // In this method, y is reconstructed using the equation of the mountain slope
     private void updateCurrentY() {
-        int copyX = x;
-        if (!isNormalDirection)
-            copyX += 80;
-        if ((copyX < landscape.getFirstBeginHillCoordinate()) || (copyX >= landscape.getSecondEndHillCoordinate()) ||
-                ((copyX >= landscape.getFirstEndHillCoordinate()) && (copyX < landscape.getSecondBeginHillCoordinate()))) {
-            y = horizonOrdinate;
-        }
-        if ((copyX < landscape.getFirstTop()) && (copyX >= landscape.getFirstBeginHillCoordinate())) {
-            y = (-copyX + 290);
-        }
-        if ((copyX >= landscape.getFirstTop()) && (copyX < landscape.getFirstEndHillCoordinate())) {
-            y = (copyX - 205);
-        }
-        if ((copyX >= landscape.getSecondBeginHillCoordinate()) && (copyX < landscape.getSecondTop())) {
-            y = (int) (copyX * (-landscape.getSecondHillSlope()) + 353);
-        }
-        if ((copyX >= landscape.getSecondTop()) && (copyX < landscape.getSecondEndHillCoordinate())) {
-            y = (int) (copyX * (landscape.getSecondHillSlope()) - 125);
-        }
+        if (x >= ConstantOfLandscape.FIRST_BEGIN_HILL_COORDINATE && x <= ConstantOfLandscape.FIRST_TOP)
+            y = ConstantOfLandscape.HORIZON_ORDINARY - x + ConstantOfLandscape.FIRST_BEGIN_HILL_COORDINATE;
+
+        if (x >= 810 && x <= 970)
+            y = ConstantOfLandscape.HORIZON_ORDINARY - x + ConstantOfLandscape.SECOND_BEGIN_HILL_COORDINATE;
+
+        if (x >= ConstantOfLandscape.FIRST_TOP && x <= ConstantOfLandscape.FIRST_END_HILL_COORDINATE)
+            y = ConstantOfLandscape.HORIZON_ORDINARY + x - ConstantOfLandscape.FIRST_END_HILL_COORDINATE;
+
+        if (x >= ConstantOfLandscape.SECOND_TOP && x <= ConstantOfLandscape.SECOND_END_HILL_COORDINATE)
+            y = ConstantOfLandscape.HORIZON_ORDINARY + x - ConstantOfLandscape.SECOND_END_HILL_COORDINATE;
     }
 
     /**
@@ -116,30 +111,12 @@ public class Player {
     public void keyPressed(KeyEvent e) {
         int maxSpeed = 2;
         double maxAngularVelocity = 0.5;
-        int angleOfBarrel = 25;
-        int barrelHeight = 120;
-        int barrelLength = 52;
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_RIGHT) {
-            System.out.println(x + " " + y);
-            if (isNormalDirection) {
-                renderedInitialCannonImage = renderedRightSideCannon;
-                isNormalDirection = false;
-                initialCannonImage = rightSideCannon;
-                rotate();
-            }
             speed = -maxSpeed;
         }
 
         if (key == KeyEvent.VK_LEFT) {
-            System.out.println(x + " " + y);
-            if (!isNormalDirection) {
-                renderedInitialCannonImage = renderedLeftSideCannon;
-                initialCannonImage = leftSideCannon;
-                isNormalDirection = true;
-                rotate();
-            }
-
             speed = maxSpeed;
         }
 
@@ -149,52 +126,22 @@ public class Player {
         if (key == KeyEvent.VK_DOWN) {
             angularVelocity = -maxAngularVelocity;
         }
+
         if (key == KeyEvent.VK_ENTER) {
-            if (isNormalDirection) {
-                core.setValues(angle + angleOfBarrel, x - barrelLength, (int) (y - barrelHeight + 10 * Math.sin(angle)), true);
-            }
-            else {
-                core.setValues(angle + angleOfBarrel, x + barrelLength * 2 + 20 - (int) (15 * Math.sin(angle)), y - 125, false);
-            }
+            core.setValues(angle, x - 50, y - 120);
         }
 
     }
 
     /** Method which rotates gun */
-    public void rotate() {
-        // Calculate the new size of the image based on the angle of rotaion
-        double radians = Math.toRadians(angle);
-        if (!isNormalDirection) {
-            radians = -radians;
-        }
-        double sin = Math.abs(Math.sin(radians));
-        double cos = Math.abs(Math.cos(radians));
-        int newWidth = (int) Math.round(renderedInitialCannonImage.getWidth() * cos + renderedInitialCannonImage.getHeight() * sin + 70 * sin) + 10;
-        if (!isNormalDirection) {
-            newWidth += 20;
-        }
-        int newHeight = (int) Math.round(renderedInitialCannonImage.getWidth() * sin + renderedInitialCannonImage.getHeight() * cos + 40 * sin) + 10;
+    public void rotate(Graphics g) {
+        BufferedImage image = Cannon;
+        double locationX = image.getWidth() / 2;
+        double locationY = image.getHeight() / 2;
 
-        // Create a new image
-        BufferedImage rotate = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = rotate.createGraphics();
-        // Calculate the "anchor" point around which the image will be rotated
-        int x = (newWidth - renderedInitialCannonImage.getWidth()) / 2;
-        int y = (newHeight - renderedInitialCannonImage.getHeight()) / 2 - 5 - (int) (20 * sin);
-        // Transform the origin point around the anchor point
-        AffineTransform at = new AffineTransform();
-        if (isNormalDirection) {
-            at.setToRotation(radians,  x + (renderedInitialCannonImage.getWidth() / 2) + 75, y + (renderedInitialCannonImage.getHeight() / 2) - 110);
-        }
-        else {
-            at.setToRotation(radians, x + (renderedInitialCannonImage.getWidth() / 2) - 40, y + (renderedInitialCannonImage.getHeight() / 2) - 100);
-        }
-        at.translate(x, y);
-        g2d.setTransform(at);
-        // Paint the originl image
-        g2d.drawImage(renderedInitialCannonImage, 0, 0, null);
-        g2d.dispose();
-        renderedInitialCannonImage = rotate;
+        AffineTransform tx = AffineTransform.getRotateInstance(Math.toRadians(-angle + 20), locationX, locationY);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+        g.drawImage(op.filter(image, null), getX(), getY(), null);
     }
 }
 
