@@ -14,9 +14,10 @@ let testCases =
         "[5 = 9]", true
         "((())fjjfjf)", true
         "[[jfjj]]]()", false
+        "[(djdjj]kkf)", false
     ] |> List.map (fun (line, isCorrect) -> TestCaseData(line, isCorrect))
 
 [<Test>]
 [<TestCaseSource("testCases")>]
 let checkParentheses line isCorrect =
-    Check.Quick (fun () -> checkParentheses line = isCorrect)
+    Check.QuickThrowOnFailure (fun () -> checkParentheses line = isCorrect)
