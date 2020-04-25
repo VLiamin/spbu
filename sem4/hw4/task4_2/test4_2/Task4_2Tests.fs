@@ -15,19 +15,24 @@ let testCases =
 [<Test>]
 [<TestCaseSource("testCases")>]
 let funcTest number list newList =
-    Check.Quick (fun () -> func number list = newList)
+    Check.QuickThrowOnFailure (fun () -> func number list = newList)
 
 [<Test>]
 [<TestCaseSource("testCases")>]
 let func'1Test number list newList =
-    Check.Quick (fun () -> func'1 number list = func number list)
+    Check.QuickThrowOnFailure (fun () -> func'1 number list = func number list)
 
 [<Test>]
 [<TestCaseSource("testCases")>]
 let func'2Test number list newList =
-    Check.Quick (fun () -> func'2 number list = func number list)
+    Check.QuickThrowOnFailure (fun () -> func'2 number list = func number list)
 
 [<Test>]
 [<TestCaseSource("testCases")>]
 let func'3Test number list newList =
-    Check.Quick (fun () -> func'3 number list = func number list)
+    Check.QuickThrowOnFailure (fun () -> func'3 number list = func number list)
+
+[<Test>]
+[<TestCaseSource("testCases")>]
+let func'4Test number list newList =
+    Check.Quick (fun () -> (func'4 number list) = (func number list))
