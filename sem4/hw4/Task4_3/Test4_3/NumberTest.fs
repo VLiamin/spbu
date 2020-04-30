@@ -1,7 +1,10 @@
 module Test4_3
-open Number
+
+open Task4_3
 open NUnit.Framework
 open FsUnit
+open System.IO
+
 let testCases = 
     [
        "Katya", Some "+728271828"
@@ -13,8 +16,8 @@ let testCases =
 [<Test>]
 [<TestCaseSource("testCases")>]
 let TestFindNumber name value =
-    findNumber "check.txt" name  |> should equal value
+    findNumber (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt") name  |> should equal value
 
 [<Test>]
 let TestFindNumber2 =
-    findNumber "check.txt" "Blabla"  |> should equal None
+    findNumber (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt") "Blabla"  |> should equal None

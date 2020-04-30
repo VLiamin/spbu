@@ -1,7 +1,9 @@
 ﻿module NameTest
-open Name
+
+open Task4_3
 open NUnit.Framework
 open FsUnit
+open System.IO
 
 let testCases = 
     [
@@ -14,8 +16,8 @@ let testCases =
 [<Test>]
 [<TestCaseSource("testCases")>]
 let TestFindName name value =
-    findName "check.txt" value |> should equal name
+    findName (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt") value |> should equal name
 
 [<Test>]
 let TestFindName2 =
-    findName "check.txt" "+38272727" |> should equal None
+    findName (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt") "+38272727" |> should equal None
