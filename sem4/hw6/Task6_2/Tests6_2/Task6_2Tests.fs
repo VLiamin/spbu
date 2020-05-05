@@ -3,7 +3,6 @@ module Tests
 open Task6_2
 open NUnit.Framework
 open FsUnit
-open FsCheck
 
 let testCases = 
     [
@@ -17,16 +16,6 @@ let testCases =
 [<Test>]
 [<TestCaseSource("testCases")>]
 let checkCountResult firstValue secondValue result =
-    Check.Quick (fun () -> (countResult firstValue secondValue) = result)
+    result |> should equal (countResult firstValue secondValue)
 
 
-let countResult () = 
-    calculate {
-        let! x = "1"
-        let! y = "2"
-        let z = x + y
-        return z
-    }
-[<Test>]
-let checkCount2  =
-    countResult () |> should equal "3"
