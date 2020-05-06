@@ -12,7 +12,7 @@ type Calculate() =
     
 let calculate () = new Calculate()
 
-// Function which shows the work of builder
+/// Function which shows the work of builder
 let countResult firstValue secondValue = 
     calculate () {
         let! x = firstValue
