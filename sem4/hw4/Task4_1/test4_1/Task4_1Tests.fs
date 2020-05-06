@@ -2,9 +2,7 @@ module Tests4_1
 
 open NUnit.Framework
 open FsUnit
-open FsCheck
 open Task4_1
-
 
 let testCases = 
     [
@@ -15,9 +13,12 @@ let testCases =
         "((())fjjfjf)", true
         "[[jfjj]]]()", false
         "[(djdjj]kkf)", false
+        "[(])", false
+        "()[]{}", true
+        "(djdjdj){dmmdm[dkd}djdk]", false
     ] |> List.map (fun (line, isCorrect) -> TestCaseData(line, isCorrect))
 
 [<Test>]
 [<TestCaseSource("testCases")>]
 let checkParentheses line isCorrect =
-    Check.QuickThrowOnFailure (fun () -> checkParentheses line = isCorrect)
+    checkParentheses line |> should equal isCorrect
