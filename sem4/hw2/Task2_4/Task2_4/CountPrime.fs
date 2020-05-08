@@ -12,10 +12,10 @@ let isPrime x =
         
     match x with
     | x when x <= 1 -> false
-    | x -> check (x - 1)
+    | x -> check ((int) (sqrt ((float) x)))
 
 // Function that returns an infinite sequence of primes
 let returnAnInfiniteSequenceOfPrimes () = 
-    Seq.initInfinite (fun number -> number) 
-    |> Seq.filter (fun number -> isPrime number)
+    Seq.initInfinite (id) 
+    |> Seq.filter isPrime
 

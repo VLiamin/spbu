@@ -24,4 +24,4 @@ let returnAnInfiniteSequenceOfPrimesTest1 () =
 [<Test>]
 [<TestCaseSource("testCases")>]
 let isPrimeTest number numberIsPrime =
-    Check.QuickThrowOnFailure (fun () -> (isPrime number) = numberIsPrime)
+    isPrime number |> should equal numberIsPrime
