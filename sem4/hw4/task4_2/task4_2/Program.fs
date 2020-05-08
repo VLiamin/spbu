@@ -1,4 +1,5 @@
-﻿module task4_2
+﻿module Task4_2
+
 /// Function given by condition
 let func x l = List.map (fun y -> y * x) l
 

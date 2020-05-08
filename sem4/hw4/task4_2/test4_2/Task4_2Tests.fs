@@ -1,8 +1,8 @@
 module Tests4_2
 
 open NUnit.Framework
-open FsCheck
-open task4_2
+open FsUnit
+open Task4_2
 
 let testCases = 
     [
@@ -15,24 +15,24 @@ let testCases =
 [<Test>]
 [<TestCaseSource("testCases")>]
 let funcTest number list newList =
-    Check.QuickThrowOnFailure (fun () -> func number list = newList)
+    func number list |> should equal newList
 
 [<Test>]
 [<TestCaseSource("testCases")>]
 let func'1Test number list newList =
-    Check.QuickThrowOnFailure (fun () -> func'1 number list = func number list)
+    func'1 number list |> should equal (func number list)
 
 [<Test>]
 [<TestCaseSource("testCases")>]
 let func'2Test number list newList =
-    Check.QuickThrowOnFailure (fun () -> func'2 number list = func number list)
+    func'2 number list |> should equal (func number list)
 
 [<Test>]
 [<TestCaseSource("testCases")>]
 let func'3Test number list newList =
-    Check.QuickThrowOnFailure (fun () -> func'3 number list = func number list)
+    func'3 number list |> should equal (func number list)
 
 [<Test>]
 [<TestCaseSource("testCases")>]
 let func'4Test number list newList =
-    Check.Quick (fun () -> (func'4 number list) = (func number list))
+    func'4 number list |> should equal (func number list)
