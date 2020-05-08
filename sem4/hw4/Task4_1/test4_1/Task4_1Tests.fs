@@ -8,6 +8,7 @@ let testCases =
     [
         "(1 + 2) *3", true
         "(1 - 7 * 8", false
+        "1 - [7 * 8", false
         "I can (run}", false
         "[5 = 9]", true
         "((())fjjfjf)", true
