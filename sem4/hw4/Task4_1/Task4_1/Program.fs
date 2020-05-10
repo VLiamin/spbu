@@ -6,7 +6,7 @@ let getOpposite x =
    | '(' -> ')'
    | '[' -> ']'
    | '{' -> '}'
-   | x -> x
+   | _ -> x
 
 /// Function that checks the string for correct brackets 
 let checkParentheses line =
@@ -14,13 +14,13 @@ let checkParentheses line =
     let rec lineTraversal newLine list =
         if (List.length newLine = 0) then
             List.length list = 0
-        elif (List.head newLine = ')' || List.head newLine = ']' || List.head newLine = '}') && 
-             (List.length list > 0 && (List.head newLine).Equals(List.head list) = false || List.length list = 0) then
-            false
         else 
             match (List.head newLine) with
             | x when x = '(' || x = '[' || x = '{' -> lineTraversal (List.tail newLine) (getOpposite x :: list)
-            | x when x = ')' || x = '}' || x = ']' -> lineTraversal (List.tail newLine) (List.tail list)
+            | ')' | '}' | ']' -> if (List.length list > 0 && (List.head newLine).Equals(List.head list) = false || List.length list = 0) then
+                                      false
+                                 else 
+                                      lineTraversal (List.tail newLine) (List.tail list)
             | _ -> lineTraversal (List.tail newLine) list
     lineTraversal (Seq.toList(line)) []
 
