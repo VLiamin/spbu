@@ -1,5 +1,6 @@
-# Created by https://www.gitignore.io/api/fsharp,visualstudio
-# Edit at https://www.gitignore.io/?templates=fsharp,visualstudio
+
+# Created by https://www.gitignore.io/api/linux,fsharp,visualstudio
+# Edit at https://www.gitignore.io/?templates=linux,fsharp,visualstudio
 
 ### fsharp ###
 lib/debug
@@ -12,6 +13,21 @@ bin
 /build/
 *.exe
 !.paket/paket.bootstrapper.exe
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
 
 ### VisualStudio ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -237,7 +253,6 @@ _pkginfo.txt
 # Others
 ClientBin/
 ~$*
-*~
 *.dbmdl
 *.dbproj.schemaview
 *.jfm
@@ -361,4 +376,4 @@ healthchecksdb
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
 
-# End of https://www.gitignore.io/api/fsharp,visualstudio
+# End of https://www.gitignore.io/api/linux,fsharp,visualstudio
