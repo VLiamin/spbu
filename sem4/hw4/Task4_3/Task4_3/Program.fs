@@ -2,7 +2,6 @@
 
 open System
 open System.IO
-open AddElement
 
 /// Function that searches for a name by number
 let findName path name = 
@@ -11,12 +10,10 @@ let findName path name =
         if (count = 1) then
             Some(text)
         elif (file.EndOfStream) then
-            printfn "This name not exists"
             None
         else 
             let string = file.ReadLine()
             if (string = name) then
-                printfn "Your name is: %s" text
                 findNumberInString text 1
             else
                 findNumberInString string count
@@ -29,16 +26,34 @@ let findNumber path name =
         if (count = 1) then
             Some(number)
         elif (file.EndOfStream) then
-            printfn "This number not exists"
             None
         else 
             if (file.ReadLine() = name) then
                 let phone = file.ReadLine()
-                printfn "Your number is: %s" phone
                 findNumberInString 1 phone
             else
                 findNumberInString count number
     findNumberInString 0 ""
+
+/// Function which added name and number to a list
+let addToList path list =
+    (printf "Write name: ") 
+    let name = Console.ReadLine()
+    (printf "Write number: ")
+    let number = Console.ReadLine()
+    if (findNumber path number = None) then
+        name :: number :: list
+    else
+        list
+
+/// Function that allows you to repeatedly record data
+let add path list = 
+    let rec addRecord path list = 
+        printfn "Add : 1 \nExit: 0"
+        match Console.ReadLine() with 
+        | "1" -> addRecord path (addToList path list)
+        | _ -> list
+    addRecord path list
 
 /// Function which save data to a file
 let save list path = 
@@ -46,11 +61,15 @@ let save list path =
     let lenght = List.length list
     let rec saveToFile list count = 
         if (count = lenght) then
-            ()
+            []
          else
              file.WriteLine(List.head list + "")
              saveToFile (List.tail list) (count + 1)
     saveToFile list 0
+
+/// Function which read data from file
+let readData path = 
+    (File.ReadAllText(path))
 
 /// Function which implements telephone directory functions
 let doTelephoneDirectory = 
@@ -67,18 +86,17 @@ let doTelephoneDirectory =
     let rec fulfillUserRequests newList text = 
         printf "Your number: "
         match Console.ReadLine() with 
-        | "2" -> fulfillUserRequests (add newList) text
+        | "2" -> fulfillUserRequests (add path newList) text
         | "3" -> printf "Write name: "
-                 findNumber path (Console.ReadLine())
+                 printfn "%A" (findNumber path (Console.ReadLine()))
                  fulfillUserRequests newList text
         | "4" -> printf "Write number: "
-                 findName path (Console.ReadLine())
+                 printfn "%A" (findName path (Console.ReadLine()))
                  fulfillUserRequests newList text
         | "5" -> printfn "%s" (File.ReadAllText(path))
                  fulfillUserRequests newList text
-        | "6" -> save newList path
-                 fulfillUserRequests newList text
-        | "7" -> fulfillUserRequests newList (File.ReadAllText(path))
+        | "6" -> fulfillUserRequests (save newList path) text
+        | "7" -> fulfillUserRequests newList (readData path)
         | _ -> file.Close ()
     fulfillUserRequests list text
 doTelephoneDirectory
