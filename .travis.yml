@@ -4,6 +4,7 @@ dist: xenial
 dotnet: 3.0
 
 env:
+  - solution: Sem4/Hw4/Task4_1/Task4_1.sln
 
 before_build:
   - nuget restore $solution
