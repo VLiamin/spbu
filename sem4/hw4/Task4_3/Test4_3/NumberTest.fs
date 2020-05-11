@@ -16,8 +16,12 @@ let testCases =
 [<Test>]
 [<TestCaseSource("testCases")>]
 let TestFindNumber name value =
-    findNumber (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt") name  |> should equal value
+    findNumber (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt") name [] |> should equal value
 
 [<Test>]
 let TestFindNumber2 =
-    findNumber (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt") "Blabla"  |> should equal None
+    findNumber (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt") "Blabla" [] |> should equal None
+
+[<Test>]
+let TestFindNumber3 =
+    findNumber (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt") "Blabla" ["Blabla"; "+67898"] |> should equal (Some "+67898")

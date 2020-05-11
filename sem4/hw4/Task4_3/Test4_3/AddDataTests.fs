@@ -11,14 +11,13 @@ let TestSavedata () =
     let path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check2.txt"
     File.Delete(path);
     save list path
-    readData path |> 
-    should equal "Masha\r\n883828\r\nKatya\r\n885828\r\nDasha\r\n886728\r\n"
+    (readData path).Replace("\r\n", " ").Replace('\n', ' ').Trim(' ') |> should equal "Masha 883828 Katya 885828 Dasha 886728"
 
 [<Test>]
 let TestSavedataManyTimes () =
     let list = ["Masha"; "883828"; "Katya"; "885828"; "Dasha"; "886728"]
     let path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check2.txt"
     File.Delete(path);
+    let newList = []
     save (save (save list path) path) path
-    readData path |> 
-    should equal "Masha\r\n883828\r\nKatya\r\n885828\r\nDasha\r\n886728\r\n"
+    (readData path).Replace("\r\n", " ").Replace('\n', ' ').Trim(' ') |> should equal "Masha 883828 Katya 885828 Dasha 886728"
