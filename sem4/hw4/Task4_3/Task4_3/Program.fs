@@ -20,6 +20,7 @@ let findName path number list =
                 findNumberInString text 1 list
             else
                 findNumberInString string count list
+
     findNumberInString "" 0 list
 
 /// Function that searches for a number by name
@@ -39,6 +40,7 @@ let findNumber path name list =
                 findNumberInString 1 phone newList
             else
                 findNumberInString count number newList
+
     findNumberInString 0 "" list
 
 /// Function which added name and number to a list
@@ -47,6 +49,7 @@ let addToList path list =
     let name = Console.ReadLine()
     (printf "Write number: ")
     let number = Console.ReadLine()
+
     if (findName path number list = None) then
         name :: number :: list
     else
@@ -59,6 +62,7 @@ let add path list =
         match Console.ReadLine() with 
         | "1" -> addRecord path (addToList path list)
         | _ -> list
+
     addRecord path list
 
 /// Function which save data to a file
@@ -71,23 +75,25 @@ let save list path =
          else
              file.WriteLine(List.head list + "")
              saveToFile (List.tail list) (count + 1)
+
     saveToFile list 0
 
 /// Function which read data from file
 let readData path = 
     (File.ReadAllText(path))
 
-// Function which print the list 
+/// Function which print the list 
 let printList list = 
     let rec printListElements elements = 
         match elements with
         | [] -> ()
         | x :: t -> printfn "%s" x
                     printListElements t
+
     printListElements list
 
 /// Function which implements telephone directory functions
-let doTelephoneDirectory = 
+let doTelephoneDirectory () = 
     printfn "Exit: 1\nAdd record (name and phone): 2\n%s\n%s\n%s"
         "Find phone by name: 3\nFind name by phone: 4"
         "Display all current contents of the database: 5"
@@ -115,7 +121,9 @@ let doTelephoneDirectory =
         | "6" -> fulfillUserRequests (save newList path) text
         | "7" -> fulfillUserRequests newList (readData path)
         | _ -> file.Close ()
+
     fulfillUserRequests list text
-doTelephoneDirectory
+
+doTelephoneDirectory ()
 
 
