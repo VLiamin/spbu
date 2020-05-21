@@ -42,5 +42,6 @@ type HtmlProcessor (access: IHtmlRequest) =
 
 let loaderMock = Mock<IHtmlRequest>().Setup(fun x -> <@ x.AccessHtmlAsync(any()) @>).Returns(async {
     return "<a href=\"http://yandex.ru/\" />" }).Create()
+
 let processor = HtmlProcessor(loaderMock)
 let result = Async.RunSynchronously(processor.CountLinkedPagesSymbols "yandex")
