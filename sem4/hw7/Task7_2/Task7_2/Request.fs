@@ -18,7 +18,7 @@ type HtmlRequest () =
         member this.AccessHtmlAsync url =
             async {
                 let request = WebRequest.Create url
-                use response = request.GetResponse()
+                use! response = request.AsyncGetResponse()
                 use stream = response.GetResponseStream()
                 use reader = new StreamReader(stream)
                 return! Async.AwaitTask <| reader.ReadToEndAsync()
