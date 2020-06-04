@@ -1,12 +1,18 @@
-﻿module ComputerSystem
-open OperatingSystem
+﻿namespace Net
 
-    // A type that describes a computer system
-    type System(value: bool, typeOfSystem: OperatingSystem) = 
-        member val Infected = value with get, set
-        member private this.Type = typeOfSystem
-        member val InfectedOnThisType = false with get, set
-        member this.GetProbability =
-            this.Type.GetProbability
-        member this.GetTypeOfSystem =
-            this.Type
+/// A type that describes a computer system
+type System (value: bool, typeOfSystem: OperatingSystem) = 
+
+    /// Member who is responsible for infecting the computer
+    member val Infected = value with get, set
+
+    /// Member who is responsible for infecting the computer at the last iteration
+    member val InfectedOnThisStep = false with get, set
+
+    /// Member that returns the probability of a computer being infected with a virus
+    member this.GetProbability =
+        typeOfSystem.GetProbability
+
+    /// Member that returns the type of computer OS
+    member this.GetTypeOfSystem =
+        typeOfSystem.GetType

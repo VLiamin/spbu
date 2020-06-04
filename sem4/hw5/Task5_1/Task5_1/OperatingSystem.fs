@@ -1,10 +1,13 @@
-﻿module OperatingSystem
+﻿namespace Net
 
-    // The type that describes the operating system
-    type OperatingSystem = {Type: string; Probability: float} with
-        member this.GetType = 
-            this.Type
-        member this.GetProbability = 
-            this.Probability
-    let createOperatingSystem typeOfSystem probability =
-        {Type = typeOfSystem; Probability = probability}
+/// The type that describes the operating system
+type OperatingSystem (Type: string, Probability: float) =
+
+    /// Member that returns the type of computer OS
+    member this.GetType = 
+        Type
+
+     /// Member that returns the probability of a computer being infected with a virus
+     member this.GetProbability = 
+         Probability
+

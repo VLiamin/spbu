@@ -1,22 +1,23 @@
 module Test5_1
 
-open ComputerSystem
-open Iteration
+open Net
 open NUnit.Framework
 open FsUnit
+open System
+
 let testCases = 
     [
-        [|System(true, (OperatingSystem.createOperatingSystem "Windows" 1.0)); 
-        System(false, (OperatingSystem.createOperatingSystem "Linux" 1.0));
-        System(false, (OperatingSystem.createOperatingSystem "Windows" 1.0)); 
-        System(false, (OperatingSystem.createOperatingSystem "Windows" 1.0))|], array2D [[|0; 1; 0; 1|]; 
+        [|System(true, (Net.OperatingSystem("Windows", 1.0))); 
+        System(false, (Net.OperatingSystem("Linux", 1.0)));
+        System(false, (Net.OperatingSystem("Windows", 1.0))); 
+        System(false, (Net.OperatingSystem("Windows", 1.0)))|], array2D [[|0; 1; 0; 1|]; 
                                                                                          [|1; 0; 1; 0|]; 
                                                                                          [|0; 1; 0; 0|]; 
                                                                                          [|1; 0; 0; 0|]], false
-        [|System(true, (OperatingSystem.createOperatingSystem "Windows" 0.0)); 
-        System(false, (OperatingSystem.createOperatingSystem "Linux" 0.0));
-        System(false, (OperatingSystem.createOperatingSystem "Windows" 0.0)); 
-        System(false, (OperatingSystem.createOperatingSystem "Windows" 0.0))|], array2D [[|0; 1; 0; 1|]; 
+        [|System(true, (Net.OperatingSystem("Windows", 0.0))); 
+        System(false, (Net.OperatingSystem("Linux", 0.0)));
+        System(false, (Net.OperatingSystem("Windows", 0.0))); 
+        System(false, (Net.OperatingSystem("Windows", 0.0)))|], array2D [[|0; 1; 0; 1|]; 
                                                                                          [|1; 0; 1; 0|];
                                                                                          [|0; 1; 0; 0|]; 
                                                                                          [|1; 0; 0; 0|]], true
@@ -26,7 +27,7 @@ let testCases =
 [<TestCaseSource("testCases")>]
 let iterateTest1 (computers : System[]) relation isInfected =
 
-    (iterate computers relation).[2].Infected |> should equal false
+    (IterationCompeterSystem(computers, relation, new Random(int DateTime.Now.Ticks)).Iterate).[2].Infected |> should equal false
 
 
 [<Test>]
@@ -46,4 +47,4 @@ let iterateTest3 (computers : System[]) relation isInfected =
 [<Test>]
 [<TestCaseSource("testCases")>]
 let iterateTest4 computers relation isInfected =
-    (iterate computers relation).[2].Infected |> should equal isInfected
+    (IterationCompeterSystem(computers, relation, new Random(int DateTime.Now.Ticks)).Iterate).[2].Infected |> should equal isInfected
