@@ -5,19 +5,14 @@ open NUnit.Framework
 open FsUnit
 open System.IO
 
+let array1 = ["Vova"; "+266137334"; "Misha"; "+643737488"; "Katya"; "+728271828";]
+let array2 = ["Katya"; "+728271828"; "Misha"; "+643737488"; "Vova"; "+266137334";]
+let path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt"
 [<Test>]
-let TestSavedata () =
-    let list = ["Masha"; "883828"; "Katya"; "885828"; "Dasha"; "886728"]
-    let path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check2.txt"
-    File.Delete(path);
-    save list path
-    (readData path).Replace("\r\n", " ").Replace('\n', ' ').Trim(' ') |> should equal "Masha 883828 Katya 885828 Dasha 886728"
+let TestSaveData () =
+    ((readData path).Equals(array1) || (readData path).Equals(array2)) |> should equal true
 
 [<Test>]
 let TestSavedataManyTimes () =
-    let list = ["Masha"; "883828"; "Katya"; "885828"; "Dasha"; "886728"]
-    let path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check2.txt"
-    File.Delete(path);
-    let newList = []
-    save (save (save list path) path) path
-    (readData path).Replace("\r\n", " ").Replace('\n', ' ').Trim(' ') |> should equal "Masha 883828 Katya 885828 Dasha 886728"
+    save (readData path) path
+    ((readData path).Equals(array1) || (readData path).Equals(array2)) |> should equal true

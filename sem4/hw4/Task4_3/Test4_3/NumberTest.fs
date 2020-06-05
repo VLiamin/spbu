@@ -13,15 +13,17 @@ let testCases =
 
     ] |> List.map (fun (name, value) -> TestCaseData(name, value))
 
+let dataBase = ["Katya"; "+728271828"; "Misha"; "+643737488"; "Vova"; "+266137334"]
+
 [<Test>]
 [<TestCaseSource("testCases")>]
 let TestFindNumber name value =
-    findNumber (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt") name [] |> should equal value
+    findNumber name dataBase |> should equal value
 
 [<Test>]
 let TestFindNumber2 =
-    findNumber (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt") "Blabla" [] |> should equal None
+    findNumber "Blabla" dataBase |> should equal None
 
 [<Test>]
 let TestFindNumber3 =
-    findNumber (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))) + "/check.txt") "Blabla" ["Blabla"; "+67898"] |> should equal (Some "+67898")
+    findNumber "Blabla" ["Katya"; "+728271828"; "Blabla"; "+67898"; "Misha"; "+643737488"; "Vova"; "+266137334"] |> should equal (Some "+67898")
