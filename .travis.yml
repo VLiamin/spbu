@@ -1,9 +1,11 @@
+  
 language: fsharp
 sudo: required
 dist: xenial
 dotnet: 3.0
 
 env:
+  - solution: Sem4/test1/Test1Task3/Test1Task3.sln
 
 before_build:
   - nuget restore $solution
