@@ -1,33 +1,23 @@
 ﻿module Task3
 
-open Microsoft.FSharp.Core
 
-/// Priority queue structure
-type PriorityQueue<'a> () =
 
-    /// List of pairs
-    let mutable listOfElements = []
+/// Class is not a priority queue
+type Queue<'a> () =
 
-    /// Dequeues item with the highest priority
-    member this.Dequeue () =
-        match listOfElements with
-        | [] ->
-            invalidOp("Can't dequeue")
-        | h :: t ->
-            listOfElements <- t
-            fst h
+    /// List of values
+    let mutable elements = []
 
-     /// Enqueues item with priority
-     member this.Enqueue value priority =
-        let rec insertInTheQueue before after =
-            match after with
-            | [] ->
-                [(value, priority)]
-            | (x, y) :: t ->
-                if y < priority then
-                    before @ [(value, priority)] @ after
-                else
-                    insertInTheQueue (before @ [(x, y)]) t
-        listOfElements <- insertInTheQueue [] listOfElements
+    /// Method which add element in the queue
+    member this.Enqueue (value : 'a) =
+        elements <- elements @ [value]
 
-    member this.Count = listOfElements.Length
+     /// Method which remove element from the queue
+     member this.Dequeue () =
+        match elements with
+        | [] -> invalidOp "The queue is empty"
+        | x :: t -> elements <- t
+                    x
+
+    /// Method which get the size of the queue
+    member this.Count = elements.Length
