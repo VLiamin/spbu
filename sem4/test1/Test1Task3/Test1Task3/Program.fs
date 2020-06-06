@@ -1,8 +1,6 @@
 ﻿module Task3
 
-
-
-/// Class is not a priority queue
+/// Queue class
 type Queue<'a> () =
 
     /// List of values
@@ -12,8 +10,8 @@ type Queue<'a> () =
     member this.Enqueue (value : 'a) =
         elements <- elements @ [value]
 
-     /// Method which remove element from the queue
-     member this.Dequeue () =
+    /// Method which remove element from the queue
+    member this.Dequeue () =
         match elements with
         | [] -> invalidOp "The queue is empty"
         | x :: t -> elements <- t

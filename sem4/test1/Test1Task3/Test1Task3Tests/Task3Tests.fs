@@ -3,7 +3,7 @@ module Test1Task3Tests
 open Task3
 open NUnit.Framework
 open FsUnit
-
+open System
 
 let mutable queue = new Queue<int>()
 
@@ -23,8 +23,13 @@ let dequeueTest () =
     queue.Dequeue() |> should equal 0
 
 [<Test>]
-let countTest2 () =
-    queue.Enqueue(3)
-    queue.Enqueue(1)
+let anotherCountCheckTest () =
+    queue.Enqueue (3)
+    queue.Enqueue (1)
     queue.Dequeue ()
     queue.Count |> should equal 1
+
+[<Test>]
+let exceptionTest () =
+    
+    (fun() -> queue.Dequeue () |> ignore) |> should throw typeof<InvalidOperationException>
