@@ -33,3 +33,13 @@ let anotherCountCheckTest () =
 let exceptionTest () =
     
     (fun() -> queue.Dequeue () |> ignore) |> should throw typeof<InvalidOperationException>
+
+[<Test>]
+let anotherExceptionTest () =
+    queue.Enqueue (3)
+    queue.Enqueue (1)
+    queue.Dequeue ()
+    queue.Dequeue ()
+    (fun() -> queue.Dequeue () |> ignore) |> should throw typeof<InvalidOperationException>
+
+

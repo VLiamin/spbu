@@ -19,3 +19,4 @@ type Queue<'a> () =
 
     /// Method which get the size of the queue
     member this.Count = elements.Length
+
