@@ -29,7 +29,7 @@ public class Life {
     }
 
     /**
-     *
+     * Method which start the game
      */
     public void startGame() {
 
