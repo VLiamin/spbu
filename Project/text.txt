@@ -1,0 +1,12 @@
+statement : *( $label '<label>' ':' ; $case1 'case' expression ':'
+$case2 ; $default 'default' ':' )
+statement : ( compound ;
+'if' $cond '(' expression $then ')' statement 'else' statement ;
+'switch' $sw1 '(' expression $sw2 ')' statement $sw3 ;
+'while' $cond '(' expression $wl1 ')' statement $wl2 ;
+$do1 'do' statement 'while' $cond '(' expression ')' $do2 ;
+'for' $for1 '(' expression $for2 ';' expression
+$for3 ';' expression $for4 ')' statement $for5 ;
+ ( 'goto' $goto '<tag>' ; $cont 'continue' ; $brk 'break' ;
+$ret1 'return' expression $ret2 ;
+expression $expr ; $null ) ) .
