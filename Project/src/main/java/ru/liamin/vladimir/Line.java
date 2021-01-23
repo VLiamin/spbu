@@ -4,12 +4,22 @@ import java.util.List;
 
 public class Line {
 
-    private List<PartOfLine> partOfLines;
+    private String word;
+    private int weight;
 
-    private void addPartOfLines(PartOfLine partOfLine) {
-        partOfLines.add(partOfLine);
+    public Line(String word) {
+        this.word = word;
     }
-    public List<PartOfLine> getPartOfLines() {
-        return partOfLines;
+
+    public String getLine() {
+        return word;
+    }
+
+    public void addWeight() {
+        weight++;
+    }
+
+    private int getWeight() {
+        return weight;
     }
 }
