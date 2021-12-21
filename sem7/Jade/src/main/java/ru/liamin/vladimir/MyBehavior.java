@@ -3,169 +3,79 @@ package ru.liamin.vladimir;
 import jade.core.AID;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
-import jade.lang.acl.UnreadableException;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.*;
 
 public class MyBehavior extends Behaviour {
-    private final double connectionProbability = 0.01;
-    private final long millToConnection = 30;
 
-    private boolean isMain;
-    private List<String> neighbors;
-    private int number;
-    Map<String, Integer> map;
-    private boolean isFirstStage = true;
-    private String nameOfSender;
-    private int counter;
-    private ACLMessage response;
-    private ACLMessage request;
-    private boolean isAlive = false;
+    public static final double a = 0.001;
+    public static final double error = 0.01;
+    public static final double probabilityBroken = 0.01;
+    public static final double probabilityDelayed = 0.01;
+
     private String mainAgent;
-    private String previousSender;
+    private double result;
+    private int iterations;
+    private boolean isAlive = false;
+    private MyAgent agent;
+    private Random random;
+    public static int numberOfIterations;
+    private ACLMessage message;
 
-
-    public MyBehavior(int number, boolean isMain, List<String> neighbors, String mainAgent) {
-        super();
-        this.neighbors = neighbors;
-        this.isMain = isMain;
-        this.number = number;
+    MyBehavior(MyAgent agent, String mainAgent, int agents) {
+        this.agent = agent;
+        this.result = agent.getNumber();
+        random = new Random();
+        numberOfIterations = agents * 1000;
         this.mainAgent = mainAgent;
-        map = new HashMap<>();
-        response = new ACLMessage(ACLMessage.INFORM);
-        if (!isMain && !(neighbors.size() == 1)) {
-            neighbors.remove(mainAgent);
-        }
     }
 
     @Override
     public void action() {
-        if (isMain && isFirstStage) {
-            map.put(myAgent.getLocalName(), number);
-            for (int i = 0; i < neighbors.size(); i++) {
-                response.addReceiver(new AID(neighbors.get(i), AID.ISGUID));
-            }
+        Set<String> neighbors = agent.getNeighbors();
 
-            response.setContent("Numbers");
-            myAgent.send(response);
-            isFirstStage = false;
-            block();
+        for (String neighbor : neighbors) {
+            message = new ACLMessage();
+            double error = random.nextDouble() / 100 * MyBehavior.error;
+            message.addReceiver(new AID(neighbor, AID.ISLOCALNAME));
+            message.setContent(String.valueOf(result + error));
+            agent.send(message);
         }
 
-        request = myAgent.receive();
-        if (request != null && isFirstStage && request.getContent().equals("Numbers") && neighbors.size() == 1)  {
-            workWithoutNeighbors();
-        } else if (request != null && isFirstStage && request.getContent().equals("Numbers") && neighbors.size() != 0) {
-            workWithNeighbors();
-        }
-        else if (request != null && !request.getContent().equals("Numbers")) {
-            sendAnswer();
-        } else if (request != null){
+        int received = 0;
+        while (received < neighbors.size()) {
+            message = agent.receive();
+            received += 1;
 
-            String nameOfSender2 = request.getSender().getName();
-            while (Math.random() < connectionProbability) {
-                myAgent.doWait(millToConnection);
-            }
-            map.put(myAgent.getLocalName(), number);
-            response.addReceiver(new AID(nameOfSender2, AID.ISGUID));
-            try {
-                response.setContentObject((Serializable) map);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            myAgent.send(response);
-        }
-        else {
-            block();
-        }
-    }
+            if (message != null) {
+                if (random.nextFloat() <= probabilityBroken) {
+                    continue;
+                }
 
-    private void workWithoutNeighbors() {
-        map.put(myAgent.getLocalName(), number);
-        breakConnection();
-        response.addReceiver(new AID(neighbors.get(0), AID.ISGUID));
-        try {
-            response.setContentObject((Serializable) map);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        myAgent.send(response);
-        isFirstStage = false;
-        block();
-    }
+                if (random.nextFloat() <= probabilityDelayed) {
+                    agent.send(message);
+                    continue;
+                }
 
-    private void workWithNeighbors() {
-        isFirstStage = false;
-        nameOfSender = request.getSender().getName();
-        previousSender = nameOfSender;
-        response = new ACLMessage(ACLMessage.INFORM);
-        for (int i = 0; i < neighbors.size(); i++) {
-            if (!neighbors.get(i).equals(nameOfSender)) {
-                response.addReceiver(new AID(neighbors.get(i), AID.ISGUID));
+                result += a * (Double.parseDouble(message.getContent()) - result);
+
+
             }
         }
 
-        response.setContent("Numbers");
-        myAgent.send(response);
-        isFirstStage = false;
-        block();
-    }
+        iterations += 1;
 
-    private void sendAnswer() {
-        Set<String> names;
-        try {
-            Map<String, Integer> agents = (Map<String, Integer>) request.getContentObject();
-            names = agents.keySet();
-
-            for (String name : names) {
-                map.put(name, agents.get(name));
-            }
-        } catch (UnreadableException e) {
-            e.printStackTrace();
+        if (iterations >= numberOfIterations - 2) {
+            isAlive = true;
         }
 
-        counter++;
-        if (counter < neighbors.size() - 1 && !isMain
-                || counter != neighbors.size() && isMain) {
-            block();
-            return;
+        if (isAlive && agent.getLocalName().equals(mainAgent)) {
+            System.out.println("Number: " + result);
         }
-
-        if (isMain) {
-            names = map.keySet();
-            int number = 0;
-            for (String name : names) {
-                number += map.get(name);
-                System.out.println("Name: " +  name);
-            }
-            System.out.println("Average value: " +  ((double) number / names.size()));
-
-        } else {
-            map.put(myAgent.getLocalName(), number);
-
-            response = new ACLMessage(ACLMessage.INFORM);
-            response.addReceiver(new AID(previousSender, AID.ISGUID));
-            try {
-                response.setContentObject((Serializable) map);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            myAgent.send(response);
-        }
-
-        block();
     }
 
     @Override
     public boolean done() {
         return isAlive;
-    }
-
-    private void breakConnection() {
-        while (Math.random() < connectionProbability) {
-            myAgent.doWait(millToConnection);
-        }
     }
 }

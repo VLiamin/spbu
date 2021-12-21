@@ -2,31 +2,38 @@ package ru.liamin.vladimir;
 
 import jade.core.Agent;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MyAgent extends Agent {
     private int number;
+    private final Set<String> links = new HashSet<>();
 
     @Override
     protected void setup() {
         super.setup();
 
         Object[] args = getArguments();
-        //number = Integer.parseInt(args[0].toString());
-       // System.out.println(number);
-        List<String> neighbors = new ArrayList<>();
-        for (int i = 2; i < args.length; i++) {
-            neighbors.add(args[i].toString() + "@192.168.56.1:9999/JADE");
-        }
-        System.out.println("Hello! Buyer-agent "+getAID().getName()+" is ready. Number: " + Integer.parseInt(args[0].toString()));
 
-        if (getAID().getLocalName().equals(args[1].toString())) {
-            addBehaviour(new MyBehavior(Integer.parseInt(args[0].toString()), true, neighbors, args[1].toString()));
-        } else {
-            addBehaviour(new MyBehavior(Integer.parseInt(args[0].toString()),false, neighbors, args[1].toString()));
+        if (args != null && args.length > 0) {
+            number = Integer.parseInt(args[0].toString());
+
+            System.out.println(this.getLocalName() + ": " + number);
+
+            for (int i = 2; i < args.length; i++) {
+                links.add(args[i].toString());
+            }
         }
 
+        addBehaviour(new MyBehavior(this, args[1].toString(), args.length - 1));
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public Set<String> getNeighbors() {
+        return links;
     }
 
     @Override
