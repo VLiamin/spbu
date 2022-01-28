@@ -1,0 +1,61 @@
+ru/liamin/vladimir/FXMLController.java
+ ru.liamin.vladimir.FXMLController
+com/example/grps/GreetingServiceGrpc.java
+ com.example.grps.GreetingServiceGrpc
+ com.example.grps.GreetingServiceGrpc$1
+ com.example.grps.GreetingServiceGrpc$2
+ com.example.grps.GreetingServiceGrpc$3
+ com.example.grps.GreetingServiceGrpc$GreetingServiceBlockingStub
+ com.example.grps.GreetingServiceGrpc$GreetingServiceFutureStub
+ com.example.grps.GreetingServiceGrpc$GreetingServiceImplBase
+ com.example.grps.GreetingServiceGrpc$GreetingServiceStub
+ com.example.grps.GreetingServiceGrpc$MethodHandlers
+com/example/grps/HelloRequest.java
+ com.example.grps.HelloRequest
+ com.example.grps.HelloRequest$1
+ com.example.grps.HelloRequest$Builder
+com/example/grps/HelloResponse.java
+ com.example.grps.HelloResponse
+ com.example.grps.HelloResponse$1
+ com.example.grps.HelloResponse$Builder
+com/example/grpc/HelloResponseOrBuilder.java
+ com.example.grpc.HelloResponseOrBuilder
+com/example/grpc/GreetingServiceGrpc.java
+ com.example.grpc.GreetingServiceGrpc
+ com.example.grpc.GreetingServiceGrpc$1
+ com.example.grpc.GreetingServiceGrpc$2
+ com.example.grpc.GreetingServiceGrpc$3
+ com.example.grpc.GreetingServiceGrpc$GreetingServiceBlockingStub
+ com.example.grpc.GreetingServiceGrpc$GreetingServiceFutureStub
+ com.example.grpc.GreetingServiceGrpc$GreetingServiceImplBase
+ com.example.grpc.GreetingServiceGrpc$GreetingServiceStub
+ com.example.grpc.GreetingServiceGrpc$MethodHandlers
+com/example/grps/HelloResponseOrBuilder.java
+ com.example.grps.HelloResponseOrBuilder
+com/example/grps/HelloRequestOrBuilder.java
+ com.example.grps.HelloRequestOrBuilder
+com/example/grpc/HelloRequestOrBuilder.java
+ com.example.grpc.HelloRequestOrBuilder
+com/example/grpc/HelloResponse.java
+ com.example.grpc.HelloResponse
+ com.example.grpc.HelloResponse$1
+ com.example.grpc.HelloResponse$Builder
+com/example/grpc/HelloRequest.java
+ com.example.grpc.HelloRequest
+ com.example.grpc.HelloRequest$1
+ com.example.grpc.HelloRequest$Builder
+com/example/grpc/Chat.java
+ com.example.grpc.Chat
+com/example/grps/Chat.java
+ com.example.grps.Chat
+ru/liamin/vladimir/ClientWork.java
+ ru.liamin.vladimir.ClientWork
+ ru.liamin.vladimir.ClientWork$1
+ru/liamin/vladimir/ServerTicTacToe.java
+ ru.liamin.vladimir.ServerTicTacToe
+ ru.liamin.vladimir.ServerTicTacToe$1
+ru/liamin/vladimir/ServerWork.java
+ ru.liamin.vladimir.ServerWork
+ ru.liamin.vladimir.ServerWork$1
+ru/liamin/vladimir/ServerChat.java
+ ru.liamin.vladimir.ServerChat
