@@ -1,0 +1,18 @@
+\documentclass[12pt]{article}
+\thispagestyle{empty}
+
+\begin{document}
+
+    S K K = I $\Longleftrightarrow$\\
+    ($\lambda$ x y z.x z (y z)) ($\lambda$ x y.x) ($\lambda$ x y.x) = $\lambda$ x.x $\Longleftrightarrow$\\
+    ($\lambda$ x.($\lambda$ y z.x z (y z))) ($\lambda$ x y.x)
+    ($\lambda$ x y.x) = $\lambda$ x.x $\Longleftrightarrow$\\
+    ($\lambda$ y z.($\lambda$ x y.x) z (y z)) ($\lambda$ x y.x)
+    = $\lambda$ x.x $\Longleftrightarrow$\\
+    ($\lambda$ y z.($\lambda$ y.z) (y z)) ($\lambda$ x y.x) = $\lambda$ x.x $\Longleftrightarrow$\\
+    ($\lambda$ y z.z) ($\lambda$ x y.x) = $\lambda$ x.x $\Longleftrightarrow$\\
+    ($\lambda$ y.$\lambda$ z.z) ($\lambda$ x y.x) = $\lambda$ x.x $\Longleftrightarrow$\\
+    $\lambda$ z.z = $\lambda$ x.x $\Longleftrightarrow$\\
+    I = I
+
+\end{document}
